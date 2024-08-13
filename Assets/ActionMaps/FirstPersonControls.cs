@@ -32,13 +32,18 @@ public class FirstPersonControls : MonoBehaviour
     private GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
+    private bool holdingMelee = false;
 
     [Header("CROUCH SETTINGS")] [Space(5)] 
     public float crouchHeight = 1f; // Height of the player when crouching
     public float standingHeight = 2f; // Height of te player when standing
     public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
     private bool isCrouching = false;//Whethere the player is currently crouching
+
+    [Header("MELEE SETTINGS")] [Space(5)]
+    public Transform swordHold;
     
+
 
     private void Awake()
     {
@@ -72,6 +77,9 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when pick-up input is performed
+        
+        //Subscribe to the melee input event
+        playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when pick-up input is performed
 
 }
 
@@ -158,6 +166,14 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
+    public void Melee()
+    {
+        if (holdingMelee == true)
+        {
+            
+        }
+    }
+
     public void PickUpObject()
     {
         // Check if we are already holding an object
@@ -202,6 +218,21 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPosition;
 
                 holdingGun = true;
+            }
+            
+            else if (hit.collider.CompareTag("MeleeWeapon")) 
+            {
+                // Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                // Attach the object to the hold position
+                heldObject.transform.position = holdPosition.position;
+                heldObject.transform.rotation = holdPosition.rotation;
+                heldObject.transform.parent = holdPosition;
+
+                holdingMelee = true;
+                
             }
         }
     }
