@@ -1706,12 +1706,14 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 2
   playerCamera: {fileID: 2012518746}
-  projectilePrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e,
-    type: 3}
-  firePoint: {fileID: 311590828}
+  projectilePrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e, type: 3}
+  firePoint: {fileID: 1780444590}
   projectileSpeed: 20
   holdPosition: {fileID: 1693964416}
   pickUpRange: 3
+  crouchHeight: 1
+  standingHeight: 2
+  crouchSpeed: 1.5
 --- !u!1 &2012518743
 GameObject:
   m_ObjectHideFlags: 0
