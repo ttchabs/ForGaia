@@ -5,10 +5,10 @@ using UnityEngine;
 public class PuzzleAttach : MonoBehaviour
 {
     public Transform puzzleSlots;
-    private GameObject _puzzlePieceIn;
+    public GameObject _puzzlePieceIn;
     
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
 
         _puzzlePieceIn = GameObject.Find("item");

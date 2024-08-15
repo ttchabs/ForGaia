@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &168183018062427381
+--- !u!1001 &8473926370503622916
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,26 +11,26 @@ PrefabInstance:
     - target: {fileID: 2491122894923487168, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 43f8546fde3290043aaa1279a17ac9e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 058c18899ede8934d9a0c70c30edfaa7, type: 2}
     - target: {fileID: 2715556888042381572, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.392
+      value: -0.401
       objectReference: {fileID: 0}
     - target: {fileID: 3141061001086120178, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 43f8546fde3290043aaa1279a17ac9e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 058c18899ede8934d9a0c70c30edfaa7, type: 2}
     - target: {fileID: 3810940995101840931, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 43f8546fde3290043aaa1279a17ac9e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 058c18899ede8934d9a0c70c30edfaa7, type: 2}
     - target: {fileID: 3906717908374339208, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 43f8546fde3290043aaa1279a17ac9e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 058c18899ede8934d9a0c70c30edfaa7, type: 2}
     - target: {fileID: 6053364669660696690, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.17
+      value: 6.131
       objectReference: {fileID: 0}
     - target: {fileID: 6053364669660696690, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6053364669660696690, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.078995
+      value: 9.412
       objectReference: {fileID: 0}
     - target: {fileID: 6053364669660696690, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalRotation.w
@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7478237400098414396, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Name
-      value: GreenSlot
+      value: YellowSlot
       objectReference: {fileID: 0}
     - target: {fileID: 7938979497829661640, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_LocalScale.z
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 8731754839112338275, guid: 59dcbf5868a50b546a0da2d473c4f019, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 43f8546fde3290043aaa1279a17ac9e0, type: 2}
+      objectReference: {fileID: 2100000, guid: 058c18899ede8934d9a0c70c30edfaa7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
