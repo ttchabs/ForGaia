@@ -9316,14 +9316,14 @@ GameObject:
   - component: {fileID: 1238959482}
   - component: {fileID: 1238959480}
   - component: {fileID: 1238959485}
-  - component: {fileID: 1238959486}
+  - component: {fileID: 1238959487}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1238959480
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9410,7 +9410,7 @@ Transform:
   m_GameObject: {fileID: 1238959479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0395207, y: 1.78, z: -2.79}
+  m_LocalPosition: {x: -0.54, y: 16.17, z: 23.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9423,7 +9423,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238959479}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e857f611327eab541b5fdf078de33fd7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -9435,9 +9435,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2.3000083, z: 1.2163393}
-  m_Center: {x: 0.000000059604645, y: 0.0182693, z: -0.008394599}
---- !u!114 &1238959486
+  m_Size: {x: 1.0000001, y: 2.1906981, z: 1.2163393}
+  m_Center: {x: 0.000000059604645, y: 0.072924376, z: -0.008394599}
+--- !u!114 &1238959487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9449,8 +9449,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e5971a0d93adc4ca42962070c06cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 10
+  enemyMaxHealth: 2
   moveSpeed: 1
+  player: {fileID: 1950874339}
+  enemy: {fileID: 1238959484}
 --- !u!1 &1246275240
 GameObject:
   m_ObjectHideFlags: 0
@@ -13870,13 +13872,14 @@ GameObject:
   - component: {fileID: 1798374230}
   - component: {fileID: 1798374229}
   - component: {fileID: 1798374228}
+  - component: {fileID: 1798374233}
   m_Layer: 0
   m_Name: Sword
   m_TagString: MeleeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1798374228
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13985,13 +13988,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798374227}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18210784, y: 0.04509953, z: 0.23612228, w: 0.9534407}
-  m_LocalPosition: {x: 3.368, y: 2.646, z: 0.78}
-  m_LocalScale: {x: 0.06, y: 0.73, z: -0.22}
+  m_LocalRotation: {x: 0.18491769, y: -0.031664904, z: -0.16578415, w: 0.9681521}
+  m_LocalPosition: {x: -0.0009999871, y: -0.47299993, z: 0.25400004}
+  m_LocalScale: {x: 0.06, y: 0.921333, z: -0.22}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 19.024, y: 10.483, z: 29.58}
+  m_Father: {fileID: 2062922975}
+  m_LocalEulerAnglesHint: {x: 20.338, y: -7.515, z: -20.784}
+--- !u!95 &1798374233
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798374227}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8ca7ee5610f478a44bbbd65ca8634e27, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1801258522
 GameObject:
   m_ObjectHideFlags: 0
@@ -15716,7 +15740,7 @@ MonoBehaviour:
   crouchHeight: 1
   standingHeight: 2
   crouchSpeed: 1.5
-  swordHold: {fileID: 1798374232}
+  Sword: {fileID: 1798374227}
 --- !u!1 &1991814914
 GameObject:
   m_ObjectHideFlags: 0
@@ -16125,6 +16149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1693964416}
+  - {fileID: 2062922975}
   m_Father: {fileID: 1950874339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2012518747
@@ -16839,6 +16864,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053880189}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2062922974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2062922975}
+  m_Layer: 0
+  m_Name: ' Melee Holding Postion'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2062922975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062922974}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.253, y: 0.06, z: 0.446}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1798374232}
+  m_Father: {fileID: 2012518746}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2078002827
 GameObject:
   m_ObjectHideFlags: 0
@@ -17374,6 +17431,5 @@ SceneRoots:
   - {fileID: 311590828}
   - {fileID: 367263986}
   - {fileID: 1238959484}
-  - {fileID: 1798374232}
   - {fileID: 411025111}
   - {fileID: 2048499315}
