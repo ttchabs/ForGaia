@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Melee",
+                    "type": "Button",
+                    "id": "af58ae42-46e6-4ec5-8ed9-939ac5ac8a5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -289,6 +298,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48c392b6-1f9b-4b97-bd21-c06d711dcd03",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Melee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "075b23c2-707e-4700-86b2-2890e4beae08",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
