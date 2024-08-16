@@ -29,7 +29,8 @@ public class FirstPersonControls : MonoBehaviour
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
-    private GameObject heldObject; // Reference to the currently held object
+    [HideInInspector]
+    public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
 
