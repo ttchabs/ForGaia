@@ -111,8 +111,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 80
+  m_CollisionDetection: 2
 --- !u!65 &3964371643396770508
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,7 +120,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3273891270323321126}
-  m_Material: {fileID: 13400000, guid: e857f611327eab541b5fdf078de33fd7, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e5971a0d93adc4ca42962070c06cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 2
-  moveSpeed: 3
+  enemyMaxHealth: 5
+  moveSpeed: 2
   player: {fileID: 0}
   enemy: {fileID: 1290939479586948926}
