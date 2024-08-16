@@ -8,20 +8,6 @@ public class PuzzleAttach : MonoBehaviour
     public Transform puzzleSlots;
     public FirstPersonControls playerSettings;
 
-   /* public enum CorrectColours
-    {
-        RedMatch,
-        BlackMatch,
-        WhiteMatch,
-        GreyMatch,
-        PurpleMatch,
-        YellowMatch,
-        BlueMatch,
-        GreenMatch,
-        OrangeMatch,
-        defaultMatch,
-    }*/
-
     private void Start()
     {
         //Find the FisrtPersonControls script in the project
