@@ -32,7 +32,6 @@ public class FirstPersonControls : MonoBehaviour
     private GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
-    private bool holdingMelee = false;
 
     [Header("CROUCH SETTINGS")] [Space(5)] 
     public float crouchHeight = 1f; // Height of the player when crouching
@@ -41,7 +40,7 @@ public class FirstPersonControls : MonoBehaviour
     private bool isCrouching = false;//Whethere the player is currently crouching
 
     [Header("MELEE SETTINGS")] [Space(5)]
-    public Transform swordHold;
+    public GameObject Sword;
     
 
 
@@ -166,12 +165,11 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
-    public void Melee()
+    public void Melee() //Right click mouse
     {
-        if (holdingMelee == true)
-        {
-            
-        }
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("Attack");
+        //Debug.Log("Attacking"); To Know whether or not the input is being understood.
     }
 
     public void PickUpObject()
@@ -220,7 +218,7 @@ public class FirstPersonControls : MonoBehaviour
                 holdingGun = true;
             }
             
-            else if (hit.collider.CompareTag("MeleeWeapon")) 
+           /* else if (hit.collider.CompareTag("MeleeWeapon")) 
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -233,7 +231,7 @@ public class FirstPersonControls : MonoBehaviour
 
                 holdingMelee = true;
                 
-            }
+            }*/
         }
     }
 
