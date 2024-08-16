@@ -29,7 +29,7 @@ public class FirstPersonControls : MonoBehaviour
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
-    private GameObject heldObject; // Reference to the currently held object
+    [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
 
@@ -48,6 +48,7 @@ public class FirstPersonControls : MonoBehaviour
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
+
     }
 
     private void OnEnable()
@@ -216,6 +217,17 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.parent = holdPosition;
 
                 holdingGun = true;
+            }
+            else if (hit.collider.CompareTag("SorterPuzzleStone"))
+            {
+                //Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; //Disable Physics
+
+                //Attach the object to the hold position 
+                heldObject.transform.position = holdPosition.position;
+                heldObject.transform.rotation = holdPosition.rotation;
+                heldObject.transform.parent = holdPosition;
             }
             
            /* else if (hit.collider.CompareTag("MeleeWeapon")) 
