@@ -102,9 +102,7 @@ public class PuzzleAttach : MonoBehaviour
             }
             #endregion
         }
-
     }
 
     
 }
-
