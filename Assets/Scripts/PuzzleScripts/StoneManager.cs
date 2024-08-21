@@ -38,7 +38,8 @@ public class StoneManager : MonoBehaviour
     #region INSTANTIATION METHODS:
     public void SpawnOrange()
     {
-        Instantiate(orangeStone, orangeSpawn.position, orangeSpawn.rotation);
+        GameObject go1 = new GameObject(orangeStone.name);
+        Instantiate(go1, orangeSpawn.position, orangeSpawn.rotation);
     }
 
     public void SpawnYellow()

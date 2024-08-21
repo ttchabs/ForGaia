@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9026101647538991012}
   - component: {fileID: 2375558071697335644}
   - component: {fileID: 9093219584330171811}
-  - component: {fileID: 1992403965432961682}
+  - component: {fileID: 7319360301384722484}
   m_Layer: 0
   m_Name: GreenTile
   m_TagString: Untagged
@@ -83,7 +83,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1992403965432961682
+--- !u!114 &7319360301384722484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,13 +92,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8033034788115252741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fc4a9118878b742b40a60b35da8fac, type: 3}
+  m_Script: {fileID: 11500000, guid: 93024bb436025044e8484b66ab66c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleSlots: {fileID: 9026101647538991012}
+  colorSlot: {fileID: 0}
+  spawnManager: {fileID: 0}
   playerSettings: {fileID: 0}
-  _placedStone: {fileID: 0}
-  stoneManager: {fileID: 0}
 --- !u!1 &9185508732370652482
 GameObject:
   m_ObjectHideFlags: 0

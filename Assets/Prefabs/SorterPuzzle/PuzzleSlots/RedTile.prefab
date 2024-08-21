@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 2406197055622965929}
   - component: {fileID: 4164634804941141440}
   - component: {fileID: 5726785229525967471}
-  - component: {fileID: 287763513242616382}
+  - component: {fileID: 2885571882033662671}
   m_Layer: 0
   m_Name: RedTile
   m_TagString: Untagged
@@ -188,7 +188,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &287763513242616382
+--- !u!114 &2885571882033662671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,10 +197,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6419218752378585001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fc4a9118878b742b40a60b35da8fac, type: 3}
+  m_Script: {fileID: 11500000, guid: 93024bb436025044e8484b66ab66c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleSlots: {fileID: 2406197055622965929}
+  colorSlot: {fileID: 0}
+  spawnManager: {fileID: 0}
   playerSettings: {fileID: 0}
-  _placedStone: {fileID: 0}
-  stoneManager: {fileID: 0}

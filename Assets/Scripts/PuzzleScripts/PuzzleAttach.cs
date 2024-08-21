@@ -19,7 +19,7 @@ public class PuzzleAttach : MonoBehaviour
         //Place the script into the playerSettings field
         playerSettings = firstPersonControls;
 
-        StoneManager stones = FindObjectOfType<StoneManager>();
+        StoneManager stones = GetComponent<StoneManager>();
         stoneManager = stones;
     }
 
