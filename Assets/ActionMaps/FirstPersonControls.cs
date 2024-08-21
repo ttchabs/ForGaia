@@ -29,8 +29,7 @@ public class FirstPersonControls : MonoBehaviour
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
-    [HideInInspector]
-    public GameObject heldObject; // Reference to the currently held object
+    [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
 
@@ -39,12 +38,17 @@ public class FirstPersonControls : MonoBehaviour
     public float standingHeight = 2f; // Height of te player when standing
     public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
     private bool isCrouching = false;//Whethere the player is currently crouching
+
+    [Header("MELEE SETTINGS")] [Space(5)]
+    public GameObject Sword;
     
+
 
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
+
     }
 
     private void OnEnable()
@@ -73,6 +77,9 @@ public class FirstPersonControls : MonoBehaviour
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when pick-up input is performed
+        
+        //Subscribe to the melee input event
+        playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when pick-up input is performed
 
 }
 
@@ -159,6 +166,13 @@ public class FirstPersonControls : MonoBehaviour
         }
     }
 
+    public void Melee() //Right click mouse
+    {
+        Animator anim = Sword.GetComponent<Animator>();
+        anim.SetTrigger("Attack");
+        //Debug.Log("Attacking"); To Know whether or not the input is being understood.
+    }
+
     public void PickUpObject()
     {
         // Check if we are already holding an object
@@ -204,6 +218,32 @@ public class FirstPersonControls : MonoBehaviour
 
                 holdingGun = true;
             }
+            else if (hit.collider.CompareTag("SorterPuzzleStone"))
+            {
+                //Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; //Disable Physics
+
+                //Attach the object to the hold position 
+                heldObject.transform.position = holdPosition.position;
+                heldObject.transform.rotation = holdPosition.rotation;
+                heldObject.transform.parent = holdPosition;
+            }
+            
+           /* else if (hit.collider.CompareTag("MeleeWeapon")) 
+            {
+                // Pick up the object
+                heldObject = hit.collider.gameObject;
+                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                // Attach the object to the hold position
+                heldObject.transform.position = holdPosition.position;
+                heldObject.transform.rotation = holdPosition.rotation;
+                heldObject.transform.parent = holdPosition;
+
+                holdingMelee = true;
+                
+            }*/
         }
     }
 
