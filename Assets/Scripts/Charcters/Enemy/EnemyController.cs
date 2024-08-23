@@ -5,26 +5,37 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public int enemyMaxHealth = 2;
+
+    [Header("Health CONTROLS")]
+    public int enemyCurrentHP;
     public int moveSpeed = 3;
     public Transform player;
     public Transform enemy;
 
+    private int maxHP = 5;
 
-    private void OnCollisionEnter(Collision damage)
+    [Header("DAMAGE CONTROLS")]
+    public int gjjb;
+
+    public void Awake()
+    {
+        enemyCurrentHP = maxHP;
+
+        //player = ;
+        enemy = GetComponent<Transform>();
+    }
+/*    private void OnCollisionEnter(Collision damage)
     {
         if (damage.gameObject.CompareTag("MeleeWeapon"))
         {
             enemyMaxHealth -=1;
-            
-            
         }
 
         if (enemyMaxHealth == 0)
         {
             Destroy(gameObject);
         }
-    }
+    }*/
 
     void Update()
     {
@@ -35,4 +46,22 @@ public class EnemyController : MonoBehaviour
             enemy.position = Vector3.MoveTowards(enemy.position, player.position, moveSpeed * Time.deltaTime);
         }
     }
+
+    public void DamageDealtToEnemy(int damage)
+    {
+        enemyCurrentHP -= damage;
+        if (enemyCurrentHP <= 0 ) 
+        {
+            EnemyDeath();
+        }
+    }
+
+    public void EnemyDeath()
+    {
+        //Enemy death animations will be called below here
+
+        //Destroy the gameObject
+        Destroy(gameObject);
+    }
+
 }

@@ -40,7 +40,6 @@ public class PuzzleSolve : MonoBehaviour
             {
                 spawnManager.SpawnStone();
                 _collider.enabled = false;
-                Debug.Log($"{_slotColor} " + $" {_pieceColour}");
 
                 if (_pieceColour == Color.white && _slotColor == Color.white) 
                 {
@@ -50,7 +49,6 @@ public class PuzzleSolve : MonoBehaviour
             }
             else
             {
-                Debug.Log("Nope");
                 return;
             }
         }

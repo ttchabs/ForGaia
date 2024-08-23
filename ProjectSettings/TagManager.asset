@@ -9,15 +9,18 @@ TagManager:
   - MeleeWeapon
   - SorterPuzzleStone
   - SorterPuzzleTile
+  - Sword
+  - Knife
+  - Longsword
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Weapon
   - Water
   - UI
   - Ground
-  - 
+  - Enemy
   - 
   - 
   - 

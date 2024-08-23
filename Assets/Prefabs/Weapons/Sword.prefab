@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 216234458266119128}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: MeleeWeapon
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6403159188423635763}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18491769, y: -0.031664904, z: -0.16578415, w: 0.9681521}
+  m_LocalRotation: {x: 0.18491824, y: -0.031667784, z: -0.16578633, w: 0.9681515}
   m_LocalPosition: {x: -1.398, y: 15.107, z: -2.7}
-  m_LocalScale: {x: 0.06, y: 0.92133296, z: -0.22000001}
+  m_LocalScale: {x: 0.06, y: 0.9213329, z: -0.22000007}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 11113011f6a751041b7b0acdec0e5c91, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,7 +132,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
@@ -144,7 +144,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6403159188423635763}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8ca7ee5610f478a44bbbd65ca8634e27, type: 2}
   m_CullingMode: 0
