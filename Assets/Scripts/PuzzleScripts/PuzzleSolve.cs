@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PuzzleSolve : MonoBehaviour
 {
-    public Transform colorSlot;
+    //public Transform colorSlot;
     public SpawnManager spawnManager;
     public FirstPersonControls playerSettings;
 
@@ -14,7 +14,6 @@ public class PuzzleSolve : MonoBehaviour
 
     private void Start()
     {
-        colorSlot = this.GetComponent<Transform>();
         spawnManager = FindObjectOfType<SpawnManager>();
         playerSettings = FindObjectOfType<FirstPersonControls>();
 
@@ -29,10 +28,10 @@ public class PuzzleSolve : MonoBehaviour
 
         if (other.gameObject.CompareTag("SorterPuzzleStone") && playerSettings.heldObject.transform.parent == null)
         {
-            Collider _collider = this.gameObject.GetComponent<Collider>();
+            Collider _collider = gameObject.GetComponent<Collider>();
 
             other.GetComponent<Rigidbody>().isKinematic = true;
-            other.transform.SetParent(colorSlot);
+            other.transform.SetParent(transform);
             other.transform.localPosition = new Vector3(0, 0.1f, 0);
             other.transform.localRotation = Quaternion.identity;
 

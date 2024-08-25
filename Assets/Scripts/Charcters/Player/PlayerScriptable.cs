@@ -23,6 +23,10 @@ public class PlayerScriptable : ScriptableObject
             playerHP.currentPlayerHP = maxPlayerHP;
     }
 
+    public void Knockback()
+    {
+        //Vector3 knockbackDistance = new Vector3();
+    }
     public void PlayerDeath()
     {
         Debug.Log("Player is dead");

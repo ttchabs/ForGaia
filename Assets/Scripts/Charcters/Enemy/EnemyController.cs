@@ -12,12 +12,11 @@ public class EnemyController : MonoBehaviour
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
-    public Transform enemy;
+    //public Transform enemy;
 
     public void Awake()
     {
         enemyCurrentHP = enemyConfigs.maxEnemyHP;
-        enemy = GetComponent<Transform>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -28,11 +27,16 @@ public class EnemyController : MonoBehaviour
 
     public void TrackPlayer()
     {
-        float distanceBetween = Vector3.Distance(enemy.position, player.position);
+        float distanceBetween = Vector3.Distance(transform.position, player.position);
+        
+        Vector3 direction = transform.position - player.position;
+        direction.y = 0f;
 
         if (distanceBetween < 20f)
         {
-            enemy.position = Vector3.MoveTowards(enemy.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime);
+            Quaternion lookDirection = Quaternion.LookRotation(direction);
+            transform.rotation = lookDirection;
         }
     }
 
@@ -43,7 +47,8 @@ public class EnemyController : MonoBehaviour
             FirstPersonControls playerHP = collision.collider.GetComponent<FirstPersonControls>();
             playerHP.playerConfigs.LoseHP(playerHP, enemyConfigs.enemyAttackDamage);
             Debug.Log($"{enemyConfigs.enemyAttackDamage} Damage was Taken");
-            playerHP.Knockback();
+            playerHP.Knockback(transform);
+
         }
     }
 

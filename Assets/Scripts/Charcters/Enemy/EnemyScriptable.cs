@@ -14,6 +14,7 @@ public class EnemyScriptable : ScriptableObject
     [Header("ENEMY STATISTICS:")]
     public int maxEnemyHP;
     public int enemyAttackDamage;
+    public float enemyKnockback;
     public float enemyMoveSpeed;
     public float attackRate;
 
