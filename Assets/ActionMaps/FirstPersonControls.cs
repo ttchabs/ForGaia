@@ -229,21 +229,78 @@ public class FirstPersonControls : MonoBehaviour
                 heldObject.transform.rotation = holdPosition.rotation;
                 heldObject.transform.parent = holdPosition;
             }
-            
-           /* else if (hit.collider.CompareTag("MeleeWeapon")) 
-            {
-                // Pick up the object
-                heldObject = hit.collider.gameObject;
-                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
-                // Attach the object to the hold position
-                heldObject.transform.position = holdPosition.position;
-                heldObject.transform.rotation = holdPosition.rotation;
-                heldObject.transform.parent = holdPosition;
 
-                holdingMelee = true;
-                
-            }*/
+            /*
+             * Object.cs X ellaneous Files
+Attach...
+InspectObject
+Update()
+if (CameraToMouseRay (Input.mousePosition, out RayHit))
+if(RayHit.transform.gameObject.tag == "Inspectable") inspectObjectTransform = RayHit.transform;
+28
+29
+30
+{
+31
+32
+33
+}
+34
+}
+35
+I
+36
+37
+38
+39
+40
+{
+41
+42
+43
+44
+45
+46
+Live Share
+deltaRotationX -Input.GetAxis("Mouse X"); deltaRotationY = Input.GetAxis("Mouse Y");
+if(Input.GetMouseButton(1) && _inspectObjectTransform
+inspectObjectTransform.rotation=
+*
+Quaternion.AngleAxis (deltaRotationX* rotateSpeed, transform.up) //Rotates X ax Quaternion.AngleAxis (deltaRotationY * rotateSpeed, transform.right) * // Rotates _inspectObjectTransform.rotation; // Takes into account existing rotation
+             * 
+             * 
+             * 
+             */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /* else if (hit.collider.CompareTag("MeleeWeapon")) 
+             {
+                 // Pick up the object
+                 heldObject = hit.collider.gameObject;
+                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+
+                 // Attach the object to the hold position
+                 heldObject.transform.position = holdPosition.position;
+                 heldObject.transform.rotation = holdPosition.rotation;
+                 heldObject.transform.parent = holdPosition;
+
+                 holdingMelee = true;
+
+             }*/
         }
     }
 
