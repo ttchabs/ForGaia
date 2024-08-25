@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2019545776596649440}
   - component: {fileID: 6730835788160047549}
   - component: {fileID: 5140043488857487219}
-  - component: {fileID: 5321207643645225199}
+  - component: {fileID: 7157623130084683918}
   m_Layer: 0
   m_Name: BlackTile
   m_TagString: Untagged
@@ -83,7 +83,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &5321207643645225199
+--- !u!114 &7157623130084683918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,13 +92,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 213515884031459169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fc4a9118878b742b40a60b35da8fac, type: 3}
+  m_Script: {fileID: 11500000, guid: 93024bb436025044e8484b66ab66c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleSlots: {fileID: 2019545776596649440}
+  colorSlot: {fileID: 0}
+  spawnManager: {fileID: 0}
   playerSettings: {fileID: 0}
-  _placedStone: {fileID: 0}
-  stoneManager: {fileID: 0}
 --- !u!1 &4256888778570716158
 GameObject:
   m_ObjectHideFlags: 0
