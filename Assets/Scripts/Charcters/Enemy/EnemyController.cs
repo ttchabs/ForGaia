@@ -6,62 +6,46 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 
-    [Header("Health CONTROLS")]
+    [Header("HEALTH CONTROLS:")]
+    public EnemyScriptable enemyConfigs;
     public int enemyCurrentHP;
-    public int moveSpeed = 3;
+
+    [Header("ENEMY TRANSFORMS:")]
     public Transform player;
     public Transform enemy;
 
-    private int maxHP = 5;
-
-    [Header("DAMAGE CONTROLS")]
-    public int gjjb;
-
     public void Awake()
     {
-        enemyCurrentHP = maxHP;
-
-        //player = ;
+        enemyCurrentHP = enemyConfigs.maxEnemyHP;
         enemy = GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-/*    private void OnCollisionEnter(Collision damage)
-    {
-        if (damage.gameObject.CompareTag("MeleeWeapon"))
-        {
-            enemyMaxHealth -=1;
-        }
-
-        if (enemyMaxHealth == 0)
-        {
-            Destroy(gameObject);
-        }
-    }*/
 
     void Update()
+    {
+        TrackPlayer();
+    }
+
+    public void TrackPlayer()
     {
         float distanceBetween = Vector3.Distance(enemy.position, player.position);
 
         if (distanceBetween < 20f)
         {
-            enemy.position = Vector3.MoveTowards(enemy.position, player.position, moveSpeed * Time.deltaTime);
+            enemy.position = Vector3.MoveTowards(enemy.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime);
         }
     }
 
-    public void DamageDealtToEnemy(int damage)
+    public void OnCollisionEnter(Collision collision)
     {
-        enemyCurrentHP -= damage;
-        if (enemyCurrentHP <= 0 ) 
+        if (collision.collider.CompareTag("Player"))
         {
-            EnemyDeath();
+            FirstPersonControls playerHP = collision.collider.GetComponent<FirstPersonControls>();
+            playerHP.playerConfigs.LoseHP(playerHP, enemyConfigs.enemyAttackDamage);
+            Debug.Log($"{enemyConfigs.enemyAttackDamage} Damage was Taken");
+            playerHP.Knockback();
         }
     }
 
-    public void EnemyDeath()
-    {
-        //Enemy death animations will be called below here
-
-        //Destroy the gameObject
-        Destroy(gameObject);
-    }
 
 }

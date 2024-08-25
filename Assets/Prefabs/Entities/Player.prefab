@@ -153,8 +153,6 @@ GameObject:
   - component: {fileID: 206180991409123756}
   - component: {fileID: 8269632262362516345}
   - component: {fileID: 793828679869158311}
-  - component: {fileID: 1380345504062834802}
-  - component: {fileID: 477400222279788769}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -170,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4146446605167729310}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.65, y: 15.13, z: -3.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -280,51 +278,12 @@ MonoBehaviour:
   crouchHeight: 1
   standingHeight: 2
   crouchSpeed: 1.5
-  meleeHoldPosition: {fileID: 4511958454508430565}
-  meleeAttacks: {fileID: 477400222279788769}
-  hitRange: 3
-  swingDelay: 0.5
-  hitDamage: 1
-  _holdingMelee: 0
-  _isAttacking: 0
-  _cooldownOver: 1
-  attackable:
-    serializedVersion: 2
-    m_Bits: 128
-  totalHP: 5
-  currentHP: 
---- !u!114 &1380345504062834802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4146446605167729310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dcd8d9e3d65c074cb770f77fd1564de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalHP: 5
-  currentHP: 
---- !u!114 &477400222279788769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4146446605167729310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eb2492bb7fb79a46a06948a70e409c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   meleeWeapon: {fileID: 0}
-  swordRange: 0.3
-  knifeRange: 2
-  longswordRange: 5
-  player: {fileID: 793828679869158311}
+  meleeHoldPosition: {fileID: 4511958454508430565}
   atkOrigin: {fileID: 3918164864925431946}
+  meleeAttacks: {fileID: 0}
+  playerConfigs: {fileID: 11400000, guid: 5cbb4b0e4553b3448befb61c0d7b679b, type: 2}
+  currentPlayerHP: 0
 --- !u!1 &5311192800866129677
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +309,7 @@ Transform:
   m_GameObject: {fileID: 5311192800866129677}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.59, z: 0.8299999}
+  m_LocalPosition: {x: 0, y: -0.59, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -396,6 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4511958454508430565}
+  - component: {fileID: 5241595552901053622}
   m_Layer: 0
   m_Name: ' Melee Holding Postion'
   m_TagString: Untagged
@@ -418,3 +378,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5052564620231000578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5241595552901053622
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616660651765647059}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65725d199b8e83243a79d23cc635c3ec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

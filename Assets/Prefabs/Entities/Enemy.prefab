@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2006038535824422037}
   - component: {fileID: 3964371643396770508}
   - component: {fileID: 5096565523497688201}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e5971a0d93adc4ca42962070c06cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMaxHealth: 5
-  moveSpeed: 2
+  enemyConfigs: {fileID: 11400000, guid: 1346f96a9d4442a419182819c02b1d66, type: 2}
+  enemyCurrentHP: 0
   player: {fileID: 0}
   enemy: {fileID: 1290939479586948926}

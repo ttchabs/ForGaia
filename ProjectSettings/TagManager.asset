@@ -12,6 +12,7 @@ TagManager:
   - Sword
   - Knife
   - Longsword
+  - Enemy
   layers:
   - Default
   - TransparentFX

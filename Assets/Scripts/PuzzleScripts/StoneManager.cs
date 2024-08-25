@@ -18,8 +18,6 @@ public class StoneManager : MonoBehaviour
     public GameObject greyStone;
     public GameObject whiteStone;
 
-
-
     [Header("Stone Spawn Controls")]
     public Transform orangeSpawn;
     public Transform yellowSpawn;
