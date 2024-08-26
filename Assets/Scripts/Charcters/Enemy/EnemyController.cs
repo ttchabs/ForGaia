@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
 
     [Header("HEALTH CONTROLS:")]
@@ -12,7 +12,9 @@ public class EnemyController : MonoBehaviour
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
-    //public Transform enemy;
+
+    public event IDamageable.DamageReceivedEvent OnDamageReceived;
+
 
     public void Awake()
     {
@@ -44,15 +46,31 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            FirstPersonControls playerHP = collision.collider.GetComponent<FirstPersonControls>();
-            playerHP.playerConfigs.LoseHP(playerHP, enemyConfigs.enemyAttackDamage);
-            Debug.Log($"{enemyConfigs.enemyAttackDamage} Damage was Taken");
+            var playerHP = collision.collider.GetComponent<FirstPersonControls>();
 
-            Vector3 direction = Vector3.forward;
-            playerHP.Knockback(direction);
-
+            var player = collision.collider.GetComponent<IDamageable>();
+            player.DamageReceived(enemyConfigs.enemyAttackDamage);
+            Vector3 direction = transform.forward * -enemyConfigs.enemyKnockbackFactor;           
+            StartCoroutine(playerHP.KnockedBack(direction));
         }
     }
 
+    public void DamageReceived(int damage)
+    {
+        enemyCurrentHP -= damage;
+        OnDamageReceived?.Invoke(damage);
+        if (enemyCurrentHP < 0)
+            EnemyDeath();
+    }
+
+    public void EnemyDeath()
+    {
+        //Enemy death animations will be called below here
+
+        //Destroy the gameObject
+        Destroy(gameObject);
+    }
+
+    
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Player/HealthData")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Player/Player Container")]
 public class PlayerScriptable : ScriptableObject
 {
     public int maxPlayerHP = 5;

@@ -17,7 +17,6 @@ MonoBehaviour:
   enemyType: 1
   maxEnemyHP: 5
   enemyAttackDamage: 2
-  enemyKnockback: 0
+  enemyKnockbackFactor: 7
   enemyMoveSpeed: 2
   attackRate: 2
-  enemyConfigs: {fileID: 0}

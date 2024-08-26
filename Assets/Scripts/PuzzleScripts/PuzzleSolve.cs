@@ -20,11 +20,14 @@ public class PuzzleSolve : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Renderer _pieceRenderer = other.GetComponent<Renderer>();
-        _pieceColour = _pieceRenderer.material.color;
+        
 
         if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
         {
+            
+            Renderer _pieceRenderer = other.GetComponent<Renderer>();
+            _pieceColour = _pieceRenderer.material.color;
+
             Collider _collider = gameObject.GetComponent<Collider>();
 
             other.GetComponent<Rigidbody>().isKinematic = true;

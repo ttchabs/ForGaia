@@ -4,7 +4,7 @@ using System.Diagnostics.Tracing;
 using UnityEngine;
 
 
-public class FirstPersonControls : MonoBehaviour
+public class FirstPersonControls : MonoBehaviour, IDamageable
 {
     #region PLAYER MOVEMENT:
     [Header("MOVEMENT SETTINGS")]
@@ -67,6 +67,8 @@ public class FirstPersonControls : MonoBehaviour
     public PlayerScriptable playerConfigs;
     public int currentPlayerHP;
     #endregion 
+
+    public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
     private void Awake()
     {
@@ -224,11 +226,10 @@ public class FirstPersonControls : MonoBehaviour
                     default:
                         break;
                 }
-                Invoke("Attacks", meleeAttacks.weaponConfigs.WeaponAttackDelay);
+                //Invoke("Attacks", meleeAttacks.weaponConfigs.WeaponAttackDelay);
                 //meleeAttacks.Attack();
                 //meleeAttacks.weaponConfigs.Attack(atkOrigin); //The method which deals damage to the enemy
-                //StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
-                StartCoroutine(Cooldown(meleeAttacks.weaponConfigs.SwingCooldown)); //the coroutine which stops the player from attacking during cooldown
+                StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
             }
         }
     }
@@ -342,31 +343,37 @@ public class FirstPersonControls : MonoBehaviour
     }
 
     //Cooldown clock for the melee attacks
-    public IEnumerator Cooldown(float timer)
+    public IEnumerator Attacks(float delay, float cd)
     {
-        yield return new WaitForSeconds(timer);
+        yield return new WaitForSeconds(delay);
+        meleeAttacks.Attack();
+
+        yield return new WaitForSeconds(cd);
         _cooldownOver = true;
         _isAttacking = false;
     }
 
-    public void Attacks()
+    public IEnumerator KnockedBack(Vector3 direction)
     {
-        meleeAttacks.Attack();
-    }
-
-    public void Knockback(Vector3 direction)
-    {      
-        Vector3 knockback;
-        knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.5f, direction.z * bumpFactor);
-
-        velocity = knockback;
-        velocity = transform.TransformDirection(velocity);
-        StartCoroutine(ResetVelocity());
-    }
-
-    public IEnumerator ResetVelocity()
-    {     
+        Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
+        velocity = knockback;        
+        
         yield return new WaitForSeconds(0.7f);
+
         velocity = Vector3.zero;
+    }
+
+    public void DamageReceived(int enemyDamage)
+    {
+        currentPlayerHP -= enemyDamage;
+        OnDamageReceived?.Invoke(enemyDamage);
+
+        if (currentPlayerHP < 0)
+            PlayerDeath();
+    }
+
+    public void PlayerDeath()
+    {
+        Debug.Log("Player Is Dead");
     }
 }
