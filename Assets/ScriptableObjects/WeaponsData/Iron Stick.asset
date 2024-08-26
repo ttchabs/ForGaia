@@ -16,8 +16,10 @@ MonoBehaviour:
   weaponModel: {fileID: 4759559622868876870, guid: 05909498b323ad64aabfd42131cdae4b, type: 3}
   meleeType: 1
   _weaponDamage: 2
-  _weaponHitRange: 0.8
+  _weaponHitRange: 0.95
+  _weaponAttackDelay: 0.4
   _swingCooldown: 1
   attackable:
     serializedVersion: 2
     m_Bits: 128
+  enemyConfigs: {fileID: 0}

@@ -54,7 +54,7 @@ public class FirstPersonControls : MonoBehaviour
     public GameObject meleeWeapon;
     public WeaponScript meleeAttacks;
     public Transform meleeHoldPosition;
-    public Transform atkOrigin;
+    //public Transform atkOrigin;
     private Animator weaponAnimation;
     private bool _holdingMelee = false;
     private bool _isAttacking = false;
@@ -66,7 +66,6 @@ public class FirstPersonControls : MonoBehaviour
     [Space(5)]
     public PlayerScriptable playerConfigs;
     public int currentPlayerHP;
-
     #endregion 
 
     private void Awake()
@@ -204,7 +203,6 @@ public class FirstPersonControls : MonoBehaviour
             //Checks if the player has swung and if the player is still under cooldown
             if (_cooldownOver == true && _isAttacking == false)
             {
-                //Animator anim = meleeHoldPosition.GetComponent<Animator>();
                 _cooldownOver = false; //When the player clicks right-click, cooldown starts
                 _isAttacking = true; //When the player clicks right-click, the player has just attacked
 
@@ -226,8 +224,11 @@ public class FirstPersonControls : MonoBehaviour
                     default:
                         break;
                 }
-                meleeAttacks.weaponConfigs.Attack(atkOrigin); //The method which deals damage to the enemy
-                StartCoroutine(Cooldown(meleeAttacks.weaponConfigs.swingCooldown)); //the coroutine which stops the player from attacking during cooldown
+                Invoke("Attacks", meleeAttacks.weaponConfigs.WeaponAttackDelay);
+                //meleeAttacks.Attack();
+                //meleeAttacks.weaponConfigs.Attack(atkOrigin); //The method which deals damage to the enemy
+                //StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
+                StartCoroutine(Cooldown(meleeAttacks.weaponConfigs.SwingCooldown)); //the coroutine which stops the player from attacking during cooldown
             }
         }
     }
@@ -238,8 +239,9 @@ public class FirstPersonControls : MonoBehaviour
         if (meleeWeapon != null) 
         {
             meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
-            meleeWeapon.GetComponent<Collider>().enabled = true; //Reactivate the collider so it can land on te ground 
+            meleeWeapon.GetComponent<Collider>().isTrigger = false; //Reactivate the collider so it can land on te ground 
             meleeWeapon.transform.parent = null;
+            meleeAttacks = null;
             _holdingMelee = false;
         }
 
@@ -258,7 +260,7 @@ public class FirstPersonControls : MonoBehaviour
                 // Pick up the object
                 meleeWeapon = hitMeleeWeapon.collider.gameObject;
                 meleeWeapon.GetComponent<Rigidbody>().isKinematic = true; //Disable physics
-                meleeWeapon.GetComponent<Collider>().enabled = false; //Switch off the collider to make sure objects don't hit it constantly
+                meleeWeapon.GetComponent<Collider>().isTrigger = true; //Switch off the collider to make sure objects don't hit it constantly
                 meleeAttacks = meleeWeapon.GetComponent<WeaponScript>(); //Initialise the weaponScript component of the weapon that is held
 
                 // Attach the melee weapon to the hold position
@@ -316,17 +318,6 @@ public class FirstPersonControls : MonoBehaviour
 
                 holdingGun = true;
             }
-/*            else if (hit.collider.CompareTag("SorterPuzzleStone"))
-            {
-                //Pick up the object
-                heldObject = hit.collider.gameObject;
-                heldObject.GetComponent<Rigidbody>().isKinematic = true; //Disable Physics
-
-                //Attach the object to the hold position 
-                heldObject.transform.position = holdPosition.position;
-                heldObject.transform.rotation = holdPosition.rotation;
-                heldObject.transform.parent = holdPosition;
-            }*/
         }
     }    
     
@@ -358,24 +349,23 @@ public class FirstPersonControls : MonoBehaviour
         _isAttacking = false;
     }
 
-    public void Knockback(Transform enemy)
+    public void Attacks()
     {
-        
+        meleeAttacks.Attack();
+    }
+
+    public void Knockback(Vector3 direction)
+    {      
         Vector3 knockback;
-        knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.5f, -bumpFactor);
+        knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.5f, direction.z * bumpFactor);
 
         velocity = knockback;
         velocity = transform.TransformDirection(velocity);
-
-/*        Vector3 knockback = enemy.position - transform.position;
-        knockback.y = Mathf.Sqrt(2f * -gravity * jumpHeight) * 4;
-        velocity -= knockback.normalized * bumpFactor;*/
         StartCoroutine(ResetVelocity());
     }
 
     public IEnumerator ResetVelocity()
-    {
-        
+    {     
         yield return new WaitForSeconds(0.7f);
         velocity = Vector3.zero;
     }

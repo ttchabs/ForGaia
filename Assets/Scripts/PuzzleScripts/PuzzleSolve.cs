@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class PuzzleSolve : MonoBehaviour
 {
-    //public Transform colorSlot;
     public SpawnManager spawnManager;
-    public FirstPersonControls playerSettings;
 
     private Color _slotColor;
     private Color _pieceColour;
@@ -15,7 +13,6 @@ public class PuzzleSolve : MonoBehaviour
     private void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
-        playerSettings = FindObjectOfType<FirstPersonControls>();
 
         Renderer slotRenderer = GetComponentInChildren<Renderer>();
         _slotColor = slotRenderer.material.color;
@@ -26,13 +23,13 @@ public class PuzzleSolve : MonoBehaviour
         Renderer _pieceRenderer = other.GetComponent<Renderer>();
         _pieceColour = _pieceRenderer.material.color;
 
-        if (other.gameObject.CompareTag("SorterPuzzleStone") && playerSettings.heldObject.transform.parent == null)
+        if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
         {
             Collider _collider = gameObject.GetComponent<Collider>();
 
             other.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.SetParent(transform);
-            other.transform.localPosition = new Vector3(0, 0.1f, 0);
+            other.transform.localPosition = new Vector3(0, 0.12f, 0);
             other.transform.localRotation = Quaternion.identity;
 
             if (_pieceColour == _slotColor)

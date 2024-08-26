@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: LeafDagger
   m_EditorClassIdentifier: 
   _weaponName: Leaf Dagger
-  weaponModel: {fileID: 0}
+  weaponModel: {fileID: 8041691106590512118, guid: 77ce521cb2e215b4a827b4ce24f26ec6, type: 3}
   meleeType: 2
   _weaponDamage: 1
-  _weaponHitRange: 0.4
-  _swingCooldown: 0.5
+  _weaponHitRange: 0.6
+  _weaponAttackDelay: 0.1
+  _swingCooldown: 0.3
   attackable:
     serializedVersion: 2
     m_Bits: 128
+  enemyConfigs: {fileID: 0}

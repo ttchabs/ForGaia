@@ -15,25 +15,15 @@ public class WeaponScriptable : ScriptableObject
     [Space(2)]
     [SerializeField] int _weaponDamage;
     [SerializeField] float _weaponHitRange;
+    [SerializeField] float _weaponAttackDelay;
     [SerializeField] float _swingCooldown;
     public LayerMask attackable;
 
-    public string weaponName { get { return _weaponName; } set { _weaponName = value; } }
-    public int weaponDamage {  get { return _weaponDamage; } set {  _weaponDamage = value; } }
-    public float weaponHitRange { get { return _weaponHitRange; } set { _weaponHitRange = value; } }
-    public float swingCooldown { get { return _swingCooldown; } set { _swingCooldown = value; } }
+    public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }
+    public int WeaponDamage {  get { return _weaponDamage; } set {  _weaponDamage = value; } }
+    public float WeaponHitRange { get { return _weaponHitRange; } set { _weaponHitRange = value; } }
+    public float WeaponAttackDelay { get { return _weaponAttackDelay; } set { _weaponAttackDelay = value; } }
+    public float SwingCooldown { get { return _swingCooldown; } set { _swingCooldown = value; } }
 
-    public void Attack(Transform atkOrigin)
-    {
-        string item = meleeType.ToString();
-        Collider[] hitEntities = Physics.OverlapSphere(atkOrigin.transform.position, weaponHitRange, attackable);
-        foreach (Collider hitEnemy in hitEntities)
-        {
-            EnemyController enemyStats = hitEnemy.GetComponent<EnemyController>();
-            enemyStats.enemyConfigs.DamageDealtToEnemy(enemyStats, weaponDamage);
-            //DamageDealtToEnemy(enemyStats, weaponStats.weaponDamage);
-            Debug.Log($"This is a {item} type");
-            Debug.Log($"Weapon: {weaponName}, DMG: {weaponDamage} ");
-        }
-    }
+
 }

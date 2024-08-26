@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4413368630918828234}
   m_Layer: 0
   m_Name: Sword
-  m_TagString: Sword
+  m_TagString: MeleeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,14 +27,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4759559622868876870}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18491824, y: -0.031667784, z: -0.16578633, w: 0.9681515}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.06000001, y: 0.9213329, z: -0.22000007}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7778048559629860768}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 20.338, y: -7.515, z: -20.784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5412734036798986868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,13 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 11400000, guid: 9516bf69e0f606c48b9ca30619bb223d, type: 2}
+  weaponConfigs: {fileID: 11400000, guid: 9516bf69e0f606c48b9ca30619bb223d, type: 2}
   weaponDamage: 0
   weaponHitRange: 0
   weaponCooldown: 0
-  playerStats: {fileID: 0}
-  enemyStats: {fileID: 0}
-  atkOrigin: {fileID: 0}
 --- !u!54 &2571346961477261862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -116,7 +113,6 @@ GameObject:
   - component: {fileID: 9213176981168356817}
   - component: {fileID: 9053498880597760424}
   - component: {fileID: 771519472065590667}
-  - component: {fileID: 6156318974431666230}
   m_Layer: 0
   m_Name: SwordBlade
   m_TagString: Sword
@@ -210,22 +206,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6156318974431666230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5289063514501088858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponStats: {fileID: 11400000, guid: 9516bf69e0f606c48b9ca30619bb223d, type: 2}
-  weaponDamage: 0
-  weaponHitRange: 0
-  weaponCooldown: 0
-  playerStats: {fileID: 0}
-  enemyStats: {fileID: 0}
-  atkOrigin: {fileID: 0}

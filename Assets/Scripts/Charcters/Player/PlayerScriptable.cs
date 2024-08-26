@@ -25,7 +25,7 @@ public class PlayerScriptable : ScriptableObject
 
     public void Knockback()
     {
-        //Vector3 knockbackDistance = new Vector3();
+
     }
     public void PlayerDeath()
     {

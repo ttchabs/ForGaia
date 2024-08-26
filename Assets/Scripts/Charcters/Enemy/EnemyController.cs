@@ -27,15 +27,15 @@ public class EnemyController : MonoBehaviour
 
     public void TrackPlayer()
     {
-        float distanceBetween = Vector3.Distance(transform.position, player.position);
+        float distanceBetween = Vector3.Distance(transform.position, player.position); //checks the distance between the player and the enemy, stores the value
         
-        Vector3 direction = transform.position - player.position;
+        Vector3 direction = transform.position - player.position; //checks the coords of the player while ignoring the y-axis
         direction.y = 0f;
 
         if (distanceBetween < 20f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime);
-            Quaternion lookDirection = Quaternion.LookRotation(direction);
+            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
+            Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
             transform.rotation = lookDirection;
         }
     }
@@ -47,7 +47,9 @@ public class EnemyController : MonoBehaviour
             FirstPersonControls playerHP = collision.collider.GetComponent<FirstPersonControls>();
             playerHP.playerConfigs.LoseHP(playerHP, enemyConfigs.enemyAttackDamage);
             Debug.Log($"{enemyConfigs.enemyAttackDamage} Damage was Taken");
-            playerHP.Knockback(transform);
+
+            Vector3 direction = Vector3.forward;
+            playerHP.Knockback(direction);
 
         }
     }
