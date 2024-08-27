@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.06000001, y: 0.9213329, z: -0.22000007}
+  m_LocalScale: {x: 0.06000001, y: 0.9213329, z: 0.2200001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7778048559629860768}
@@ -48,10 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponConfigs: {fileID: 11400000, guid: 9516bf69e0f606c48b9ca30619bb223d, type: 2}
-  weaponDamage: 0
-  weaponHitRange: 0
-  weaponCooldown: 0
-  atkOrigin: {fileID: 7778048559629860768}
   weaponBottom: {fileID: 8533794425913108926}
   weaponTop: {fileID: 1968742010364912928}
 --- !u!54 &2571346961477261862

@@ -279,10 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponConfigs: {fileID: 11400000, guid: b0888e09540db754faf917339f06a091, type: 2}
-  weaponDamage: 0
-  weaponHitRange: 0
-  weaponCooldown: 0
-  atkOrigin: {fileID: 1923123832150884016}
   weaponBottom: {fileID: 1190841282343081189}
   weaponTop: {fileID: 3533766537728103945}
 --- !u!65 &2397959550767195544

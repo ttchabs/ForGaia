@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using TMPro;
 using UnityEngine;
 
 
@@ -39,6 +40,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
+
+
     #endregion
 
     #region PLAYER CROUCH:
@@ -54,7 +57,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public GameObject meleeWeapon;
     public WeaponScript meleeAttacks;
     public Transform meleeHoldPosition;
-    //public Transform atkOrigin;
     private Animator weaponAnimation;
     private bool _holdingMelee = false;
     private bool _isAttacking = false;
@@ -66,9 +68,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Space(5)]
     public PlayerScriptable playerConfigs;
     public int currentPlayerHP;
-    #endregion 
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
+    #endregion
+
+
 
     private void Awake()
     {
@@ -120,7 +124,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Call Move and LookAround methods every frame to handle player movement and camera rotation
         Move();
         LookAround();
-        ApplyGravity(); 
+        ApplyGravity();
+
     }
 
     public void Move()
@@ -226,9 +231,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     default:
                         break;
                 }
-                //Invoke("Attacks", meleeAttacks.weaponConfigs.WeaponAttackDelay);
-                //meleeAttacks.Attack();
-                //meleeAttacks.weaponConfigs.Attack(atkOrigin); //The method which deals damage to the enemy
                 StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
             }
         }
@@ -320,7 +322,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 holdingGun = true;
             }
         }
-    }    
+    } 
     
     public void ScrollThroughMelee()
     {
@@ -346,7 +348,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public IEnumerator Attacks(float delay, float cd)
     {
         yield return new WaitForSeconds(delay);
-        meleeAttacks.Attack();
+        meleeAttacks.weaponConfigs.Attacking(meleeAttacks.weaponBottom, meleeAttacks.weaponTop);
 
         yield return new WaitForSeconds(cd);
         _cooldownOver = true;
@@ -363,17 +365,22 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         velocity = Vector3.zero;
     }
 
-    public void DamageReceived(int enemyDamage)
+    public void PlayerDeath()
     {
-        currentPlayerHP -= enemyDamage;
-        OnDamageReceived?.Invoke(enemyDamage);
+        Debug.Log("Player Is Dead");
+    }
+
+    public void DamageReceived(int damageAmount)
+    {
+        currentPlayerHP -= damageAmount;
+        OnDamageReceived?.Invoke(damageAmount);
 
         if (currentPlayerHP < 0)
             PlayerDeath();
     }
 
-    public void PlayerDeath()
-    {
-        Debug.Log("Player Is Dead");
-    }
+    /////////////////////////////////////////
+    ///
+
+
 }

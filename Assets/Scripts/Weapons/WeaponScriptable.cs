@@ -21,7 +21,7 @@ public class WeaponScriptable : ScriptableObject
     [SerializeField] float _swingCooldown;
     public LayerMask attackable;
 
-    public IDamageable dam;
+    public IDamageable damaged;
 
     public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }
     public int WeaponDamage { get { return _weaponDamage; } set { _weaponDamage = value; } }
@@ -39,11 +39,10 @@ public class WeaponScriptable : ScriptableObject
             * Code Version: 2.0
             * Availability: https://www.youtube.com/watch?v=sPiVz1k-fEs&list=PLmYpFgOST70FmSkspN5uvvl68cEjPI86x
         */
-
         Collider[] hitEntities = Physics.OverlapCapsule(weaponBottom.position, weaponTop.position, WeaponHitRange, attackable);
         foreach (Collider hitEnemy in hitEntities)
         {
-            IDamageable damaged = hitEnemy.GetComponent<IDamageable>();
+            damaged = hitEnemy.GetComponent<IDamageable>();
             if (damaged != null)
             {
                 damaged.DamageReceived(WeaponDamage);

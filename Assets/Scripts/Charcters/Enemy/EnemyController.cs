@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void Awake()
     {
-        enemyCurrentHP = enemyConfigs.maxEnemyHP;
+        enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (distanceBetween < 20f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.enemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
+            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
             transform.rotation = lookDirection;
         }
@@ -49,16 +49,19 @@ public class EnemyController : MonoBehaviour, IDamageable
             var playerHP = collision.collider.GetComponent<FirstPersonControls>();
 
             var player = collision.collider.GetComponent<IDamageable>();
-            player.DamageReceived(enemyConfigs.enemyAttackDamage);
-            Vector3 direction = transform.forward * -enemyConfigs.enemyKnockbackFactor;           
+
+            Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
+            player.DamageReceived(enemyConfigs.EnemyAttackDamage);
             StartCoroutine(playerHP.KnockedBack(direction));
         }
     }
+
 
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
         OnDamageReceived?.Invoke(damage);
+
         if (enemyCurrentHP < 0)
             EnemyDeath();
     }

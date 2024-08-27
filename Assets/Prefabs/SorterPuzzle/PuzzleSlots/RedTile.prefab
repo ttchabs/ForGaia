@@ -200,6 +200,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93024bb436025044e8484b66ab66c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorSlot: {fileID: 2406197055622965929}
   spawnManager: {fileID: 0}
-  playerSettings: {fileID: 0}
