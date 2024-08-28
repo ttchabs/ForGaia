@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyName: Mole
   enemyModelPrefab: {fileID: 3273891270323321126, guid: 1fbc3addd9e47f54fb35ee84b3186d23, type: 3}
   enemyType: 1
-  maxEnemyHP: 5
-  enemyAttackDamage: 2
-  enemyKnockbackFactor: 7
-  enemyMoveSpeed: 2
-  attackRate: 2
+  _maxEnemyHP: 5
+  _enemyAttackDamage: 3
+  _enemyKnockbackFactor: 2
+  _enemyMoveSpeed: 2
+  _attackRate: 1

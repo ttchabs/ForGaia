@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,11 +8,6 @@ public class WeaponScript : MonoBehaviour
 {    
     public WeaponScriptable weaponConfigs;
     public Transform weaponBottom, weaponTop;
-
-    public void Awake()
-    {
-
-    }
 
     public void Attack()
     {
@@ -25,5 +21,4 @@ public class WeaponScript : MonoBehaviour
         Gizmos.DrawWireSphere(weaponTop.position, weaponConfigs.WeaponHitRange);
         Gizmos.DrawLine(weaponTop.position, weaponBottom.position);
     }
-
 }

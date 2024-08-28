@@ -17,6 +17,7 @@ MonoBehaviour:
   meleeType: 1
   _weaponDamage: 2
   _weaponHitRange: 0.6
+  _weaponKnockback: 6
   _weaponAttackDelay: 0.4
   _swingCooldown: 0.7
   attackable:

@@ -40,8 +40,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
-
-
     #endregion
 
     #region PLAYER CROUCH:
@@ -59,8 +57,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Transform meleeHoldPosition;
     private Animator weaponAnimation;
     private bool _holdingMelee = false;
-    private bool _isAttacking = false;
-    private bool _cooldownOver = true;
+    public bool _cooldownOver = true;    
+    //private bool _isAttacking = false;
     #endregion
 
     #region PLAYER HEALTH:
@@ -71,8 +69,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
-
-
 
     private void Awake()
     {
@@ -125,7 +121,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         Move();
         LookAround();
         ApplyGravity();
-
     }
 
     public void Move()
@@ -205,13 +200,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Melee() //Right click mouse
     {
-        if (_holdingMelee == true)
+        if (_holdingMelee == true && _cooldownOver == true)
         {
             //Checks if the player has swung and if the player is still under cooldown
-            if (_cooldownOver == true && _isAttacking == false)
-            {
+            /*if (_cooldownOver == true)
+            {*/
                 _cooldownOver = false; //When the player clicks right-click, cooldown starts
-                _isAttacking = true; //When the player clicks right-click, the player has just attacked
+                //_isAttacking = true; //When the player clicks right-click, the player has just attacked
 
                 //checks what is currently in the player's melee hand and activates an animation based on the weapon type
                 switch (meleeAttacks.weaponConfigs.meleeType)
@@ -232,7 +227,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                         break;
                 }
                 StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
-            }
+            //}
         }
     }
 
@@ -352,7 +347,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(cd);
         _cooldownOver = true;
-        _isAttacking = false;
+        //_isAttacking = false;
+        yield break;
     }
 
     public IEnumerator KnockedBack(Vector3 direction)
@@ -378,9 +374,5 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (currentPlayerHP < 0)
             PlayerDeath();
     }
-
-    /////////////////////////////////////////
-    ///
-
 
 }

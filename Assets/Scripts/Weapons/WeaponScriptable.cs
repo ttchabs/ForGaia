@@ -17,6 +17,7 @@ public class WeaponScriptable : ScriptableObject
     [Space(2)]
     [SerializeField] int _weaponDamage;
     [SerializeField] float _weaponHitRange;
+    [SerializeField] float _weaponKnockback;
     [SerializeField] float _weaponAttackDelay;
     [SerializeField] float _swingCooldown;
     public LayerMask attackable;
@@ -26,7 +27,7 @@ public class WeaponScriptable : ScriptableObject
     public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }
     public int WeaponDamage { get { return _weaponDamage; } set { _weaponDamage = value; } }
     public float WeaponHitRange { get { return _weaponHitRange; } set { _weaponHitRange = value; } }
-
+    public float WeaponKnockback { get => _weaponKnockback; set => _weaponKnockback = value; }
     public float WeaponAttackDelay { get { return _weaponAttackDelay; } set { _weaponAttackDelay = value; } }
     public float SwingCooldown { get { return _swingCooldown; } set { _swingCooldown = value; } }
 
