@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using TMPro;
 using UnityEngine;
 
-public class FirstPersonControls : MonoBehaviour
-{
 
+public class FirstPersonControls : MonoBehaviour, IDamageable
+{
+    #region PLAYER MOVEMENT:
     [Header("MOVEMENT SETTINGS")]
     [Space(5)]
     // Public variables to set movement and look speed, and the player camera
@@ -19,13 +22,18 @@ public class FirstPersonControls : MonoBehaviour
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
     private CharacterController characterController; // Reference to the CharacterController component
+    public float bumpFactor;
+    #endregion
 
+    #region PLAYER SHOOTING:
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
     public GameObject projectilePrefab; // Projectile prefab for shooting
     public Transform firePoint; // Point from which the projectile is fired
     public float projectileSpeed = 20f; // Speed at which the projectile is fired
+    #endregion
 
+    #region PLAYEY PICKUP ITEMS:
     [Header("PICKING UP SETTINGS")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
@@ -33,22 +41,45 @@ public class FirstPersonControls : MonoBehaviour
     public float pickUpRange = 3f; // Range within which objects can be picked up
     private bool holdingGun = false;
 
+
+    #endregion
+
+    #region PLAYER CROUCH:
     [Header("CROUCH SETTINGS")] [Space(5)] 
     public float crouchHeight = 1f; // Height of the player when crouching
     public float standingHeight = 2f; // Height of te player when standing
     public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
-    private bool isCrouching = false;//Whethere the player is currently crouching
+    private bool _isCrouching = false;//Whethere the player is currently crouching
+    #endregion
 
+    #region PLAYER MELEE ATTACKING:
     [Header("MELEE SETTINGS")] [Space(5)]
-    public GameObject Sword;
-    
+    public GameObject meleeWeapon;
+    public WeaponScript meleeAttacks;
+    public Transform meleeHoldPosition;
+    private Animator weaponAnimation;
+    private bool _holdingMelee = false;
+    private bool _isAttacking = false;
+    private bool _cooldownOver = true;
+    #endregion
+
+    #region PLAYER HEALTH:
+    [Header("HEALTH:")]
+    [Space(5)]
+    public PlayerScriptable playerConfigs;
+    public int currentPlayerHP;
+
+    public event IDamageable.DamageReceivedEvent OnDamageReceived;
+    #endregion
+
 
 
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
-
+        weaponAnimation = meleeHoldPosition.GetComponent<Animator>();
+        currentPlayerHP = playerConfigs.maxPlayerHP;
     }
 
     private void OnEnable()
@@ -76,11 +107,16 @@ public class FirstPersonControls : MonoBehaviour
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
     
-        playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when pick-up input is performed
+        playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
         //Subscribe to the melee input event
-        playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when pick-up input is performed
+        playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when melee input is performed
 
+        //Subscribe to the pick-up-weapon input event
+        playerInput.Player.PickUpMelee.performed += ctx => PickUpMelee(); // Call the PickUpWeapon method when pick-up-melee input is performed
+
+        //Subscribe to the ScrollThroughMelee input event
+        playerInput.Player.ScrollThroughMelee.performed += ctx => ScrollThroughMelee(); //Call the ScrollThroughMelee method when the ScrollTroughMelee input is performed
 }
 
     private void Update()
@@ -88,7 +124,8 @@ public class FirstPersonControls : MonoBehaviour
         // Call Move and LookAround methods every frame to handle player movement and camera rotation
         Move();
         LookAround();
-        ApplyGravity(); 
+        ApplyGravity();
+
     }
 
     public void Move()
@@ -101,7 +138,7 @@ public class FirstPersonControls : MonoBehaviour
 
 
         float currentSpeed;
-        if (isCrouching)
+        if (_isCrouching)
         {
             currentSpeed = crouchSpeed;
         }
@@ -110,7 +147,7 @@ public class FirstPersonControls : MonoBehaviour
             currentSpeed = moveSpeed;
         }
         // Move the character controller based on the movement vector and speed
-        characterController.Move(move * moveSpeed * Time.deltaTime);
+        characterController.Move(move * currentSpeed * Time.deltaTime);
     }
 
     public void LookAround()
@@ -168,9 +205,75 @@ public class FirstPersonControls : MonoBehaviour
 
     public void Melee() //Right click mouse
     {
-        Animator anim = Sword.GetComponent<Animator>();
-        anim.SetTrigger("Attack");
-        //Debug.Log("Attacking"); To Know whether or not the input is being understood.
+        if (_holdingMelee == true)
+        {
+            //Checks if the player has swung and if the player is still under cooldown
+            if (_cooldownOver == true && _isAttacking == false)
+            {
+                _cooldownOver = false; //When the player clicks right-click, cooldown starts
+                _isAttacking = true; //When the player clicks right-click, the player has just attacked
+
+                //checks what is currently in the player's melee hand and activates an animation based on the weapon type
+                switch (meleeAttacks.weaponConfigs.meleeType)
+                {
+                    case MeleeWeaponType.Barefist:
+                        Debug.Log("clawed");
+                        break;
+                    case MeleeWeaponType.Sword:
+                        weaponAnimation.SetTrigger("SwordAttack");
+                        break;
+                    case MeleeWeaponType.Knife:
+                        weaponAnimation.SetTrigger("KnifeAttack");
+                        break;
+                    case MeleeWeaponType.Longsword:
+                        weaponAnimation.SetTrigger("LongswordAttack");
+                        break;
+                    default:
+                        break;
+                }
+                StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
+            }
+        }
+    }
+
+    public void PickUpMelee()
+    {
+        //Check if we are already holding a weapon
+        if (meleeWeapon != null) 
+        {
+            meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
+            meleeWeapon.GetComponent<Collider>().isTrigger = false; //Reactivate the collider so it can land on te ground 
+            meleeWeapon.transform.parent = null;
+            meleeAttacks = null;
+            _holdingMelee = false;
+        }
+
+        // Perform a raycast from the camera's position forward
+        Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
+        RaycastHit hitMeleeWeapon;
+
+        // Debugging: Draw the ray in the Scene view
+        Debug.DrawRay(playerCamera.position, playerCamera.forward * pickUpRange, Color.blue);
+
+        if (Physics.Raycast(meleeRay, out hitMeleeWeapon, pickUpRange))
+        {
+            // Check if the hit object has the tag "MeleeWeapon"
+            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
+            {
+                // Pick up the object
+                meleeWeapon = hitMeleeWeapon.collider.gameObject;
+                meleeWeapon.GetComponent<Rigidbody>().isKinematic = true; //Disable physics
+                meleeWeapon.GetComponent<Collider>().isTrigger = true; //Switch off the collider to make sure objects don't hit it constantly
+                meleeAttacks = meleeWeapon.GetComponent<WeaponScript>(); //Initialise the weaponScript component of the weapon that is held
+
+                // Attach the melee weapon to the hold position
+                meleeWeapon.transform.position = meleeHoldPosition.position;
+                meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
+                meleeWeapon.transform.parent = meleeHoldPosition;
+
+                _holdingMelee = true;          
+            }
+        }
     }
 
     public void PickUpObject()
@@ -194,7 +297,7 @@ public class FirstPersonControls : MonoBehaviour
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the hit object has the tag "PickUp"
-            if (hit.collider.CompareTag("PickUp"))
+            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("SorterPuzzleStone"))
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -218,104 +321,66 @@ public class FirstPersonControls : MonoBehaviour
 
                 holdingGun = true;
             }
-            else if (hit.collider.CompareTag("SorterPuzzleStone"))
-            {
-                //Pick up the object
-                heldObject = hit.collider.gameObject;
-                heldObject.GetComponent<Rigidbody>().isKinematic = true; //Disable Physics
-
-                //Attach the object to the hold position 
-                heldObject.transform.position = holdPosition.position;
-                heldObject.transform.rotation = holdPosition.rotation;
-                heldObject.transform.parent = holdPosition;
-            }
-
-
-            /*
-             * Object.cs X ellaneous Files
-Attach...
-InspectObject
-Update()
-if (CameraToMouseRay (Input.mousePosition, out RayHit))
-if(RayHit.transform.gameObject.tag == "Inspectable") inspectObjectTransform = RayHit.transform;
-28
-29
-30
-{
-31
-32
-33
-}
-34
-}
-35
-I
-36
-37
-38
-39
-40
-{
-41
-42
-43
-44
-45
-46
-Live Share
-deltaRotationX -Input.GetAxis("Mouse X"); deltaRotationY = Input.GetAxis("Mouse Y");
-if(Input.GetMouseButton(1) && _inspectObjectTransform
-inspectObjectTransform.rotation=
-*
-Quaternion.AngleAxis (deltaRotationX* rotateSpeed, transform.up) //Rotates X ax Quaternion.AngleAxis (deltaRotationY * rotateSpeed, transform.right) * // Rotates _inspectObjectTransform.rotation; // Takes into account existing rotation
-             * 
-             * 
-             * 
-             */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /* else if (hit.collider.CompareTag("MeleeWeapon")) 
-             {
-                 // Pick up the object
-                 heldObject = hit.collider.gameObject;
-                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
-
-                 // Attach the object to the hold position
-                 heldObject.transform.position = holdPosition.position;
-                 heldObject.transform.rotation = holdPosition.rotation;
-                 heldObject.transform.parent = holdPosition;
-
-                 holdingMelee = true;
-
-             }*/
         }
+    } 
+    
+    public void ScrollThroughMelee()
+    {
+
     }
 
     public void ToggleCrouch()
     {
-        if (isCrouching)
+        //CHecks if the crouch button was pressed
+        if (_isCrouching)
         {
             characterController.height = standingHeight;
-            isCrouching = false;
+            _isCrouching = false;
         }
         else
         {
             characterController.height = crouchHeight;
-            isCrouching = true;
+            _isCrouching = true;
         }
     }
+
+    //Cooldown clock for the melee attacks
+    public IEnumerator Attacks(float delay, float cd)
+    {
+        yield return new WaitForSeconds(delay);
+        meleeAttacks.weaponConfigs.Attacking(meleeAttacks.weaponBottom, meleeAttacks.weaponTop);
+
+        yield return new WaitForSeconds(cd);
+        _cooldownOver = true;
+        _isAttacking = false;
+    }
+
+    public IEnumerator KnockedBack(Vector3 direction)
+    {
+        Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
+        velocity = knockback;        
+        
+        yield return new WaitForSeconds(0.7f);
+
+        velocity = Vector3.zero;
+    }
+
+    public void PlayerDeath()
+    {
+        Debug.Log("Player Is Dead");
+    }
+
+    public void DamageReceived(int damageAmount)
+    {
+        currentPlayerHP -= damageAmount;
+        OnDamageReceived?.Invoke(damageAmount);
+
+        if (currentPlayerHP < 0)
+            PlayerDeath();
+    }
+
+    /////////////////////////////////////////
+    ///
+
 
 }

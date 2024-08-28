@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7157623130084683918}
   m_Layer: 0
   m_Name: BlackTile
-  m_TagString: Untagged
+  m_TagString: SorterPuzzleTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93024bb436025044e8484b66ab66c416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorSlot: {fileID: 0}
+  colorSlot: {fileID: 2019545776596649440}
   spawnManager: {fileID: 0}
   playerSettings: {fileID: 0}
 --- !u!1 &4256888778570716158

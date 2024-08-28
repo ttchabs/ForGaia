@@ -89,6 +89,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickUpMelee"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d098810-f905-4983-bbe8-8921c830e287"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollThroughMelee"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdf40de2-ae2b-4dea-aaf3-854f609c49fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,7 +212,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""8682aae6-89a5-45ca-8232-13f27364b2a4"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -344,6 +362,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""efdf8cd6-9aa5-4420-95f1-92101170b709"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""PickUpMelee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27967305-9560-4927-8998-a039885302eb"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PickUpMelee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""856fbea1-2a03-45ab-8598-cbc74cab581a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ScrollThroughMelee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb1ef8ba-90be-409f-b075-fa05a9e69bc3"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ScrollThroughMelee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -382,6 +444,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
+        m_Player_PickUpMelee = m_Player.FindAction("PickUpMelee", throwIfNotFound: true);
+        m_Player_ScrollThroughMelee = m_Player.FindAction("ScrollThroughMelee", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -450,6 +514,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Melee;
+    private readonly InputAction m_Player_PickUpMelee;
+    private readonly InputAction m_Player_ScrollThroughMelee;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -461,6 +527,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
+        public InputAction @PickUpMelee => m_Wrapper.m_Player_PickUpMelee;
+        public InputAction @ScrollThroughMelee => m_Wrapper.m_Player_ScrollThroughMelee;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -491,6 +559,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Melee.started += instance.OnMelee;
             @Melee.performed += instance.OnMelee;
             @Melee.canceled += instance.OnMelee;
+            @PickUpMelee.started += instance.OnPickUpMelee;
+            @PickUpMelee.performed += instance.OnPickUpMelee;
+            @PickUpMelee.canceled += instance.OnPickUpMelee;
+            @ScrollThroughMelee.started += instance.OnScrollThroughMelee;
+            @ScrollThroughMelee.performed += instance.OnScrollThroughMelee;
+            @ScrollThroughMelee.canceled += instance.OnScrollThroughMelee;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -516,6 +590,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Melee.started -= instance.OnMelee;
             @Melee.performed -= instance.OnMelee;
             @Melee.canceled -= instance.OnMelee;
+            @PickUpMelee.started -= instance.OnPickUpMelee;
+            @PickUpMelee.performed -= instance.OnPickUpMelee;
+            @PickUpMelee.canceled -= instance.OnPickUpMelee;
+            @ScrollThroughMelee.started -= instance.OnScrollThroughMelee;
+            @ScrollThroughMelee.performed -= instance.OnScrollThroughMelee;
+            @ScrollThroughMelee.canceled -= instance.OnScrollThroughMelee;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -560,5 +640,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnPickUp(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
+        void OnPickUpMelee(InputAction.CallbackContext context);
+        void OnScrollThroughMelee(InputAction.CallbackContext context);
     }
 }

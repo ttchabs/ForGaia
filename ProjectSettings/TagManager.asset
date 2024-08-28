@@ -9,6 +9,10 @@ TagManager:
   - MeleeWeapon
   - SorterPuzzleStone
   - SorterPuzzleTile
+  - Sword
+  - Knife
+  - Longsword
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,9 +21,9 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
+  - Enemy
+  - Interactable
+  - Weapon
   - 
   - 
   - 
