@@ -22,7 +22,7 @@ public class WeaponScriptable : ScriptableObject
     [SerializeField] float _swingCooldown;
     public LayerMask attackable;
 
-    public AnimationClip attackableClip;
+    //public AnimationClip attackableClip;
     public AnimatorOverrideController overrideController;
 
     public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }

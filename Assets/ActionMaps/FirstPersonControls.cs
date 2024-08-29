@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -202,32 +203,28 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (_holdingMelee == true && _cooldownOver == true)
         {
-            //Checks if the player has swung and if the player is still under cooldown
-            /*if (_cooldownOver == true)
-            {*/
-                _cooldownOver = false; //When the player clicks right-click, cooldown starts
-                //_isAttacking = true; //When the player clicks right-click, the player has just attacked
+            _cooldownOver = false; //When the player clicks right-click, cooldown starts
+            //checks what is currently in the player's melee hand and activates an animation based on the weapon type
 
-                //checks what is currently in the player's melee hand and activates an animation based on the weapon type
-                switch (meleeAttacks.weaponConfigs.meleeType)
-                {
-                    case MeleeWeaponType.Barefist:
-                        Debug.Log("clawed");
-                        break;
-                    case MeleeWeaponType.Sword:
-                        weaponAnimation.SetTrigger("SwordAttack");
-                        break;
-                    case MeleeWeaponType.Knife:
-                        weaponAnimation.SetTrigger("KnifeAttack");
-                        break;
-                    case MeleeWeaponType.Longsword:
-                        weaponAnimation.SetTrigger("LongswordAttack");
-                        break;
-                    default:
-                        break;
-                }
-                StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
-            //}
+            switch (meleeAttacks.weaponConfigs.meleeType)
+            {
+                case MeleeWeaponType.Barefist:
+                    Debug.Log("clawed");
+                    break;
+                case MeleeWeaponType.Sword:
+                    weaponAnimation.SetTrigger("SwordAttack");
+                    break;
+                case MeleeWeaponType.Knife:
+                    weaponAnimation.SetTrigger("KnifeAttack");
+                    break;
+                case MeleeWeaponType.Longsword:
+                    weaponAnimation.SetTrigger("LongswordAttack");
+                    break;
+                default:
+                    break;
+            }           
+            StartCoroutine(Attacks(meleeAttacks.weaponConfigs.WeaponAttackDelay, meleeAttacks.weaponConfigs.SwingCooldown));
+
         }
     }
 
@@ -240,7 +237,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             meleeWeapon.GetComponent<Collider>().isTrigger = false; //Reactivate the collider so it can land on te ground 
             meleeWeapon.transform.parent = null;
             meleeAttacks = null;
+            weaponAnimation.runtimeAnimatorController = null;
             _holdingMelee = false;
+
         }
 
         // Perform a raycast from the camera's position forward
@@ -260,12 +259,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 meleeWeapon.GetComponent<Rigidbody>().isKinematic = true; //Disable physics
                 meleeWeapon.GetComponent<Collider>().isTrigger = true; //Switch off the collider to make sure objects don't hit it constantly
                 meleeAttacks = meleeWeapon.GetComponent<WeaponScript>(); //Initialise the weaponScript component of the weapon that is held
-
+               
                 // Attach the melee weapon to the hold position
                 meleeWeapon.transform.position = meleeHoldPosition.position;
                 meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
                 meleeWeapon.transform.parent = meleeHoldPosition;
-
+                weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.overrideController;
                 _holdingMelee = true;          
             }
         }

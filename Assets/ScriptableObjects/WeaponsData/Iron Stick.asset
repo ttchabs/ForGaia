@@ -16,10 +16,11 @@ MonoBehaviour:
   weaponModel: {fileID: 4759559622868876870, guid: 05909498b323ad64aabfd42131cdae4b, type: 3}
   meleeType: 1
   _weaponDamage: 2
-  _weaponHitRange: 0.6
+  _weaponHitRange: 0.8
   _weaponKnockback: 6
   _weaponAttackDelay: 0.4
   _swingCooldown: 0.7
   attackable:
     serializedVersion: 2
     m_Bits: 128
+  overrideController: {fileID: 22100000, guid: 2c66ac8735028cb4b95cf58feeab80bc, type: 2}

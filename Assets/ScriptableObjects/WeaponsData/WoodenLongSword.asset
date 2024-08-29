@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: Wooden Greatsword
   weaponModel: {fileID: 5954745931859561589, guid: 63fd7b00d2288bf4ab01b37633e18840, type: 3}
-  meleeType: 3
+  meleeType: 1
   _weaponDamage: 4
-  _weaponHitRange: 1.2
+  _weaponHitRange: 1.5
   _weaponKnockback: 15
   _weaponAttackDelay: 0.92
   _swingCooldown: 2
   attackable:
     serializedVersion: 2
     m_Bits: 128
+  overrideController: {fileID: 22100000, guid: 26f66def56111b24686f78bb4bf3edcc, type: 2}
