@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
+    public GameObject playerModel;
     #region PLAYER MOVEMENT:
     [Header("MOVEMENT SETTINGS")]
     [Space(5)]
@@ -57,7 +58,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public WeaponScript meleeAttacks;
     public Transform meleeHoldPosition;
     private Animator weaponAnimation;
-    private bool _holdingMelee = false;
+    public bool holdingMelee = false;
     public bool _cooldownOver = true;    
     //private bool _isAttacking = false;
     #endregion
@@ -75,7 +76,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
-        weaponAnimation = meleeHoldPosition.GetComponent<Animator>();
+        weaponAnimation = playerModel.GetComponent<Animator>();
         currentPlayerHP = playerConfigs.maxPlayerHP;
     }
 
@@ -201,7 +202,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Melee() //Right click mouse
     {
-        if (_holdingMelee == true && _cooldownOver == true)
+        if (holdingMelee == true && _cooldownOver == true)
         {
             _cooldownOver = false; //When the player clicks right-click, cooldown starts
             //checks what is currently in the player's melee hand and activates an animation based on the weapon type
@@ -238,7 +239,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             meleeWeapon.transform.parent = null;
             meleeAttacks = null;
             weaponAnimation.runtimeAnimatorController = null;
-            _holdingMelee = false;
+            holdingMelee = false;
 
         }
 
@@ -265,7 +266,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
                 meleeWeapon.transform.parent = meleeHoldPosition;
                 weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.overrideController;
-                _holdingMelee = true;          
+                holdingMelee = true;          
             }
         }
     }
