@@ -16,10 +16,10 @@ MonoBehaviour:
   weaponModel: {fileID: 0}
   meleeType: 1
   _weaponDamage: 3
-  _weaponHitRange: 1
+  _weaponHitRange: 1.17
   _weaponKnockback: 12
-  _weaponAttackDelay: 0.3
-  _swingCooldown: 0.7
+  _weaponAttackDelay: 0.35
+  _swingCooldown: 0.3
   attackable:
     serializedVersion: 2
     m_Bits: 384
