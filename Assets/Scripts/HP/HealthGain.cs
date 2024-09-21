@@ -11,16 +11,19 @@ public class HealthGain : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
             IDamageable recover = other.GetComponent<IDamageable>();
             recover.DamageReceived(-healthRecovered);
             if (playerHealth.currentPlayerHP >= playerHealth.playerConfigs.maxPlayerHP)
                 playerHealth.currentPlayerHP = playerHealth.playerConfigs.maxPlayerHP;
 
-            print("success");
+            //print("success");
             Destroy(gameObject);
 
-
         }
+    }
+
+    public void Heal()
+    {
+
     }
 }
