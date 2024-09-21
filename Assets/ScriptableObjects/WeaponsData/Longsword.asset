@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponModel: {fileID: 0}
   meleeType: 1
   _weaponDamage: 3
-  _weaponHitRange: 2
+  _weaponHitRange: 0.9
   _weaponKnockback: 12
   _weaponAttackDelay: 0.4
   _swingCooldown: 0.7

@@ -24,7 +24,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
     private CharacterController characterController; // Reference to the CharacterController component
-    public float bumpFactor;
     #endregion
 
     #region PLAYER SHOOTING:
