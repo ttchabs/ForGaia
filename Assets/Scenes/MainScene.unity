@@ -14300,7 +14300,7 @@ PrefabInstance:
     - target: {fileID: 6690995600501197041, guid: cb14dbccf5a93fe44a5312b51c85f8dd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d3fa841090b04114f8bc50d5e08221bb, type: 2}
+      objectReference: {fileID: 2100000, guid: b7be63aed61443f478e3bf8d3b33c6ab, type: 2}
     - target: {fileID: 8104710978153708205, guid: cb14dbccf5a93fe44a5312b51c85f8dd, type: 3}
       propertyPath: m_Name
       value: HealingGourd
