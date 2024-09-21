@@ -3,7 +3,12 @@ guid: 1a62379526941b944af78d87e40c2e95
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SunCrystal
+    second: {fileID: 2100000, guid: 73c896a89cabd4742995751d3a3661cd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
