@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
+  m_Name: Longsword
+  m_EditorClassIdentifier: 
+  _weaponName: Longsword
+  weaponModel: {fileID: 0}
+  meleeType: 1
+  _weaponDamage: 3
+  _weaponHitRange: 2
+  _weaponKnockback: 12
+  _weaponAttackDelay: 0.4
+  _swingCooldown: 0.7
+  attackable:
+    serializedVersion: 2
+    m_Bits: 384
+  overrideController: {fileID: 22100000, guid: e542f7ba04aec2f49b32d1fbe328a5d4, type: 2}
