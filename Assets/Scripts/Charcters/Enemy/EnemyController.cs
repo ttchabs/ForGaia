@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
 
+    private Rigidbody rb;
+
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
 
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody>(); 
     }
 
     void Update()
@@ -39,6 +42,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
             transform.rotation = lookDirection;
+            
         }
     }
 
@@ -46,9 +50,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (collision.collider.CompareTag("Player"))
         {
-            var playerHP = collision.collider.GetComponent<FirstPersonControls>();
+            var playerHP = collision.collider.GetComponent<FirstPersonControls>(); // finds the FPC script on the player tag game object
 
-            var player = collision.collider.GetComponent<IDamageable>();
+            var player = collision.collider.GetComponent<IDamageable>(); //
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
             player.DamageReceived(enemyConfigs.EnemyAttackDamage);
@@ -60,6 +64,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
+        EnemyKnocked();
         OnDamageReceived?.Invoke(damage);
 
         if (enemyCurrentHP < 0)
@@ -74,6 +79,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    
+    public void EnemyKnocked()
+    {
+        var weapon = player.gameObject.GetComponent<FirstPersonControls>();
+        Vector3 direct = player.forward * weapon.meleeAttacks.weaponConfigs.WeaponKnockback;
+        rb.AddForce(direct, ForceMode.Impulse);
+    }
 
 }

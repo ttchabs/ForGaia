@@ -151,8 +151,6 @@ GameObject:
   - component: {fileID: 5401000841558908748}
   - component: {fileID: 3478569977738346762}
   - component: {fileID: 206180991409123756}
-  - component: {fileID: 8269632262362516345}
-  - component: {fileID: 793828679869158311}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -226,65 +224,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!143 &8269632262362516345
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4146446605167729310}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &793828679869158311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4146446605167729310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de1a5298bd22cc4418e1658d511da269, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  lookSpeed: 0.5
-  gravity: -9.81
-  jumpHeight: 2
-  playerCamera: {fileID: 5052564620231000578}
-  bumpFactor: 5
-  projectilePrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e, type: 3}
-  firePoint: {fileID: 0}
-  projectileSpeed: 20
-  holdPosition: {fileID: 3785012355455918858}
-  heldObject: {fileID: 0}
-  pickUpRange: 3.5
-  crouchHeight: 1
-  standingHeight: 2
-  crouchSpeed: 1.5
-  meleeWeapon: {fileID: 0}
-  meleeAttacks: {fileID: 0}
-  meleeHoldPosition: {fileID: 4511958454508430565}
-  atkOrigin: {fileID: 3918164864925431946}
-  playerConfigs: {fileID: 11400000, guid: 5cbb4b0e4553b3448befb61c0d7b679b, type: 2}
-  currentPlayerHP: 0
 --- !u!1 &5311192800866129677
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +295,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4511958454508430565}
-  - component: {fileID: 5241595552901053622}
   m_Layer: 0
   m_Name: Melee Holding Postion
   m_TagString: Untagged
@@ -379,24 +317,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5052564620231000578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5241595552901053622
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8616660651765647059}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 65725d199b8e83243a79d23cc635c3ec, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

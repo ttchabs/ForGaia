@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Weapon Container")]
 public class WeaponScriptable : ScriptableObject
@@ -17,16 +16,18 @@ public class WeaponScriptable : ScriptableObject
     [Space(2)]
     [SerializeField] int _weaponDamage;
     [SerializeField] float _weaponHitRange;
+    [SerializeField] float _weaponKnockback;
     [SerializeField] float _weaponAttackDelay;
     [SerializeField] float _swingCooldown;
     public LayerMask attackable;
 
-    public IDamageable damaged;
+    //public AnimationClip attackableClip;
+    public AnimatorOverrideController overrideController;
 
     public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }
     public int WeaponDamage { get { return _weaponDamage; } set { _weaponDamage = value; } }
     public float WeaponHitRange { get { return _weaponHitRange; } set { _weaponHitRange = value; } }
-
+    public float WeaponKnockback { get => _weaponKnockback; set => _weaponKnockback = value; }
     public float WeaponAttackDelay { get { return _weaponAttackDelay; } set { _weaponAttackDelay = value; } }
     public float SwingCooldown { get { return _swingCooldown; } set { _swingCooldown = value; } }
 
@@ -42,7 +43,7 @@ public class WeaponScriptable : ScriptableObject
         Collider[] hitEntities = Physics.OverlapCapsule(weaponBottom.position, weaponTop.position, WeaponHitRange, attackable);
         foreach (Collider hitEnemy in hitEntities)
         {
-            damaged = hitEnemy.GetComponent<IDamageable>();
+            IDamageable damaged = hitEnemy.GetComponent<IDamageable>();
             if (damaged != null)
             {
                 damaged.DamageReceived(WeaponDamage);

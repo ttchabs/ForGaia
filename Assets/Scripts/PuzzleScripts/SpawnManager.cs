@@ -43,11 +43,11 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnGourd()
     {
-        if (matchCount > 7)
+        if (matchCount > 6)
         {
             GameObject gourd = Instantiate(healingGourd, gourdSpawn.position, gourdSpawn.rotation);
             gourd.name = healingGourd.name;
-            Debug.Log("Works");
+            
             return;
         }
     }

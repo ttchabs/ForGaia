@@ -7,8 +7,6 @@
  * Availability: 
  
  */
-using System.Numerics;
-
 public interface IDamageable
 {
     public delegate void DamageReceivedEvent(int damageAmount);
