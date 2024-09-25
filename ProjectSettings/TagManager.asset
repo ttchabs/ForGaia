@@ -13,6 +13,7 @@ TagManager:
   - Knife
   - Longsword
   - Enemy
+  - PowerUp
   layers:
   - Default
   - TransparentFX
