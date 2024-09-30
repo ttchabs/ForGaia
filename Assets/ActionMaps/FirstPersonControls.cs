@@ -207,26 +207,26 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             //checks what is currently in the player's melee hand and activates an animation based on the weapon type
             switch (meleeAttacks.weaponConfigs.meleeType)
             {
-                case MeleeWeaponType.Barefist:
+                case MeleeWeaponType.Barefist: //barefist swing - not too sure yet tho
                     Debug.Log("clawed");
                     break;
                 case MeleeWeaponType.Light:
-                    weaponAnimation.SetTrigger("LightWeaponAttack");
+                    weaponAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
                     //weaponAnimation.Play("LightWeaponAttack", 0, 0);
                     break;
                 case MeleeWeaponType.Medium:
-                    weaponAnimation.SetTrigger("MediumWeaponAttack");
+                    weaponAnimation.SetTrigger("MediumWeaponAttack"); //medium weapon swing
                     //weaponAnimation.Play("MediumWeaponAttack", 0, 0);
                     break;
 
                 case MeleeWeaponType.Heavy:
-                    weaponAnimation.SetTrigger("HeavyWeaponAttack");
+                    weaponAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
                     //weaponAnimation.Play("HeavyWeaponAttack", 0, 0);
                     break;
                 default:
                     break;
             }
-            StartCoroutine(meleeAttacks.CooldownCounter());
+            StartCoroutine(meleeAttacks.CooldownCounter()); //Initiate the cooldown for the swing
         }
     }
 

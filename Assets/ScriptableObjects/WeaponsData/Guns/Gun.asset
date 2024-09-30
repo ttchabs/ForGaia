@@ -17,13 +17,18 @@ MonoBehaviour:
   _gunModel: {fileID: 6088201072131792509, guid: cf57b6e2f248cde4e90553fe1db5197d, type: 3}
   _gunSprite: {fileID: 0}
   gunTypes: 1
-  _projectileSpeed: 20
-  _fireRate: 5
-  _magSize: 9
+  _projectileSpeed: 29.3
+  _fireRate: 2.33
+  _magSize: 2
+  _maxDistance: 0
+  _reloadSequence: {fileID: 0}
   _bulletDamage:
     minDamage: 20
     maxDamage: 11
   _bulletPrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e, type: 3}
-  _HitLayers:
+  hitLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 0
+  _explosiveDamage:
+    isExplosive: 0
+    range: 0

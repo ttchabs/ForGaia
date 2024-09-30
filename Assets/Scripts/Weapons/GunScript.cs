@@ -8,8 +8,8 @@ public class GunScript : MonoBehaviour
     public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
-    float lastShot = 0f;
-    public bool reloading = false;
+    float _lastShot = 0f;
+    bool _reloading = false;
 
     private void Awake()
     {
@@ -18,11 +18,11 @@ public class GunScript : MonoBehaviour
     }
     public void Update()
     {
-        if (reloading) return;
+        if (_reloading) return;
 
         if (currentMagAmount == 0)
         {
-            reloading = true;
+            _reloading = true;
             Invoke("ReloadGun", 3f);
             return;
         }
@@ -30,9 +30,9 @@ public class GunScript : MonoBehaviour
 
     public void GunTriggerPulled()
     {
-        if (Time.time > lastShot + gunConfigs.FireRate && currentMagAmount > 0 && reloading == false)
+        if (Time.time > _lastShot + gunConfigs.FireRate && currentMagAmount > 0 && _reloading == false)
         {
-            lastShot = Time.time;
+            _lastShot = Time.time;
             currentMagAmount--;
             switch (gunConfigs.gunTypes)
             {
@@ -40,7 +40,6 @@ public class GunScript : MonoBehaviour
                     gunConfigs.ProjectileShoot(firePoint);
                     break;
                 case GunTypes.HitScan:
-                    //gunConfigs.HitScanShoot(firePoint);
                     StartCoroutine(gunConfigs.HitScanShooter(firePoint));
                     break;
                 case GunTypes.Thrower:
@@ -57,9 +56,7 @@ public class GunScript : MonoBehaviour
 
     public void ReloadGun()
     {
-        reloading = true;        
         currentMagAmount = gunConfigs.MagSize;
-        currentMagAmount--;
-        reloading = false;  
+        _reloading = false;
     }
 }

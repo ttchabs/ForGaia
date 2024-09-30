@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 {
 
     [Header("STATS CONTROLS:")]
-    public EnemyScriptable enemyConfigs;
+    public EnemyScriptable enemyConfigs; //data container for enemy stats
     public int enemyCurrentHP;
 
     [Header("ENEMY TRANSFORMS:")]
@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             var playerHP = collision.collider.GetComponent<FirstPersonControls>(); // finds the FPC script on the player tag game object
 
-            var player = collision.collider.GetComponent<IDamageable>(); //
+            var player = collision.collider.GetComponent<IDamageable>(); //finds the IDamageable component on the player
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
             player.DamageReceived(enemyConfigs.EnemyAttackDamage);

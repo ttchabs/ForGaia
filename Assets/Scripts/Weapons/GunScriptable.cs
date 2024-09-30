@@ -19,18 +19,16 @@ public class GunScriptable : ScriptableObject
 
     [Header("GUN STATISTICS:")]
     [Space(4)]
-    [SerializeField] float _projectileSpeed;
-    [SerializeField] float _fireRate;
-    [SerializeField] int _magSize;
-    [SerializeField] float _maxDistance;
-    [SerializeField] AnimatorOverrideController _reloadSequence;
+    [SerializeField] float _projectileSpeed; //the rate at which the bullet travels
+    [SerializeField] float _fireRate; // the amount of time elapsed between each gunfire
+    [SerializeField] int _magSize; //the maximum number of bullets a gun can hold
+    [SerializeField] float _maxDistance; //The furhest distance the bullet is allowed to travel
+    [SerializeField] AnimatorOverrideController _reloadSequence; //The animation that plays when reloading a gun.
 
     [Header("BULLET STATISTICS:")]
     [SerializeField] WeaponDamage _bulletDamage; [Space(2)]
     [SerializeField] GameObject _bulletPrefab;
     public LayerMask hitLayers;
-    public ExplosiveDamage _explosiveDamage;
-
     
     public string GunName => _gunName;
     public string GunDescription => _gunDescription;
@@ -48,18 +46,18 @@ public class GunScriptable : ScriptableObject
     public void ProjectileShoot(Transform origin)
     {
         var fab = SpawnProjectile();
-        //var g = fab.GetComponent<BulletScript>();
-        //g.OnHit += BulletImpact;
+        var g = fab.GetComponent<BulletScript>();
+        g.OnHit += BulletImpact; //subscribes to the bullet onHit event so that when the event is called onCollision, the BulleImpact function is called
         fab.transform.position = origin.position;
 
         // Get the Rigidbody component of the projectile and set its velocity
         Rigidbody rb = fab.GetComponent<Rigidbody>();
-        rb.velocity = origin.forward * ProjectileSpeed;
+        rb.velocity = origin.forward * ProjectileSpeed + origin.up * ProjectileSpeed /10f;
     }
 
-    public IEnumerator HitScanShooter(Transform origin)
+    public IEnumerator HitScanShooter(Transform origin) //Uses a raycast to find an attackable enemy
     {
-        var fab = SpawnProjectile();
+        var fab = SpawnProjectile(); 
         fab.transform.position = origin.position;
 
         Ray bullet = new Ray(origin.position, origin.forward);
@@ -68,11 +66,12 @@ public class GunScriptable : ScriptableObject
         if (Physics.Raycast(bullet, out hitCollider, MaxDistance, hitLayers))
         {
             float displacement = Vector3.Distance(origin.position, hitCollider.point);
-            float timer = displacement / ProjectileSpeed;
+            Vector3 direction = (hitCollider.point - origin.position).normalized;
             float displacementOnHit = displacement;
             while (displacementOnHit > 0)
             {
-                fab.transform.position = Vector3.Lerp(origin.position, hitCollider.point, Mathf.Clamp01(1 - displacementOnHit / displacement));
+                Vector3 moveToHit = direction * ProjectileSpeed * Time.deltaTime;
+                fab.transform.Translate(moveToHit);
                 displacementOnHit -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
             }
@@ -81,28 +80,26 @@ public class GunScriptable : ScriptableObject
             {
                 damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
             }
-
             fab.transform.position = hitCollider.point;
-
-            yield return new WaitForSeconds(timer);
+            yield return null;
             Destroy(fab);
         }
         else
         {
+
             float missDisplacement = Vector3.Distance(origin.position, origin.forward * MaxDistance);
-            float travelTime = missDisplacement / ProjectileSpeed;
+            Vector3 direction = (origin.forward * MaxDistance - origin.position).normalized;
             float displacementOnMiss = missDisplacement;
-            while (missDisplacement < MaxDistance)
+            while (displacementOnMiss > 0)
             {
-                fab.transform.position += Vector3.Lerp(origin.position, origin.forward * MaxDistance, Mathf.Clamp01(1 - displacementOnMiss / missDisplacement));
+                Vector3 move = direction * missDisplacement * Time.deltaTime;
+                fab.transform.Translate(move);
                 displacementOnMiss -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
             }
-
-            yield return new WaitForSeconds(travelTime);
+            yield return null;
             Destroy(fab);
         }
-
     }
 
     public void ThrowerShoot(Transform origin)
@@ -110,12 +107,16 @@ public class GunScriptable : ScriptableObject
 
     }
 
-    public void BulletImpact(GameObject bullet, Collision collision)
+    public void BulletImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
     {
         IDamageable damage = collision.collider.GetComponent<IDamageable>();
         if (damage != null)
         {
             damage.DamageReceived(BulletDamage.GetRandomDamage());
+            Destroy(bullet.gameObject);
+        }
+        else
+        {
             Destroy(bullet.gameObject);
         }
     }
@@ -131,7 +132,6 @@ public class GunScriptable : ScriptableObject
             {
                 damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
             }
-
         }
         else
         {
@@ -139,7 +139,7 @@ public class GunScriptable : ScriptableObject
         }
     }
 
-    public GameObject SpawnProjectile()
+    public GameObject SpawnProjectile() //Spawns the projectile 
     {
         return Instantiate(BulletPrefab);
     }

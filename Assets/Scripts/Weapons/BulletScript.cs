@@ -10,6 +10,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnEnable()
     {
+        body = GetComponent<Rigidbody>();
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -18,8 +19,6 @@ public class BulletScript : MonoBehaviour
 
     private void OnDisable()
     {
-        body.velocity = Vector3.zero;
-        body.angularVelocity = Vector3.zero;
         OnHit = null;
     }
 }
