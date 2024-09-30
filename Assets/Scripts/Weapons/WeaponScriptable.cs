@@ -1,55 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Weapon Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Melee Container")]
 public class WeaponScriptable : ScriptableObject
 {
     [Header("WEAPON IDENTIFICATION:")]
     [Space(2)]
-    public string _weaponName;
-    public GameObject weaponModel;
+    [SerializeField] string _weaponName;
+    [TextArea(3, 3), SerializeField] string _weaponDescription;
+    [SerializeField] GameObject _weaponModelPrefab;
+    [SerializeField] Sprite _weaponSprite;
     public MeleeWeaponType meleeType;
 
     [Header("WEAPON STATISTICS:")]
     [Space(2)]
-    [SerializeField] int _weaponDamage;
-    [SerializeField] float _weaponHitRange;
-    [SerializeField] float _weaponKnockback;
-    [SerializeField] float _weaponAttackDelay;
+    [SerializeField] WeaponDamage _meleeDamage; [Space (3)]
+    [SerializeField] float _weaponStanceBreak;
+    [SerializeField] float _weaponWeight;
     [SerializeField] float _swingCooldown;
+    public AnimatorOverrideController uniqueAnimation;
     public LayerMask attackable;
 
-    //public AnimationClip attackableClip;
-    public AnimatorOverrideController overrideController;
+    public string WeaponName { get => _weaponName; } 
+    public string WeaponDescription { get => _weaponDescription; }
+    public GameObject WeaponModel { get => _weaponModelPrefab; }
+    public WeaponDamage MeleeDamageRange { get => _meleeDamage; }
+    public float WeaponWeight { get => _weaponWeight; }
+    public float WeaponStanceBreak { get => _weaponStanceBreak; }
 
-    public string WeaponName { get { return _weaponName; } set { _weaponName = value; } }
-    public int WeaponDamage { get { return _weaponDamage; } set { _weaponDamage = value; } }
-    public float WeaponHitRange { get { return _weaponHitRange; } set { _weaponHitRange = value; } }
-    public float WeaponKnockback { get => _weaponKnockback; set => _weaponKnockback = value; }
-    public float WeaponAttackDelay { get { return _weaponAttackDelay; } set { _weaponAttackDelay = value; } }
-    public float SwingCooldown { get { return _swingCooldown; } set { _swingCooldown = value; } }
+    public float SwingCooldown { get => _swingCooldown; }
 
-    public void Attacking(Transform weaponBottom, Transform weaponTop)
-    {
-        /*  REFERENCE FOR ATTACK() METHOD:
-            * Title: MEEE COMBAT In Unity
-            * Author: Brackeys
-            * Date: 24 August 2024
-            * Code Version: 2.0
-            * Availability: https://www.youtube.com/watch?v=sPiVz1k-fEs&list=PLmYpFgOST70FmSkspN5uvvl68cEjPI86x
-        */
-        Collider[] hitEntities = Physics.OverlapCapsule(weaponBottom.position, weaponTop.position, WeaponHitRange, attackable);
-        foreach (Collider hitEnemy in hitEntities)
-        {
-            IDamageable damaged = hitEnemy.GetComponent<IDamageable>();
-            if (damaged != null)
+    public void Attacking(Collider other)
+    {             
+        if (((1 << other.gameObject.layer) & attackable) != 0)
+        {            
+            IDamageable damaged = other?.GetComponent<IDamageable>();
+            int damage = MeleeDamageRange.GetRandomDamage();
+            damaged.DamageReceived(damage);
+/*            if (damaged != null)
             {
-                damaged.DamageReceived(WeaponDamage);
-            }
-            Debug.Log($"Weapon: {WeaponName}, DMG: {WeaponDamage} ");
+                int damage = MeleeDamageRange.GetRandomDamage();
+                damaged.DamageReceived(damage);
+            }*/
+            Debug.Log($"Weapon: {WeaponName}, DMG: {damage} ");
         }
     }
 
+    public void Attacks(Collider other)
+    {
+        if (((1 << other.gameObject.layer) & attackable) != 0)
+        {
+            IDamageable damaged = other?.GetComponent<IDamageable>();
+            int damage = MeleeDamageRange.GetRandomDamage();
+            damaged.DamageReceived(damage);
+
+            Debug.Log($"Weapon: {WeaponName}, DMG: {damage} ");
+        }
+    }
 }

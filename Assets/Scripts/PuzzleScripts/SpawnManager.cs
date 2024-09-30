@@ -1,34 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnManager : MonoBehaviour
 {
     [Header("Stones Controls")]
     public List <GameObject> stoneToSpawn;
 
-    [Header("Spawn Controls")]
-    //public List <Transform> spawnPoints;
-
     [Header("Special Item Controls")]
     public GameObject healingGourd;
     public Transform gourdSpawn;
 
-    public int matchCount;
-    public int mismatchCount;
+    public int matchCount = 0;
+    public int mismatchCount = 0;
+    public int maximumMismatchCount;
+    public string SceneToLoad;
 
     public void SpawnStone()
     {
-        if (stoneToSpawn.Count != 0 ) //&& spawnPoints.Count != 0)
+        if (stoneToSpawn.Count != 0 )
         {
-/*            GameObject stone = Instantiate(stoneToSpawn[0], spawnPoints[0].position, spawnPoints[0].rotation);
-            stone.name = stoneToSpawn[0].name;*/
-
             stoneToSpawn[0].SetActive(true);
 
             matchCount++;
             stoneToSpawn.RemoveAt(0);
-            //spawnPoints.RemoveAt(0);
         }
         else
         {
@@ -39,6 +35,10 @@ public class SpawnManager : MonoBehaviour
     public void MismatchCube()
     {
         mismatchCount++;
+        if (mismatchCount > maximumMismatchCount -1 )
+        {
+            SceneManager.LoadSceneAsync(SceneToLoad);
+        }
     }
 
     public void SpawnGourd()
@@ -46,8 +46,7 @@ public class SpawnManager : MonoBehaviour
         if (matchCount > 6)
         {
             GameObject gourd = Instantiate(healingGourd, gourdSpawn.position, gourdSpawn.rotation);
-            gourd.name = healingGourd.name;
-            
+            gourd.name = healingGourd.name;         
             return;
         }
     }

@@ -6,13 +6,12 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour, IDamageable
 {
 
-    [Header("HEALTH CONTROLS:")]
+    [Header("STATS CONTROLS:")]
     public EnemyScriptable enemyConfigs;
     public int enemyCurrentHP;
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
-
     private Rigidbody rb;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
@@ -22,7 +21,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -64,11 +63,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
-        EnemyKnocked();
         OnDamageReceived?.Invoke(damage);
-
+        BreakStance();
         if (enemyCurrentHP < 0)
             EnemyDeath();
+    }
+
+    public void BreakStance()
+    {
+        Vector3 direction = player.position - transform.position;
+        direction.Normalize();
+        rb.AddForce(direction * -4, ForceMode.Impulse);
+        
     }
 
     public void EnemyDeath()
@@ -79,11 +85,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
-    public void EnemyKnocked()
-    {
-        var weapon = player.gameObject.GetComponent<FirstPersonControls>();
-        Vector3 direct = player.forward * weapon.meleeAttacks.weaponConfigs.WeaponKnockback;
-        rb.AddForce(direct, ForceMode.Impulse);
-    }
 
+
+    public void OnDisable()
+    {
+        OnDamageReceived = null;
+        rb = null;
+    }
 }

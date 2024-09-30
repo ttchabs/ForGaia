@@ -20,11 +20,8 @@ public class PuzzleSolve : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-
         if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
-        {
-            
+        {          
             Renderer _pieceRenderer = other.GetComponent<Renderer>();
             _pieceColour = _pieceRenderer.material.color;
 
@@ -46,9 +43,10 @@ public class PuzzleSolve : MonoBehaviour
                     _collider.enabled = false;
                 }
             }
-            else
+            else if (_pieceColour != _slotColor)
             {
-                return;
+                spawnManager.MismatchCube();
+                Debug.Log("WrongCube");
             }
         }
     }

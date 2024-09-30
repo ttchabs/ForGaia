@@ -7,7 +7,8 @@ public class EnemyScriptable : ScriptableObject
 {
     [Header("ENEMY IDENTIFICATION:")]
     [Space(2)]
-    public string enemyName;
+    [SerializeField] string _enemyName;
+    [SerializeField, TextArea(2,3)] string _enemyDescription;
     public GameObject enemyModelPrefab;
     public EnemyTypes enemyType;
 
@@ -18,9 +19,12 @@ public class EnemyScriptable : ScriptableObject
     [SerializeField] float _enemyMoveSpeed;
     [SerializeField] float _attackRate;
 
-    public int MaxEnemyHP { get => _maxEnemyHP; set => _maxEnemyHP = value; }
-    public int EnemyAttackDamage { get => _enemyAttackDamage; set => _enemyAttackDamage = value; }
-    public float EnemyKnockbackFactor { get => _enemyAttackDamage; set => _enemyKnockbackFactor = value; }
-    public float EnemyMoveSpeed { get => _enemyMoveSpeed; set => _enemyMoveSpeed = value; }
-    public float AttackRate { get => _attackRate; set => _attackRate = value; }
+    public string ENemyName => _enemyName;
+    public string ENemyDescription => _enemyDescription;
+    public int MaxEnemyHP { get => _maxEnemyHP; }
+    public int EnemyAttackDamage { get => _enemyAttackDamage; }
+    public float EnemyKnockbackFactor { get => _enemyKnockbackFactor; }
+    public float EnemyMoveSpeed { get => _enemyMoveSpeed;  }
+    public float AttackRate { get => _attackRate; }
+
 }

@@ -1,9 +1,9 @@
 public enum MeleeWeaponType
 {
     Barefist,
-    Sword,
-    Knife,
-    Longsword
+    Light,
+    Medium,
+    Heavy
 }
 
 public enum EnemyTypes
@@ -11,6 +11,13 @@ public enum EnemyTypes
     Jump,
     Walk,
     Shoot
+}
+
+public enum GunTypes
+{
+    HitScan,
+    Projectile,
+    Thrower,
 }
 
 

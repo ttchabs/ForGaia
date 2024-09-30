@@ -7,22 +7,24 @@ using UnityEngine;
 public class WeaponScript : MonoBehaviour
 {    
     public WeaponScriptable weaponConfigs;
-    public Transform weaponBottom, weaponTop;
+    public Collider hitBox;
+    public bool cooldown = false;
 
-    public void Attack()
+
+    public void Awake()
     {
-        weaponConfigs.Attacking(weaponBottom, weaponTop);
+        hitBox.isTrigger = true;
+        hitBox.enabled = false;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        weaponConfigs.Attacking(other);
     }
 
-    public void OnDrawGizmos()
+    public IEnumerator CooldownCounter()
     {
-        //displays the radius of the capsule
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(weaponBottom.position, weaponConfigs.WeaponHitRange);
-        Gizmos.DrawWireSphere(weaponTop.position, weaponConfigs.WeaponHitRange);
-
-        //displays the height of the capsule
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(weaponTop.position, weaponBottom.position);
+        cooldown = true;
+        yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
+        cooldown = false; 
     }
 }

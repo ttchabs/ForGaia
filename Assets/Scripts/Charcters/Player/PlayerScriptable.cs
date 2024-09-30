@@ -5,14 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItem", menuName = "Player/Player Container")]
 public class PlayerScriptable : ScriptableObject
 {
-    public int maxPlayerHP = 5;
+    [Header("PLAYER IDENTIFICATION:")]
+    [Space (5)]
+    [SerializeField] string _playerName;
+    [SerializeField] string _epithet;
 
-    public void GainHP(FirstPersonControls playerHP, int recover)
-    {
-        playerHP.currentPlayerHP += recover;
-        if (playerHP.currentPlayerHP > maxPlayerHP)
-            playerHP.currentPlayerHP = maxPlayerHP;
-    }
+    [Header("PLAYER STATISTICS:")]
+    [Space (5)]
+    [SerializeField] int _maxPlayerHP;
+    [SerializeField] float _maxWeaponWeight;
+    
+    public int MaxPlayerHP { get => _maxPlayerHP; }
+    public float MaxWeaponWeight { get => _maxWeaponWeight; }
+
     public void PlayerDeath()
     {
         Debug.Log("Player is dead");
