@@ -18,16 +18,19 @@ public class GunScript : MonoBehaviour
     }
     public void Update()
     {
-        if (currentMagAmount <= 0)
+        if (reloading) return;
+
+        if (currentMagAmount == 0)
         {
             reloading = true;
-            Invoke("Reload", 3f);
+            Invoke("ReloadGun", 3f);
+            return;
         }
     }
 
     public void GunTriggerPulled()
     {
-        if (Time.time > lastShot + gunConfigs.FireRate && reloading == false)
+        if (Time.time > lastShot + gunConfigs.FireRate && currentMagAmount > 0 && reloading == false)
         {
             lastShot = Time.time;
             currentMagAmount--;
@@ -48,19 +51,15 @@ public class GunScript : MonoBehaviour
         else
         {
             return;
-        }       
+        }
     }
 
-    public void ShootForce()
-    {
-        gunConfigs.ProjectileShoot(firePoint);
-    }
 
-    public void Reload()
+    public void ReloadGun()
     {
-        //reloading = false;
+        reloading = true;        
         currentMagAmount = gunConfigs.MagSize;
-        reloading = false;
-
+        currentMagAmount--;
+        reloading = false;  
     }
 }

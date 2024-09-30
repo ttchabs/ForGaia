@@ -34,7 +34,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
     public GunScript gunFire; //The script attached to the gun in hand
-    public bool _readyToShoot = true;
+    private bool holdingGun = false;
     #endregion
 
     #region PLAYEY PICKUP ITEMS:
@@ -43,7 +43,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Transform holdPosition; // Position where the picked-up object will be held
     [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
-    private bool holdingGun = false;
+
     #endregion
 
     #region PLAYER CROUCH:
@@ -192,7 +192,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
-        if (holdingGun == true && _readyToShoot == true ) 
+        if (holdingGun == true) 
         {
             gunFire.GunTriggerPulled();
         }
@@ -226,7 +226,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 default:
                     break;
             }
-            //StartCoroutine(Attacks(meleeAttacks.weaponConfigs.SwingCooldown));
             StartCoroutine(meleeAttacks.CooldownCounter());
         }
     }
@@ -277,6 +276,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (heldObject != null)
         {
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
+            heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
             holdingGun = false;
         }
@@ -309,6 +309,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject = hit.collider.gameObject;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
                 gunFire = heldObject.GetComponent<GunScript>();
+                heldObject.GetComponent<Collider>().enabled = false;
 
                 // Attach the object to the hold position
                 heldObject.transform.position = holdPosition.position;
@@ -337,18 +338,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             characterController.height = crouchHeight;
             _isCrouching = true;
         }
-    }
-
-    //Cooldown clock for the melee attacks
-    public IEnumerator Attacks(float cd)
-    {
-        if (!_cooldownOver)
-        {
-            yield return new WaitForSeconds(cd);
-            _cooldownOver = true;
-            yield break;
-        }
-
     }
 
     //Knockback taken when a enemy hits the player

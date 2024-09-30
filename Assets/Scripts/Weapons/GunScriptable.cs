@@ -23,14 +23,14 @@ public class GunScriptable : ScriptableObject
     [SerializeField] float _fireRate;
     [SerializeField] int _magSize;
     [SerializeField] float _maxDistance;
-
+    [SerializeField] AnimatorOverrideController _reloadSequence;
 
     [Header("BULLET STATISTICS:")]
     [SerializeField] WeaponDamage _bulletDamage; [Space(2)]
     [SerializeField] GameObject _bulletPrefab;
     public LayerMask hitLayers;
-    public List<GameObject> _pool;
     public ExplosiveDamage _explosiveDamage;
+
     
     public string GunName => _gunName;
     public string GunDescription => _gunDescription;

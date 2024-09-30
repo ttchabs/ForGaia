@@ -18,4 +18,11 @@ public class PlayerActions : MonoBehaviour
         playerControls.meleeAttacks.hitBox.enabled = false;
     }
     #endregion
+
+    #region GUN ASPECTS
+    public void ReloadWeapon()
+    {
+        playerControls.gunFire.ReloadGun();  
+    }
+    #endregion
 }

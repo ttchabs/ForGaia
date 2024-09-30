@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: LeafDagger
   m_EditorClassIdentifier: 
   _weaponName: Leaf Dagger
-  _weaponModel: {fileID: 8041691106590512118, guid: 77ce521cb2e215b4a827b4ce24f26ec6, type: 3}
+  _weaponDescription: 
+  _weaponModelPrefab: {fileID: 8041691106590512118, guid: 77ce521cb2e215b4a827b4ce24f26ec6, type: 3}
   _weaponSprite: {fileID: 0}
   meleeType: 1
-  _meleeDamageRange:
-    minDamage: 2
-    maxDamage: 3
-  _weaponKnockback: 2.46
+  _meleeDamage:
+    minDamage: 0
+    maxDamage: 0
+  _weaponStanceBreak: 0
   _weaponWeight: 0.71
   _swingCooldown: 0.2
   uniqueAnimation: {fileID: 22100000, guid: 2c870ef43229a3d429e608d43967095c, type: 2}

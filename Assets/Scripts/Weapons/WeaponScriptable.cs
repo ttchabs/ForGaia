@@ -11,21 +11,22 @@ public class WeaponScriptable : ScriptableObject
 {
     [Header("WEAPON IDENTIFICATION:")]
     [Space(2)]
-    [SerializeField] string _weaponName;
-    [TextArea(3, 3), SerializeField] string _weaponDescription;
-    [SerializeField] GameObject _weaponModelPrefab;
-    [SerializeField] Sprite _weaponSprite;
-    public MeleeWeaponType meleeType;
+    [SerializeField] string _weaponName; //Name of the weapon
+    [TextArea(3, 3), SerializeField] string _weaponDescription; //lore behind the weapon
+    [SerializeField] GameObject _weaponModelPrefab; //Prefab of the weapon for instantiation
+    [SerializeField] Sprite _weaponSprite; //2d image of the weapon for the UI aspect
+    public MeleeWeaponType meleeType; //weapon category
 
     [Header("WEAPON STATISTICS:")]
     [Space(2)]
-    [SerializeField] WeaponDamage _meleeDamage; [Space (3)]
-    [SerializeField] float _weaponStanceBreak;
-    [SerializeField] float _weaponWeight;
-    [SerializeField] float _swingCooldown;
-    public AnimatorOverrideController uniqueAnimation;
-    public LayerMask attackable;
+    [SerializeField] WeaponDamage _meleeDamage; [Space (3)] //random range of damage dealt
+    [SerializeField] float _weaponStanceBreak; //the time in which the enemy will be stunned for
+    [SerializeField] float _weaponWeight; //the heaviness of the weapon. slows you down as you walk
+    [SerializeField] float _swingCooldown; //the amount of time that needs to elapse betfore next swing
+    public AnimatorOverrideController uniqueAnimation; //the animation called when this weapon is swung
+    public LayerMask attackable; //the layers which the weapon hitBox can interact with
 
+    //these make the variables above accessible to other scripts. reference these when necessary.
     public string WeaponName { get => _weaponName; } 
     public string WeaponDescription { get => _weaponDescription; }
     public GameObject WeaponModel { get => _weaponModelPrefab; }
@@ -35,31 +36,24 @@ public class WeaponScriptable : ScriptableObject
 
     public float SwingCooldown { get => _swingCooldown; }
 
-    public void Attacking(Collider other)
+    public void Attacking(Collider other) //Attacking function. called in the WeaponScript.
     {             
-        if (((1 << other.gameObject.layer) & attackable) != 0)
+        if (((1 << other.gameObject.layer) & attackable) != 0) //checks what layers are being attacked
         {            
             IDamageable damaged = other?.GetComponent<IDamageable>();
             int damage = MeleeDamageRange.GetRandomDamage();
             damaged.DamageReceived(damage);
-/*            if (damaged != null)
-            {
-                int damage = MeleeDamageRange.GetRandomDamage();
-                damaged.DamageReceived(damage);
-            }*/
             Debug.Log($"Weapon: {WeaponName}, DMG: {damage} ");
         }
     }
 
     public void Attacks(Collider other)
     {
-        if (((1 << other.gameObject.layer) & attackable) != 0)
+        if (other.TryGetComponent(out IDamageable sliced))
         {
-            IDamageable damaged = other?.GetComponent<IDamageable>();
             int damage = MeleeDamageRange.GetRandomDamage();
-            damaged.DamageReceived(damage);
-
-            Debug.Log($"Weapon: {WeaponName}, DMG: {damage} ");
+            sliced.DamageReceived(damage);
+            Debug.Log($"Weapon Name: {WeaponName}, DMG Dealt: {damage} ");
         }
     }
 }
