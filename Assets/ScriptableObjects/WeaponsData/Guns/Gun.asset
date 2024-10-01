@@ -23,12 +23,9 @@ MonoBehaviour:
   _maxDistance: 0
   _reloadSequence: {fileID: 0}
   _bulletDamage:
-    minDamage: 20
-    maxDamage: 11
+    minDamage: 5
+    maxDamage: 8
   _bulletPrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e, type: 3}
   hitLayers:
     serializedVersion: 2
     m_Bits: 0
-  _explosiveDamage:
-    isExplosive: 0
-    range: 0
