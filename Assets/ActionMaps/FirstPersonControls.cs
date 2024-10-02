@@ -4,7 +4,7 @@ using System.Diagnostics.Tracing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
@@ -45,6 +45,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float pickUpRange = 3f; // Range within which objects can be picked up
 
     #endregion
+    
+    
 
     #region PLAYER CROUCH:
     [Header("CROUCH SETTINGS")] [Space(5)] 
@@ -72,6 +74,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
 
+    #region UI
+    [Header("UI SETTINGS")]
+    public TextMeshProUGUI pickUpText;
+    public Image healthBar;
+    public float damageAmount = 0.25f; // Reduce the health bar by this amount
+    private float healAmount = 0.5f;// Fill the health bar by this amount
+    #endregion
+    
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
