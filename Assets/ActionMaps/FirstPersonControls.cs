@@ -218,7 +218,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     weaponAnimation.SetTrigger("MediumWeaponAttack"); //medium weapon swing
                     //weaponAnimation.Play("MediumWeaponAttack", 0, 0);
                     break;
-
                 case MeleeWeaponType.Heavy:
                     weaponAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
                     //weaponAnimation.Play("HeavyWeaponAttack", 0, 0);
