@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SapSlinger
   m_EditorClassIdentifier: 
   _gunName: Sap Slinger
-  _gunDescription: 
-  _gunModel: {fileID: 0}
+  _gunDescription: Felix created this gun out of all sorts of scrapped materials
+    and objects, yet despite this it can deal a nasty punch.
+  _gunModel: {fileID: 383414822537077855, guid: a55729c04ebe92b4686637fb537f8e43, type: 3}
   _gunSprite: {fileID: 0}
   gunTypes: 0
   _projectileSpeed: 90
