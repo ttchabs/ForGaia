@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManger : MonoBehaviour
 {
@@ -38,5 +39,15 @@ public class UIManger : MonoBehaviour
         {
             UIelement.SetActive(true);
         }
+    }
+
+    public void Loadscene(string MainScene)
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void OnApplicationQuit()
+    {
+        Application.Quit();
     }
 }
