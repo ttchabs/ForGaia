@@ -14,7 +14,7 @@ public class PuzzleSolve : MonoBehaviour
     {
         spawnManager = FindObjectOfType<SpawnManager>();
 
-        Renderer slotRenderer = GetComponentInChildren<Renderer>();
+        Renderer slotRenderer = GetComponent<Renderer>();
         _slotColor = slotRenderer.material.color;
     }
 
