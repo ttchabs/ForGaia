@@ -7,23 +7,23 @@ public class PuzzleSolve : MonoBehaviour
 {
     public SpawnManager spawnManager;
 
-    private Color _slotColor;
-    private Color _pieceColour;
+    private Material _slotColor;
+    private Material _pieceColour;
 
     private void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
 
-        Renderer slotRenderer = GetComponent<Renderer>();
-        _slotColor = slotRenderer.material.color;
+        Material slotRenderer = GetComponent<Material>();
+        _slotColor = slotRenderer;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
         {          
-            Renderer _pieceRenderer = other.GetComponent<Renderer>();
-            _pieceColour = _pieceRenderer.material.color;
+            Material _pieceRenderer = other.GetComponent<Material>();
+            _pieceColour = _pieceRenderer;
 
             Collider _collider = gameObject.GetComponent<Collider>();
 
@@ -37,7 +37,7 @@ public class PuzzleSolve : MonoBehaviour
                 spawnManager.SpawnStone();
                 _collider.enabled = false;
 
-                if (_pieceColour == Color.white && _slotColor == Color.white) 
+                if (spawnManager.matchCount > 6) 
                 {
                     spawnManager.SpawnGourd();
                     _collider.enabled = false;

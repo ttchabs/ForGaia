@@ -17,6 +17,13 @@ public class SpawnManager : MonoBehaviour
     public int maximumMismatchCount;
     public string SceneToLoad;
 
+    private void Start()
+    {
+        foreach (GameObject stone in stoneToSpawn)
+        {
+            stone.SetActive(false);
+        }
+    }
     public void SpawnStone()
     {
         if (stoneToSpawn.Count != 0 )
@@ -43,11 +50,8 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnGourd()
     {
-        if (matchCount > 6)
-        {
             GameObject gourd = Instantiate(healingGourd, gourdSpawn.position, gourdSpawn.rotation);
             gourd.name = healingGourd.name;         
             return;
-        }
     }
 }
