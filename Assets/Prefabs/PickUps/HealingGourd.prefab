@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1465133815617852713}
   m_Layer: 0
   m_Name: HealingGourd
-  m_TagString: SorterPuzzleStone
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +182,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e889d89da7fadb945beff53edaa103b5, type: 2}
+  - {fileID: 2100000, guid: b7be63aed61443f478e3bf8d3b33c6ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

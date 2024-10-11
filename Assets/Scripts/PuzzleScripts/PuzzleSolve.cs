@@ -7,31 +7,28 @@ public class PuzzleSolve : MonoBehaviour
 {
     public SpawnManager spawnManager;
 
-    public Material _slotColor;
-    public Material _pieceColour;
+    public int stoneID;
+    public int tileNumber;
 
     private void Start()
     {
         spawnManager = FindObjectOfType<SpawnManager>();
-
-        Renderer slotRenderer = GetComponent<Renderer>();
-        _slotColor = slotRenderer.material;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
         {          
-            Renderer _pieceRenderer = other.GetComponentInChildren<Renderer>();
-            _pieceColour = _pieceRenderer.material;
 
             Collider _collider = gameObject.GetComponent<Collider>();
+            StoneIdentity idNumber = other.GetComponent<StoneIdentity>();
+            stoneID = idNumber.stoneNumber;
 
             other.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.SetParent(transform);
             other.transform.localPosition = new Vector3(0, 0.12f, 0);
 
-            if (_pieceColour == _slotColor)
+            if (tileNumber == stoneID)
             {
                 spawnManager.SpawnStone();
                 _collider.enabled = false;
