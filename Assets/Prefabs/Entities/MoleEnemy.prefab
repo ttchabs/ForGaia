@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3964371643396770508}
   - component: {fileID: 5096565523497688201}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: MoleEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
