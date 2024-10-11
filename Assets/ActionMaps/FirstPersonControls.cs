@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -69,7 +70,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region PLAYER HEALTH:
     [Header("HEALTH:")]
     [Space(5)]
-    public int currentPlayerHP;//current hp of the player
+    public float currentPlayerHP;//current hp of the player
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
@@ -80,6 +81,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Image healthBar;
     public float damageAmount = 0.25f; // Reduce the health bar by this amount
     private float healAmount = 0.5f;// Fill the health bar by this amount
+    public GameObject healthGrub; //image in the UI
+    public Image healthGrubSprite;
+    public Sprite healReference; // Image in Inspector
+    public Image Gun;
+    public Image Sword;
+    
     #endregion
     
     private void Awake()
@@ -349,6 +356,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PowerUp"))
+        {
+           healthGrub.SetActive(true);
+        }
+    }
+
     //Knockback taken when a enemy hits the player
     public IEnumerator KnockedBack(Vector3 direction)
     {
@@ -360,13 +375,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     }
 
     //The function that is called whenever the player is hit by an enemy
-    public void DamageReceived(int damageAmount)
+    public void DamageReceived(float damageAmount)
     {
         currentPlayerHP -= damageAmount;
+        healthBar.fillAmount -= damageAmount;
         OnDamageReceived?.Invoke(damageAmount);
 
         if (currentPlayerHP <= 0)
             playerConfigs.PlayerDeath();
     }
+
+    
 
 }

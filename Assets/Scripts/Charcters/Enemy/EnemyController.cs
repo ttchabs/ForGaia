@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("STATS CONTROLS:")]
     public EnemyScriptable enemyConfigs; //data container for enemy stats
-    public int enemyCurrentHP;
+    public float enemyCurrentHP;
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
 
 
-    public void DamageReceived(int damage)
+    public void DamageReceived(float damage)
     {
         enemyCurrentHP -= damage;
         OnDamageReceived?.Invoke(damage);

@@ -12,10 +12,10 @@ public class PlayerScriptable : ScriptableObject
 
     [Header("PLAYER STATISTICS:")]
     [Space (5)]
-    [SerializeField] int _maxPlayerHP;
+    [SerializeField] float _maxPlayerHP;
     [SerializeField] float _maxWeaponWeight;
     
-    public int MaxPlayerHP { get => _maxPlayerHP; }
+    public float MaxPlayerHP { get => _maxPlayerHP; }
     public float MaxWeaponWeight { get => _maxWeaponWeight; }
 
     public void PlayerDeath()

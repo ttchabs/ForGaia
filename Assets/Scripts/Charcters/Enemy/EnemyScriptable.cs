@@ -13,16 +13,16 @@ public class EnemyScriptable : ScriptableObject
     public EnemyTypes enemyType;
 
     [Header("ENEMY STATISTICS:")]
-    [SerializeField] int _maxEnemyHP;
-    [SerializeField] int _enemyAttackDamage;
+    [SerializeField] float _maxEnemyHP;
+    [SerializeField] float _enemyAttackDamage;
     [SerializeField] float _enemyKnockbackFactor;
     [SerializeField] float _enemyMoveSpeed;
     [SerializeField] float _attackRate;
 
     public string ENemyName => _enemyName;
     public string ENemyDescription => _enemyDescription;
-    public int MaxEnemyHP { get => _maxEnemyHP; }
-    public int EnemyAttackDamage { get => _enemyAttackDamage; }
+    public float MaxEnemyHP { get => _maxEnemyHP; }
+    public float EnemyAttackDamage { get => _enemyAttackDamage; }
     public float EnemyKnockbackFactor { get => _enemyKnockbackFactor; }
     public float EnemyMoveSpeed { get => _enemyMoveSpeed;  }
     public float AttackRate { get => _attackRate; }

@@ -9,7 +9,7 @@
  */
 public interface IDamageable
 {
-    public delegate void DamageReceivedEvent(int damageAmount);
+    public delegate void DamageReceivedEvent(float damageAmount);
     public event DamageReceivedEvent OnDamageReceived;
-    void DamageReceived(int damageAmount);
+    void DamageReceived(float damageAmount);
 }
