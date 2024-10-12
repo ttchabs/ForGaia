@@ -181,7 +181,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
-        animator.SetFloat("Speed", currentSpeed);
+        //animator.SetFloat("Speed", currentSpeed);
         
     }
 
@@ -399,7 +399,4 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (currentPlayerHP <= 0)
             playerConfigs.PlayerDeath();
     }
-
-    
-
 }
