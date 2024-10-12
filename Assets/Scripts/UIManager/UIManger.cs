@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class UIManger : MonoBehaviour
 {
     public Camera mainCamera; // Reference to the camera (assign in the Inspector)
-    public float rotationSpeed = 1f; // Speed at which the camera rotates
+    public float rotationSpeed = 5f; // Speed at which the camera rotates
     private bool isRotating = false; // Track if the camera is currently rotating
     public GameObject[] UIElements;
     public GameObject initialButton;
@@ -15,13 +15,14 @@ public class UIManger : MonoBehaviour
     {
         if (!isRotating) // Prevent triggering multiple rotations simultaneously
         {
-            StartCoroutine(RotateCameraCoroutine(90f));
+            StartCoroutine(RotateCameraCoroutine(10f));
         }
     }
 // Coroutine to smoothly rotate the camera
     private IEnumerator RotateCameraCoroutine(float angle)
     {
         isRotating = true;
+        initialButton.SetActive(false);
         Quaternion startRotation = mainCamera.transform.rotation; // Initialrotation
         Quaternion endRotation = startRotation * Quaternion.Euler(0, -angle, 0); //Target rotation
         float rotationProgress = 0f;
@@ -34,7 +35,6 @@ public class UIManger : MonoBehaviour
         }
         mainCamera.transform.rotation = endRotation; // Ensure exact final rotation
         isRotating = false;
-        initialButton.SetActive(false);
         foreach (GameObject UIelement in UIElements)
         {
             UIelement.SetActive(true);

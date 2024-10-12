@@ -88,6 +88,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Image Sword;
     
     #endregion
+
+    #region ANIMATION
+
+    [Header("ANIMATION SETTINGS")] [Space(5)]
+    public Animator animator;
+
+    #endregion
     
     private void Awake()
     {
@@ -153,7 +160,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         move = transform.TransformDirection(move);
 
         float currentSpeed;
-        if (_isCrouching)
+
+        if (moveInput.x ==0 && moveInput.y ==0)
+        {
+            currentSpeed = 0;
+        }
+        else if (_isCrouching)
         {
             currentSpeed = crouchSpeed;
         }
@@ -166,8 +178,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             currentSpeed = moveSpeed;
         }
+        
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
+        animator.SetFloat("Speed", currentSpeed);
+        
     }
 
     public void LookAround()
@@ -232,7 +247,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     //weaponAnimation.Play("LightWeaponAttack", 0, 0);
                     break;
                 case MeleeWeaponType.Medium:
-                    weaponAnimation.SetTrigger("MediumWeaponAttack"); //medium weapon swing
+                    animator.SetTrigger("MediumWeaponAttack"); //medium weapon swing
                     //weaponAnimation.Play("MediumWeaponAttack", 0, 0);
                     break;
                 case MeleeWeaponType.Heavy:
