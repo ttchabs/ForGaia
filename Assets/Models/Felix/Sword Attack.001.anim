@@ -1546,9 +1546,18 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.5
-        value: {x: 156.424, y: 62.386, z: 0.0010070801}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        value: {x: 185.692, y: 62.386, z: 0.0010070801}
+        inSlope: {x: 0, y: 0, z: 0.000113280505}
+        outSlope: {x: 0, y: 0, z: 0.000113280505}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.5833333
+        value: {x: 182.125, y: 59.835, z: 2.0180054}
+        inSlope: {x: -114.14404, y: -34.48004, z: 0}
+        outSlope: {x: -114.14404, y: -34.48004, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -1556,8 +1565,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.625
         value: {x: 123.77899, y: 58.075996, z: 0.0010070801}
-        inSlope: {x: -112.582, y: 0, z: 0}
-        outSlope: {x: -112.582, y: 0, z: 0}
+        inSlope: {x: -196.7808, y: 0, z: 0}
+        outSlope: {x: -196.7808, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -18168,7 +18177,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: 156.424
+        value: 185.692
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -18176,10 +18185,19 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.5833333
+        value: 182.125
+        inSlope: -114.14404
+        outSlope: -114.14404
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 0.625
         value: 123.77899
-        inSlope: -112.582
-        outSlope: -112.582
+        inSlope: -196.7808
+        outSlope: -196.7808
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -18246,6 +18264,15 @@ AnimationClip:
         value: 62.386
         inSlope: 0
         outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5833333
+        value: 59.835
+        inSlope: -34.48004
+        outSlope: -34.48004
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -18319,6 +18346,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.5
         value: 0.0010070801
+        inSlope: 0.000113280505
+        outSlope: 0.000113280505
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5833333
+        value: 2.0180054
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -23358,4 +23394,18 @@ AnimationClip:
     flags: 0
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.33333334
+    functionName: StartMeleeAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5416667
+    functionName: EndMeleeAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
