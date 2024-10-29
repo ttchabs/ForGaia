@@ -9,10 +9,13 @@ using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
+
     [Header("INITIALIZATIONS")]
     [Space(5)]
     public GameObject playerModel;//The 3D imported model of the player
     public PlayerScriptable playerConfigs;//The data container for the player 
+
+
 
     #region PLAYER MOVEMENT:
     [Header("MOVEMENT SETTINGS")]
@@ -46,11 +49,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float pickUpRange = 3f; // Range within which objects can be picked up
 
     #endregion
-    
-    
+
+
 
     #region PLAYER CROUCH:
-    [Header("CROUCH SETTINGS")] [Space(5)] 
+    [Header("CROUCH SETTINGS")][Space(5)]
     public float crouchHeight = 1f; // Height of the player when crouching
     public float standingHeight = 2f; // Height of te player when standing
     public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
@@ -58,7 +61,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #endregion
 
     #region PLAYER MELEE ATTACKING:
-    [Header("MELEE SETTINGS")] [Space(5)]
+    [Header("MELEE SETTINGS")][Space(5)]
     public GameObject meleeWeapon;//weapon model in hand 
     public WeaponScript meleeAttacks;//script attached to the weapon
     public Transform meleeHoldPosition;//location in which the weapon will go to 
@@ -73,6 +76,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float currentPlayerHP;//current hp of the player
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
+
     #endregion
 
     #region UI
@@ -86,16 +90,22 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Sprite healReference; // Image in Inspector
     public Image Gun;
     public Image Sword;
-    
+    public TextMeshProUGUI healthGrubNum; //the amount of healthgrubs in possesion
+    public int grubCount = 0;
+
     #endregion
 
     #region ANIMATION
 
-    [Header("ANIMATION SETTINGS")] [Space(5)]
+    [Header("ANIMATION SETTINGS")][Space(5)]
     public Animator animator;
 
     #endregion
-    
+
+    #region USEHEALTHGRUB
+    [Header("UseHealthGrub")][Space(5)]
+    HealthGain HealthGain;
+        #endregion
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
@@ -104,6 +114,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         //weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;
         currentPlayerHP = playerConfigs.MaxPlayerHP;
         //OnDamageReceived += KnockedBack;
+
     }
 
     private void OnEnable()
@@ -141,7 +152,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.ScrollThroughMelee.performed += ctx => CallMeleeWeapon(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
+
+        //Subscribe to the UseHealthGrub input event
+        playerInput.Player.UseHealthGrub.performed += ctx => UseHealthGrub();
 }
+
 
     private void Update()
     {
@@ -376,6 +391,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (other.gameObject.CompareTag("PowerUp"))
         {
            healthGrub.SetActive(true);
+            grubCount++;
+            print(grubCount);
+            healthGrubNum.text = grubCount.ToString();
+
         }
     }
 
@@ -398,5 +417,26 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         if (currentPlayerHP <= 0)
             playerConfigs.PlayerDeath();
+    }
+
+
+   private void UseHealthGrub()
+    {
+      
+        if (grubCount > 0)
+        {
+            DamageReceived(-3);
+            grubCount--;
+            if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
+                currentPlayerHP = playerConfigs.MaxPlayerHP;
+            
+        }
+        else
+        {
+            return;
+        }
+       
+
+       
     }
 }
