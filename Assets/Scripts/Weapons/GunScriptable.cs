@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Statistics Container")]
 public class GunScriptable : ScriptableObject
 {
     [Header("GUN IDENTIFICATION:")]

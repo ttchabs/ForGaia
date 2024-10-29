@@ -5,10 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
-{    
+{
+    public PickUpScriptable PickupID;
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
-    public bool cooldown = false;
+    [HideInInspector] public bool cooldown = false;
 
 
     public void Awake()
@@ -26,5 +27,11 @@ public class WeaponScript : MonoBehaviour
         cooldown = true;
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
         cooldown = false; 
+    }
+
+    public void AddMeleeToInventory()
+    {
+        InventoryManager.Instance.AddItemToInventory(PickupID);
+        gameObject.SetActive(false);
     }
 }

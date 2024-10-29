@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
+    public PickUpScriptable PickupID;
     public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
@@ -53,10 +54,15 @@ public class GunScript : MonoBehaviour
         }
     }
 
-
     public void ReloadGun()
     {
         currentMagAmount = gunConfigs.MagSize;
         _reloading = false;
+    }
+
+    public void AddGunToInventory()
+    {
+        InventoryManager.Instance.AddItemToInventory(PickupID);
+        gameObject.SetActive(false);
     }
 }

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Melee Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Melee Statistics Container")]
 public class WeaponScriptable : ScriptableObject
 {
     [Header("WEAPON IDENTIFICATION:")]
@@ -32,7 +32,7 @@ public class WeaponScriptable : ScriptableObject
     public WeaponDamage MeleeDamageRange { get => _meleeDamage; }
     public float WeaponWeight { get => _weaponWeight; }
     public float WeaponStanceBreak { get => _weaponStanceBreak; }
-
+    public Sprite WeaponSprite { get => _weaponSprite; }
     public float SwingCooldown { get => _swingCooldown; }
 
     public void Attacking(Collider other) //Attacking function. called in the WeaponScript.

@@ -47,8 +47,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     #endregion
     
-    
-
     #region PLAYER CROUCH:
     [Header("CROUCH SETTINGS")] [Space(5)] 
     public float crouchHeight = 1f; // Height of the player when crouching
@@ -80,7 +78,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public TextMeshProUGUI pickUpText;
     public Image healthBar;
     public float damageAmount = 0.25f; // Reduce the health bar by this amount
-    private float healAmount = 0.5f;// Fill the health bar by this amount
     public GameObject healthGrub; //image in the UI
     public Image healthGrubSprite;
     public Sprite healReference; // Image in Inspector
@@ -263,16 +260,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void PickUpMelee()
     {
-        //Check if we are already holding a weapon
-        if (meleeWeapon != null) 
-        {
-            meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
-            meleeWeapon.GetComponent<Collider>().enabled = true; //Reactivate the collider so it can land on the ground 
-            meleeWeapon.transform.parent = null;
-            meleeAttacks = null;
-            //weaponAnimation.runtimeAnimatorController = null;
-            holdingMelee = false;
-        }
+
 
         // Perform a raycast from the camera's position forward
         Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
@@ -284,7 +272,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (Physics.Raycast(meleeRay, out hitMeleeWeapon, pickUpRange))
         {
             // Check if the hit object has the tag "MeleeWeapon"
-            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
+            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon") && meleeHoldPosition.childCount == 0)
             {
                 // Pick up the object
                 meleeWeapon = hitMeleeWeapon.collider.gameObject;
@@ -298,7 +286,26 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 meleeWeapon.transform.parent = meleeHoldPosition;
                 holdingMelee = true;          
             }
+            else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon") && meleeHoldPosition.childCount > 0)
+            {
+                var itemCollect = hitMeleeWeapon.collider.GetComponent<WeaponScript>();              
+                itemCollect.AddMeleeToInventory();
+            }
+/*            else if (!hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
+            {
+                //Check if we are already holding a weapon
+                if (meleeWeapon != null)
+                {
+                    meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
+                    meleeWeapon.GetComponent<Collider>().enabled = true; //Reactivate the collider so it can land on the ground 
+                    meleeWeapon.transform.parent = null;
+                    meleeAttacks = null;
+                    //weaponAnimation.runtimeAnimatorController = null;
+                    holdingMelee = false;
+                }
+            }*/
         }
+
     }
 
     public void PickUpObject()
@@ -323,7 +330,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the hit object has the tag "PickUp"
-            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("SorterPuzzleStone"))
+            if (hit.collider.CompareTag("SorterPuzzleStone"))
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -347,6 +354,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.rotation = holdPosition.rotation;
                 heldObject.transform.parent = holdPosition;
                 holdingGun = true;
+            }
+            else if (hit.collider.CompareTag("PickUp"))
+            {
+                
             }
         }
     } 

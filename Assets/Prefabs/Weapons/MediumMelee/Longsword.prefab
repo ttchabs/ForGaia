@@ -102,8 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickupID: {fileID: 11400000, guid: 70e86e381a6e5324584ba01345dd7349, type: 2}
   weaponConfigs: {fileID: 11400000, guid: e95beaf9cf7199246a9cd2db20e09b45, type: 2}
   hitBox: {fileID: 5103931327812812348}
+  cooldown: 0
 --- !u!65 &2354848107738419397
 BoxCollider:
   m_ObjectHideFlags: 0

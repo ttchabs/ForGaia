@@ -10,7 +10,6 @@ public class PlayerActions : MonoBehaviour
     public void StartMeleeAttack()
     {
         playerControls.meleeAttacks.hitBox.enabled = true;
-        print("works");
     }
 
     public void EndMeleeAttack()
