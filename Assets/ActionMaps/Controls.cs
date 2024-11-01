@@ -107,6 +107,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""USeHealthGrub"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8ef59cd-72ec-462a-9e12-802cc5b18fd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -406,6 +415,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ScrollThroughMelee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""066b9818-88fa-4e57-b991-f930ccd9b69a"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""USeHealthGrub"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -446,6 +466,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_PickUpMelee = m_Player.FindAction("PickUpMelee", throwIfNotFound: true);
         m_Player_ScrollThroughMelee = m_Player.FindAction("ScrollThroughMelee", throwIfNotFound: true);
+        m_Player_USeHealthGrub = m_Player.FindAction("USeHealthGrub", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -516,6 +537,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_PickUpMelee;
     private readonly InputAction m_Player_ScrollThroughMelee;
+    private readonly InputAction m_Player_USeHealthGrub;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -529,6 +551,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @PickUpMelee => m_Wrapper.m_Player_PickUpMelee;
         public InputAction @ScrollThroughMelee => m_Wrapper.m_Player_ScrollThroughMelee;
+        public InputAction @USeHealthGrub => m_Wrapper.m_Player_USeHealthGrub;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -565,6 +588,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ScrollThroughMelee.started += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled += instance.OnScrollThroughMelee;
+            @USeHealthGrub.started += instance.OnUSeHealthGrub;
+            @USeHealthGrub.performed += instance.OnUSeHealthGrub;
+            @USeHealthGrub.canceled += instance.OnUSeHealthGrub;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -596,6 +622,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ScrollThroughMelee.started -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled -= instance.OnScrollThroughMelee;
+            @USeHealthGrub.started -= instance.OnUSeHealthGrub;
+            @USeHealthGrub.performed -= instance.OnUSeHealthGrub;
+            @USeHealthGrub.canceled -= instance.OnUSeHealthGrub;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -642,5 +671,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMelee(InputAction.CallbackContext context);
         void OnPickUpMelee(InputAction.CallbackContext context);
         void OnScrollThroughMelee(InputAction.CallbackContext context);
+        void OnUSeHealthGrub(InputAction.CallbackContext context);
     }
 }

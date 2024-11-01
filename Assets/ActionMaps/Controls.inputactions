@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "USeHealthGrub",
+                    "type": "Button",
+                    "id": "e8ef59cd-72ec-462a-9e12-802cc5b18fd6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -382,6 +391,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "ScrollThroughMelee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "066b9818-88fa-4e57-b991-f930ccd9b69a",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "USeHealthGrub",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -83,6 +83,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Sprite healReference; // Image in Inspector
     public Image Gun;
     public Image Sword;
+    public TextMeshProUGUI grubCounttxt;
+    public int grubCount = 0;
     
     #endregion
 
@@ -92,7 +94,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Animator animator;
 
     #endregion
-    
+
+    #region USEHEALTHGRUB
+    [Header("UseHealthGrub")][Space (5)]
+    HealthGain healthGain;
+    #endregion
+
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
@@ -138,6 +145,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.ScrollThroughMelee.performed += ctx => CallMeleeWeapon(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
+
+        //Subscribe to the USEHEALTHGRUB input event
+        playerInput.Player.USeHealthGrub.performed += ctx => UseHealthGrub();
+
+
 }
 
     private void Update()
@@ -386,7 +398,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (other.gameObject.CompareTag("PowerUp"))
         {
-           healthGrub.SetActive(true);
+            healthGrub.SetActive(true);
+            grubCount++;
+            grubCounttxt.text = grubCount.ToString();
         }
     }
 
@@ -410,4 +424,23 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (currentPlayerHP <= 0)
             playerConfigs.PlayerDeath();
     }
+
+    public void UseHealthGrub()
+    {
+
+        if (grubCount > 0)
+        {
+            DamageReceived(-3);
+            grubCount--;
+            grubCounttxt.text = grubCount.ToString();
+            if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
+                currentPlayerHP = playerConfigs.MaxPlayerHP;
+        }
+        else {
+            return;
+        }
+
+    }
+
+
 }
