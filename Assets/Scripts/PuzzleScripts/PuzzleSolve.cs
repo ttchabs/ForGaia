@@ -42,7 +42,6 @@ public class PuzzleSolve : MonoBehaviour
             else
             {
                 spawnManager.MismatchCube();
-                Debug.Log("WrongCube");
             }
         }
     }

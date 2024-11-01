@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2bf93aeeb826843bc6c4e526fba0c5, type: 3}
   m_Name: LongswordID
   m_EditorClassIdentifier: 
-  _itemName: 
-  _itemDescription: 
-  _itemModel: {fileID: 0}
+  _itemName: Longsword
+  _itemDescription: A sword purchased from the blacksmith market,this weapon is known
+    for its lightness and durability. It's great for novice adventurers.
+  _itemModel: {fileID: 5918954987855155851, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
   _itemSprite: {fileID: 0}
+  _itemType: 0

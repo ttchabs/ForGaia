@@ -60,7 +60,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
 
 
-    public void DamageReceived(float damage)
+    public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
         OnDamageReceived?.Invoke(damage);

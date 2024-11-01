@@ -6,24 +6,66 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
 
+    [Header("LOADOUT SLOTS")]
     public SlotFunctionality MeleeSlot;
     public SlotFunctionality GunSlot;
-    public SlotFunctionality[] consumableSlots;
+    [Space(2)]
+    public SlotFunctionality[] ConsumableSlot;
 
-    public Transform sackStorage;
+    [Header("SACK SLOTS")]
+    public SlotFunctionality[] sackStorage;
 
     public GameObject itemPrefab;
-    public List<PickUpScriptable> itemDrags;
 
     public void Awake()
     {
         Instance = this;
     }
 
-    public void AddItemToInventory(PickUpScriptable item)
+    public bool AddItemToInventory(PickUpScriptable item)
     {
-        SpawnInventoryItem(item, sackStorage);
+    
+
+        for (int i = 0; i < sackStorage.Length; i++)
+        {
+            SlotFunctionality slot = sackStorage[i];
+            ItemDrag itemInInventory = slot.GetComponentInChildren<ItemDrag>();
+            if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount < 5)
+            {
+                itemInInventory.amount++;
+                itemInInventory.AmountText();
+                return true;
+            }
+        }
+
+        for (int i = 0; i < sackStorage.Length; i++)
+        {
+            SlotFunctionality slot = sackStorage[i];
+            ItemDrag itemInInventory = slot.GetComponentInChildren<ItemDrag>();
+            if (itemInInventory == null)
+            {
+                SpawnInventoryItem(item, slot.transform);
+                return true;
+            }
+        }
+
+
+        /*        if ( itemInInventory == null && sackStorage.transform.childCount <= sackStorage.maxCount)
+                {
+                    SpawnInventoryItem(item, sackStorage.transform);
+                    return true;
+                }
+
+                else if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount < 5)
+                {
+                    itemInInventory.amount++;
+                    itemInInventory.AmountText();
+                    return true;
+                }*/
+
+        return false;
     }
+
     public void SpawnInventoryItem(PickUpScriptable itemID, Transform slot)
     {
         //itemDrags.Add(itemID);

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
-    public PickUpScriptable PickupID;
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
     [HideInInspector] public bool cooldown = false;
@@ -29,9 +28,4 @@ public class WeaponScript : MonoBehaviour
         cooldown = false; 
     }
 
-    public void AddMeleeToInventory()
-    {
-        InventoryManager.Instance.AddItemToInventory(PickupID);
-        gameObject.SetActive(false);
-    }
 }

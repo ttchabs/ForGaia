@@ -176,9 +176,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5820708111974553808}
-  - component: {fileID: -1879686895558637577}
   - component: {fileID: 8437620201328908972}
   - component: {fileID: -2019325965014983792}
+  - component: {fileID: -1879686895558637577}
+  - component: {fileID: -1116235171572194108}
   m_Layer: 0
   m_Name: WoodenGreatsword
   m_TagString: MeleeWeapon
@@ -203,22 +204,6 @@ Transform:
   - {fileID: 5400755745855374030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1879686895558637577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5954745931859561589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PickupID: {fileID: 11400000, guid: c6d4599420401b44fb64b5fe682d3d6f, type: 2}
-  weaponConfigs: {fileID: 11400000, guid: 6f5c953aaf600d948bd7b2892edd12a3, type: 2}
-  hitBox: {fileID: 4703406545854785174}
-  cooldown: 0
 --- !u!65 &8437620201328908972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,6 +252,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &-1879686895558637577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954745931859561589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PickupID: {fileID: 11400000, guid: c6d4599420401b44fb64b5fe682d3d6f, type: 2}
+  weaponConfigs: {fileID: 11400000, guid: 6f5c953aaf600d948bd7b2892edd12a3, type: 2}
+  hitBox: {fileID: 4703406545854785174}
+  cooldown: 0
+--- !u!114 &-1116235171572194108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954745931859561589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: c6d4599420401b44fb64b5fe682d3d6f, type: 2}
 --- !u!1 &8300507693201642958
 GameObject:
   m_ObjectHideFlags: 0

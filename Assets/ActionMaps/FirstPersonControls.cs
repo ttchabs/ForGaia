@@ -68,7 +68,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region PLAYER HEALTH:
     [Header("HEALTH:")]
     [Space(5)]
-    public float currentPlayerHP;//current hp of the player
+    public int currentPlayerHP;//current hp of the player
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
@@ -77,15 +77,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("UI SETTINGS")]
     public TextMeshProUGUI pickUpText;
     public Image healthBar;
-    public float damageAmount = 0.25f; // Reduce the health bar by this amount
     public GameObject healthGrub; //image in the UI
     public Image healthGrubSprite;
-    public Sprite healReference; // Image in Inspector
-    public Image Gun;
-    public Image Sword;
+    //public Sprite healReference; // Image in Inspector
+    public Image GunSlot;
+    public Image SwordSlot;
     public TextMeshProUGUI grubCounttxt;
     public int grubCount = 0;
-    
     #endregion
 
     #region ANIMATION
@@ -144,7 +142,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerInput.Player.PickUpMelee.performed += ctx => PickUpMelee(); // Call the PickUpWeapon method when pick-up-melee input is performed
 
         //Subscribe to the ScrollThroughMelee input event
-        playerInput.Player.ScrollThroughMelee.performed += ctx => CallMeleeWeapon(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
+        playerInput.Player.ScrollThroughMelee.performed += ctx => PickUpDisplay(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
 
         //Subscribe to the USEHEALTHGRUB input event
         playerInput.Player.USeHealthGrub.performed += ctx => UseHealthGrub();
@@ -300,8 +298,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             }
             else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon") && meleeHoldPosition.childCount > 0)
             {
-                var itemCollect = hitMeleeWeapon.collider.GetComponent<WeaponScript>();              
-                itemCollect.AddMeleeToInventory();
+                var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
+                itemCollect.Pickup();
             }
 /*            else if (!hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
             {
@@ -374,7 +372,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     } 
     
-    public void CallMeleeWeapon() //Places the melee weapon away or calls it to hand
+    public void PickUpDisplay() //Displays the name of the item you are picking up
     {
 
     }
@@ -415,7 +413,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     }
 
     //The function that is called whenever the player is hit by an enemy
-    public void DamageReceived(float damageAmount)
+    public void DamageReceived(int damageAmount)
     {
         currentPlayerHP -= damageAmount;
         healthBar.fillAmount -= damageAmount;

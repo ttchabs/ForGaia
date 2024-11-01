@@ -5,13 +5,11 @@ public struct WeaponDamage
 {
     public int minDamage;
     public int maxDamage;
-    //public float attackRate;
 
     public WeaponDamage(int min, int max)
     {
         minDamage = min; 
         maxDamage = max;
-        //attackRate = rate;
     }
 
     public int GetRandomDamage()

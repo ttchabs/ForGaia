@@ -9,6 +9,8 @@ public class PickUpFunction : MonoBehaviour
     public void Pickup()
     {
         InventoryManager.Instance.AddItemToInventory(itemData);
-        gameObject.SetActive(false);
+/*        GameObject sackCounter = GameObject.Find("Sack");
+        transform.SetParent(sackCounter.transform, true);*/
+        //gameObject.SetActive(false);
     }
 }

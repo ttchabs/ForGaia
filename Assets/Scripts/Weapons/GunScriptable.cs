@@ -14,8 +14,8 @@ public class GunScriptable : ScriptableObject
     [SerializeField] string _gunName;
     [TextArea(2, 3), SerializeField] string _gunDescription;
     [SerializeField] GameObject _gunModel;
-    [SerializeField] Sprite _gunSprite;
-    public GunTypes gunTypes;
+    [SerializeField] Sprite _gunSprite; //the inventory image of the gun
+    public GunTypes gunTypes; //the type of shot the gun will perform
 
     [Header("GUN STATISTICS:")]
     [Space(4)]
@@ -26,10 +26,11 @@ public class GunScriptable : ScriptableObject
     [SerializeField] AnimatorOverrideController _reloadSequence; //The animation that plays when reloading a gun.
 
     [Header("BULLET STATISTICS:")]
-    [SerializeField] WeaponDamage _bulletDamage; [Space(2)]
-    [SerializeField] GameObject _bulletPrefab;
-    public LayerMask hitLayers;
-    
+    [SerializeField] WeaponDamage _bulletDamage; [Space(2)] //amount of damage dealt by the bullet
+    [SerializeField] GameObject _bulletPrefab; //the bullets that will be shot
+    public LayerMask hitLayers; //only applicable if hitscan
+
+    //these make the variables above accessible to other scripts. reference these when necessary.
     public string GunName => _gunName;
     public string GunDescription => _gunDescription;
     public GameObject GunModel => _gunModel;

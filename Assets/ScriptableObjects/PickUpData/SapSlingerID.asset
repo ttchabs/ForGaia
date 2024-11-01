@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2bf93aeeb826843bc6c4e526fba0c5, type: 3}
   m_Name: SapSlingerID
   m_EditorClassIdentifier: 
-  _itemName: 
-  _itemDescription: 
-  _itemModel: {fileID: 0}
+  _itemName: Sap Slinger
+  _itemDescription: Felix created this gun out of all sorts of scrapped materials
+    and objects, yet despite this it can deal a nasty punch. It is on its wits end
+    however.
+  _itemModel: {fileID: 383414822537077855, guid: a55729c04ebe92b4686637fb537f8e43, type: 3}
   _itemSprite: {fileID: 0}
+  _itemType: 0

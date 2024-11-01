@@ -14,6 +14,8 @@ TagManager:
   - Longsword
   - Enemy
   - PowerUp
+  - InventoryItem
+  - Bullet
   layers:
   - Default
   - TransparentFX
