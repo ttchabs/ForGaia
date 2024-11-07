@@ -106,6 +106,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         //weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;
         currentPlayerHP = playerConfigs.MaxPlayerHP;
         //OnDamageReceived += KnockedBack;
+
+        
     }
 
     private void OnEnable()
