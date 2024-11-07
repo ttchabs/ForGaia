@@ -10,7 +10,16 @@ public class UIManger : MonoBehaviour
     private bool isRotating = false; // Track if the camera is currently rotating
     public GameObject[] UIElements;
     public GameObject initialButton;
-// Method to rotate the camera left by 90 degrees
+    public TextScroll textScroll;
+    public float scrollLength;
+    public GameObject panel;
+
+
+    public void Start()
+    {
+        panel.SetActive(false);
+    }
+    // Method to rotate the camera left by 90 degrees
     public void RotateCameraLeftBy90Degrees()
     {
         if (!isRotating) // Prevent triggering multiple rotations simultaneously
@@ -43,6 +52,8 @@ public class UIManger : MonoBehaviour
 
     public void Loadscene(string MainScene)
     {
+        StartCoroutine(scrollText);
+        
         SceneManager.LoadScene("MainScene");
     }
 
@@ -50,4 +61,20 @@ public class UIManger : MonoBehaviour
     {
         Application.Quit();
     }
+
+
+    private IEnumerator scrollText
+    {
+        get
+        {
+            panel.SetActive(true);
+            textScroll.Scroll();
+            yield return new WaitForSeconds(scrollLength);
+
+            
+        }
+    }
+
+   
+
 }
