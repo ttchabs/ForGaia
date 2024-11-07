@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SlotFunctionality : MonoBehaviour, IDropHandler
 {
+    public int maxCount;
     public void OnDrop(PointerEventData eventData) //called the moment the player stops clicking on an item
     {
         NoItemLimit(eventData);

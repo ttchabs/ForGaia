@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -272,8 +273,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void PickUpMelee()
     {
-
-
         // Perform a raycast from the camera's position forward
         Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hitMeleeWeapon;
@@ -284,7 +283,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (Physics.Raycast(meleeRay, out hitMeleeWeapon, pickUpRange))
         {
             // Check if the hit object has the tag "MeleeWeapon"
-            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon") && meleeHoldPosition.childCount == 0)
+            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
             {
                 // Pick up the object
                 meleeWeapon = hitMeleeWeapon.collider.gameObject;
@@ -370,6 +369,22 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             else if (hit.collider.CompareTag("PickUp"))
             {
                 
+            }
+
+            ////////
+
+            if (hit.collider.CompareTag("MeleeWeapon"))
+            {
+
+            }
+
+            else if (hit.collider.CompareTag("Gun")) 
+            {
+                
+            } 
+            else if (hit.collider.CompareTag("PickUp"))
+            {
+
             }
         }
     } 
