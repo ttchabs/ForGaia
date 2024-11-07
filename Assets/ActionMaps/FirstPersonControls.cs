@@ -24,7 +24,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
     public Transform playerCamera; // Reference to the player's camera
-                                   // Private variables to store input values and the character controller
+    public AudioSource walk;
+    // Private variables to store input values and the character controller
     private Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
@@ -165,6 +166,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         // Create a movement vector based on the input
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+      
+       
 
         // Transform direction from local to world space
         move = transform.TransformDirection(move);
@@ -192,7 +195,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
         //animator.SetFloat("Speed", currentSpeed);
-        
+
+       
     }
 
     public void LookAround()
