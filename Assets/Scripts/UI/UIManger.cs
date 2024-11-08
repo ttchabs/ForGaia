@@ -70,9 +70,15 @@ public class UIManger : MonoBehaviour
             panel.SetActive(true);
             textScroll.Scroll();
             yield return new WaitForSeconds(scrollLength);
+            Loadscene("MainScene");
 
-            
         }
+    }
+
+    public void scrollingText()
+    {
+        StartCoroutine(scrollText);
+        
     }
 
    
