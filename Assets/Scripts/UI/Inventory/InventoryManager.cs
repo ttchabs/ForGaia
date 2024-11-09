@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -7,14 +9,16 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
 
     [Header("LOADOUT SLOTS")]
-    public SlotFunctionality MeleeSlot;
-    public SlotFunctionality GunSlot;
+    public Transform MeleeSlot;
+    public Transform GunSlot;
     public int amount;
     [Space(2)]
-    public SlotFunctionality[] ConsumableSlot;
+    public Transform[] ConsumableSlot;
 
     [Header("SACK SLOTS")]
-    public SlotFunctionality sackStorage;
+    public Transform sackStorage;
+    public int maxSackStorage;
+    public TextMeshProUGUI maxStorageDisplay;
 
     [Header("Item Prefabs")]
     public GameObject itemPrefab;
@@ -24,6 +28,7 @@ public class InventoryManager : MonoBehaviour
     public void Awake()
     {
         Instance = this;
+        UpdateStorageCount();
     }
 
 
@@ -32,7 +37,7 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < ConsumableSlot.Length; i++)
         {
-            SlotFunctionality slot = ConsumableSlot[i];
+            Transform slot = ConsumableSlot[i];
             ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
             if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount <= amount)
             {
@@ -44,7 +49,7 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < ConsumableSlot.Length; i++)
         {
-            SlotFunctionality slot = ConsumableSlot[i];
+            Transform slot = ConsumableSlot[i];
             ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
             if (itemInInventory == null)
             {
@@ -57,9 +62,10 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItemToInventory(PickUpScriptable item)
     {
-        if (sackStorage.transform.childCount <= sackStorage.maxCount)
+        if (sackStorage.childCount < maxSackStorage)
         {
             SpawnInventoryItem(item, sackStorage.transform);
+            UpdateStorageCount();
             return true;
         }
         return false;
@@ -67,9 +73,10 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddMeleeToInventory(PickUpScriptable item, WeaponScriptable meleeItem)
     {
-        if (sackStorage.transform.childCount <= sackStorage.maxCount)
+        if (sackStorage.childCount < maxSackStorage)
         {
             SpawnMeleeItem(item, meleeItem, sackStorage.transform);
+            UpdateStorageCount();
             return true;
         }
         return false;
@@ -77,9 +84,10 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddRangedToInventory(PickUpScriptable item, GunScriptable gunItem)
     {
-        if (sackStorage.transform.childCount <= sackStorage.maxCount)
+        if (sackStorage.childCount < maxSackStorage)
         {
             SpawnRangedItem(item, gunItem, sackStorage.transform);
+            UpdateStorageCount();
             return true;
         }
         return false;
@@ -103,7 +111,7 @@ public class InventoryManager : MonoBehaviour
 
     public void SpawnRangedItem(PickUpScriptable itemID, GunScriptable gunID, Transform slot)
     {
-        GameObject newRangedSprite = Instantiate(meleePrefab, slot);
+        GameObject newRangedSprite = Instantiate(gunPrefab, slot);
         RangedItemBehaviour rangedItemDrag = newRangedSprite.GetComponent<RangedItemBehaviour>();
         rangedItemDrag.InitialiseRanged(itemID, gunID);
     }
@@ -111,5 +119,10 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItemFromInventory(PickUpScriptable itemID)
     {
 
+    }
+
+    public void UpdateStorageCount()
+    {
+        maxStorageDisplay.text = $"{sackStorage.transform.childCount} / {maxSackStorage}";
     }
 }

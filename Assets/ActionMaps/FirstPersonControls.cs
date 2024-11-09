@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
@@ -160,6 +161,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         Move();
         LookAround();
         ApplyGravity();
+
+        PickUpDisplay();
     }
 
     public void Move()
@@ -310,33 +313,20 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
                 itemCollect.Pickup();
             }
-/*            else if (!hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
-            {
-                //Check if we are already holding a weapon
-                if (meleeWeapon != null)
-                {
-                    meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
-                    meleeWeapon.GetComponent<Collider>().enabled = true; //Reactivate the collider so it can land on the ground 
-                    meleeWeapon.transform.parent = null;
-                    meleeAttacks = null;
-                    //weaponAnimation.runtimeAnimatorController = null;
-                    holdingMelee = false;
-                }
-            }*/
         }
 
     }
 
     public void PickUpObject()
     {
-        // Check if we are already holding an object
+/*        // Check if we are already holding an object
         if (heldObject != null)
         {
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
             holdingGun = false;
-        }
+        }*/
 
         // Perform a raycast from the camera's position forward
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
@@ -360,7 +350,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.rotation = holdPosition.rotation;
                 heldObject.transform.parent = holdPosition;
             }
-            else if (hit.collider.CompareTag("Gun")) 
+/*            else if (hit.collider.CompareTag("Gun")) 
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -374,20 +364,21 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.parent = holdPosition;
                 holdingGun = true;
             }
-            else if (hit.collider.CompareTag("PickUp"))
-            {
-                
-            }
-
+*/
             ////////
 
             if (hit.collider.CompareTag("MeleeWeapon"))
             {
-
+                var meleePickUp = hit.collider.GetComponent<PickUpFunction>();
+                var meleeData = hit.collider.GetComponent<WeaponScript>();               
+                meleePickUp.MeleePickUp(meleeData.weaponConfigs);               
             }
 
             else if (hit.collider.CompareTag("Gun")) 
             {
+                var gunPickUp = hit.collider.GetComponent<PickUpFunction>();
+                var gunData = hit.collider.GetComponent<GunScript>();
+                gunPickUp.GunPickUp(gunData.gunConfigs);
                 
             } 
             else if (hit.collider.CompareTag("PickUp"))
@@ -399,6 +390,21 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     
     public void PickUpDisplay() //Displays the name of the item you are picking up
     {
+        Ray displayRay = new Ray(playerCamera.position, playerCamera.forward);
+        RaycastHit displayHit;
+        if (Physics.Raycast(displayRay, out displayHit, pickUpRange))
+        {
+            if(displayHit.collider.TryGetComponent(out PickUpFunction name))
+            {
+                pickUpText.text = "(E)";
+            }
+            else
+            {
+                pickUpText.text = null;
+            }
+
+        }
+
 
     }
 

@@ -5,24 +5,34 @@ using UnityEngine;
 public class PickUpFunction : MonoBehaviour
 {
     public PickUpScriptable itemData;
-    public WeaponScriptable weaponData;
-    public GunScriptable gunScriptable;
+/*    public WeaponScriptable weaponData;
+    public GunScriptable gunScriptable;*/
 
     public void Pickup()
     {
-        InventoryManager.Instance.AddItemToInventory(itemData);
+
 /*        GameObject sackCounter = GameObject.Find("Sack");
         transform.SetParent(sackCounter.transform, true);*/
-        gameObject.SetActive(false);
+        if (InventoryManager.Instance.AddItemToInventory(itemData) == false)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
-    public void MeleePickUp()
+    public void MeleePickUp(WeaponScriptable meleeData)
     {
-        InventoryManager.Instance.AddMeleeToInventory(itemData, weaponData);
+
+        if (InventoryManager.Instance.AddMeleeToInventory(itemData, meleeData) == true)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
-    public void GunPickUp() 
+    public void GunPickUp(GunScriptable gunData) 
     {
-        InventoryManager.Instance.AddRangedToInventory(itemData, gunScriptable);
+        if (InventoryManager.Instance.AddRangedToInventory(itemData, gunData) == true)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
