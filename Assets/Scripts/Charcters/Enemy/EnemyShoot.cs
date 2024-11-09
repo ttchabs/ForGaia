@@ -14,6 +14,10 @@ public class EnemyShoot : MonoBehaviour
     public float windSpeeed;
     public float distance;
     public float shootAgain;
+
+    public float destroyBullet;
+
+    public Animator birdAnimation;
     
 
 // Start is called before the first frame update
@@ -45,6 +49,7 @@ void Start()
     void Shoot()
 
     {
+        birdAnimation.SetTrigger("Attack");
         GameObject wind = Instantiate(windBall,firePoint.position, firePoint.rotation);
         Rigidbody rb = wind.GetComponent<Rigidbody>();
 
@@ -52,6 +57,10 @@ void Start()
         {
             rb.velocity = (player.position - firePoint.position).normalized * windSpeeed;    
         }
+
+        Destroy(wind,3f);
+        
+        
     }
 
 
@@ -61,5 +70,6 @@ void Start()
         Quaternion lookRotation = Quaternion.LookRotation(directioToPlayer);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime);
     }
+
 
 }
