@@ -8,36 +8,71 @@ public class ItemInfoDisplay : MonoBehaviour
 {
     public static ItemInfoDisplay Instance;
 
-    [Header("NormalDisplay")]
-    public GameObject normalInfo;
-    public TextMeshProUGUI normalName;
-    public TextMeshProUGUI normalDescription;
+    [Header("Display")]
+    public GameObject InfoPanel;
+    [Space(2)]
+    public TextMeshProUGUI Name;
+    public TextMeshProUGUI Description;
+    public TextMeshProUGUI text1;
+    public TextMeshProUGUI text2;
+    public TextMeshProUGUI text3;
+    public TextMeshProUGUI text4;
+    public TextMeshProUGUI text5;
+    public TextMeshProUGUI text6;
 
-    [Header("MeleeDisplay")]
-    public GameObject meleeInfoPanel;
-    public TextMeshProUGUI meleeName;
-    public TextMeshProUGUI meleeDescription;
-    public TextMeshProUGUI meleeDamage;
-    public TextMeshProUGUI meleeKnockback;
-    public TextMeshProUGUI meleeWeight;
-    public TextMeshProUGUI meleeClass;
-    public TextMeshProUGUI meleeSwingCooldown;
+    [Header("Equip & Exit button")]
+    [Space(2)]
+    public Button equipButton;
+    public Button exitButton;
 
-    [Header("RangeDisplay")]
-    public GameObject rangeInfoPanel;
-    public TextMeshProUGUI rangeName;
-    public TextMeshProUGUI rangeDescription;
-    public TextMeshProUGUI rangeDamage;
-    public TextMeshProUGUI rangeBulletSpeed;
-    public TextMeshProUGUI rangeWeight;
-    public TextMeshProUGUI rangeClass;
-    public TextMeshProUGUI rangeFireRate;
-    public TextMeshProUGUI rangeMagSize;
-
-    public void NormalDisplayFunction(PickUpScriptable pickUpInfo)
+    public void Awake()
     {
-        
+        Instance = this;
+    }
+    public void ItemDisplayFunction(PickUpScriptable pickUpInfo)
+    {
+        InfoPanel.SetActive(true);
+        Name.text = $"{pickUpInfo.ItemName}";
+        Description.text = $"{pickUpInfo.ItemDescription}";
+
+        text1.text = null;
+        text2.text = null;
+        text3.text = null;
+        text4.text = null;
+        text5.text = null;
+        text6.text = null;
     }
 
-    public void MeleeDisplayFunction(PickUpScriptable pickUpInfo) { }
+    public void MeleeDisplayFunction(PickUpScriptable meleePickUp, WeaponScriptable meleeDescriptionInfo) 
+    { 
+        InfoPanel.SetActive(true);
+        Name.text = $"{meleePickUp.ItemName}";
+        Description.text = $"{meleePickUp.ItemDescription}";
+
+        text1.text = "Damage:  " + $"{meleeDescriptionInfo.MeleeDamageRange.minDamage} - {meleeDescriptionInfo.MeleeDamageRange.maxDamage}";
+        text2.text = "Knockback:  " + $"{meleeDescriptionInfo.WeaponStanceBreak}";
+        text3.text = "Weight:  " + $"{meleeDescriptionInfo.WeaponWeight}";
+        text4.text = "Sword Class:  " + $"{meleeDescriptionInfo.meleeType}";
+        text5.text = "Swing Cooldown:  " + $"{meleeDescriptionInfo.SwingCooldown}";
+        text6.text = null ;
+    }
+
+    public void GunDisplayFunction(PickUpScriptable gunPickUp, GunScriptable gunDescriptionInfo)
+    {
+        InfoPanel.SetActive(true);
+        Name.text = $"{gunPickUp.ItemName}";
+        Description.text = $"{gunPickUp.ItemDescription}";
+
+        text1.text = "Damage:  " + $"{gunDescriptionInfo.BulletDamage.minDamage} - {gunDescriptionInfo.BulletDamage.maxDamage}";
+        text2.text = "Bullet Speed:  " + $"{gunDescriptionInfo.ProjectileSpeed}";
+        text3.text = "Weight:  " + $"{gunDescriptionInfo.GunWeight}";
+        text4.text = "Class:  " + $"{gunDescriptionInfo.gunTypes}";
+        text5.text = "Fire Rate:  " + $"{gunDescriptionInfo.FireRate}";
+        text6.text = "Mag Size:  " + $"{gunDescriptionInfo.MagSize}";
+    }
+
+    public void EquipButton()
+    {
+
+    }
 }

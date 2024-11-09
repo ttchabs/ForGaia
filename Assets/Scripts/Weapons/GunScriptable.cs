@@ -21,6 +21,7 @@ public class GunScriptable : ScriptableObject
     [Space(4)]
     [SerializeField] float _projectileSpeed; //the rate at which the bullet travels
     [SerializeField] float _fireRate; // the amount of time elapsed between each gunfire
+    [SerializeField] float _gunWeight;
     [SerializeField] int _magSize; //the maximum number of bullets a gun can hold
     [SerializeField] float _maxDistance; //The furhest distance the bullet is allowed to travel
     [SerializeField] AnimatorOverrideController _reloadSequence; //The animation that plays when reloading a gun.
@@ -40,6 +41,7 @@ public class GunScriptable : ScriptableObject
     public float ProjectileSpeed => _projectileSpeed;
     public WeaponDamage BulletDamage => _bulletDamage;
     public float FireRate => _fireRate;
+    public float GunWeight => _gunWeight;
     public int MagSize => _magSize;
     public float MaxDistance => _maxDistance;
 

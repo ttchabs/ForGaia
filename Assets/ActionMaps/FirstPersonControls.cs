@@ -187,6 +187,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
             currentSpeed = Mathf.Max(currentSpeed, 0f);
         }
+        else if (gunFire != null)
+        {
+            currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
+        }
         else
         {
             currentSpeed = moveSpeed;

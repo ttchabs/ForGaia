@@ -15,7 +15,6 @@ public class InventoryManager : MonoBehaviour
 
     [Header("SACK SLOTS")]
     public SlotFunctionality sackStorage;
-    public Transform sack;
 
     [Header("Item Prefabs")]
     public GameObject itemPrefab;
@@ -27,12 +26,14 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
-    public bool AddItemToConsumable(PickUpScriptable item)
+
+
+    public bool AddConsumable(PickUpScriptable item)
     {
         for (int i = 0; i < ConsumableSlot.Length; i++)
         {
             SlotFunctionality slot = ConsumableSlot[i];
-            ItemDrag itemInInventory = slot.GetComponentInChildren<ItemDrag>();
+            ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
             if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount <= amount)
             {
                 itemInInventory.amount++;
@@ -44,34 +45,19 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < ConsumableSlot.Length; i++)
         {
             SlotFunctionality slot = ConsumableSlot[i];
-            ItemDrag itemInInventory = slot.GetComponentInChildren<ItemDrag>();
+            ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
             if (itemInInventory == null)
             {
                 SpawnInventoryItem(item, slot.transform);
                 return true;
             }
         }
-
-
-        /*        if ( itemInInventory == null && sackStorage.transform.childCount <= sackStorage.maxCount)
-                {
-                    SpawnInventoryItem(item, sackStorage.transform);
-                    return true;
-                }
-
-                else if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount < 5)
-                {
-                    itemInInventory.amount++;
-                    itemInInventory.AmountText();
-                    return true;
-                }*/
-
         return false;
     }
 
     public bool AddItemToInventory(PickUpScriptable item)
     {
-        if (sack.childCount <= sackStorage.maxCount)
+        if (sackStorage.transform.childCount <= sackStorage.maxCount)
         {
             SpawnInventoryItem(item, sackStorage.transform);
             return true;
@@ -79,18 +65,47 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+    public bool AddMeleeToInventory(PickUpScriptable item, WeaponScriptable meleeItem)
+    {
+        if (sackStorage.transform.childCount <= sackStorage.maxCount)
+        {
+            SpawnMeleeItem(item, meleeItem, sackStorage.transform);
+            return true;
+        }
+        return false;
+    }
+
+    public bool AddRangedToInventory(PickUpScriptable item, GunScriptable gunItem)
+    {
+        if (sackStorage.transform.childCount <= sackStorage.maxCount)
+        {
+            SpawnRangedItem(item, gunItem, sackStorage.transform);
+            return true;
+        }
+        return false;
+    }
+
+    //////
+
     public void SpawnInventoryItem(PickUpScriptable itemID, Transform slot)
     {
-        //itemDrags.Add(itemID);
         GameObject newSprite = Instantiate(itemPrefab, slot);
-        ItemDrag itemDrag = newSprite.GetComponent<ItemDrag>();
+        ItemBehaviour itemDrag = newSprite.GetComponent<ItemBehaviour>();
         itemDrag.Initialise(itemID);
     }
 
-    public void SpawnMeleeItem(PickUpScriptable itemID, Transform slot)
+    public void SpawnMeleeItem(PickUpScriptable itemID, WeaponScriptable meleeID, Transform slot)
     {
         GameObject newMeleeSprite = Instantiate(meleePrefab, slot);
+        MeleeItemBehaviour meleeItemDrag = newMeleeSprite.GetComponent<MeleeItemBehaviour>();
+        meleeItemDrag.InitialiseMelee(itemID, meleeID);
+    }
 
+    public void SpawnRangedItem(PickUpScriptable itemID, GunScriptable gunID, Transform slot)
+    {
+        GameObject newRangedSprite = Instantiate(meleePrefab, slot);
+        RangedItemBehaviour rangedItemDrag = newRangedSprite.GetComponent<RangedItemBehaviour>();
+        rangedItemDrag.InitialiseRanged(itemID, gunID);
     }
 
     public void RemoveItemFromInventory(PickUpScriptable itemID)

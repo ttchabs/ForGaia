@@ -13,11 +13,11 @@ public class SlotFunctionality : MonoBehaviour, IDropHandler
 
     public void NoItemLimit(PointerEventData eventData)
     {
-        if (transform.childCount ==0)
+        if (transform.childCount == 0)
         {
-                GameObject dropped = eventData.pointerDrag;
-                ItemDrag item = dropped.GetComponent<ItemDrag>();
-                item.parentDrag = transform;            
+            GameObject dropped = eventData.pointerDrag;
+            ItemBehaviour item = dropped.GetComponent<ItemBehaviour>();
+            //item.parentDrag = transform;
         }
     }
 }

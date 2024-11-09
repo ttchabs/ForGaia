@@ -1,28 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
+using UnityEngine.UI;
 
-public class ItemDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class RangedItemBehaviour : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI ASPECTS:")]
     public Image image;
-    public TextMeshProUGUI amountText;
 
     [Header("BTS ASPECTS")]
-    [HideInInspector]public Transform parentDrag;
-    public int amount = 1;
     public PickUpScriptable itemData;
+    public GunScriptable gunData;
 
-    public void Initialise(PickUpScriptable newItemData)
+    public void InitialiseRanged(PickUpScriptable newItemData, GunScriptable newGunData)
     {
         itemData = newItemData;
         image.sprite = newItemData.ItemSprite;
+
+        gunData = newGunData;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    /*public void OnBeginDrag(PointerEventData eventData)
     {
         parentDrag = transform.parent;
         transform.SetParent(transform.root);
@@ -39,15 +38,10 @@ public class ItemDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         transform.SetParent(parentDrag);
         image.raycastTarget = true;
-    }
+    }*/
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Hey");
-    }
-
-    public void AmountText()
-    {
-        amountText.text = amount.ToString();
+        ItemInfoDisplay.Instance.GunDisplayFunction(itemData, gunData);
     }
 }
