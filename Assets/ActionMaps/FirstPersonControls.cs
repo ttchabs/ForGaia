@@ -383,7 +383,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             } 
             else if (hit.collider.CompareTag("PickUp"))
             {
-
+                var pickUp = hit.collider.GetComponent<PickUpFunction>();
+                pickUp.Pickup();
             }
         }
     } 
