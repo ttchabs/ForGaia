@@ -13,6 +13,7 @@ public class UIManger : MonoBehaviour
     public TextScroll textScroll;
     public float scrollLength;
     public GameObject panel;
+    public GameObject tree;
 
 
     public void Start()
@@ -50,7 +51,7 @@ public class UIManger : MonoBehaviour
         }
     }
 
-    public void Loadscene(string MainScene)
+    public void Loadscene(string ExpositionScene)
     {
         StartCoroutine(scrollText);
         
@@ -70,10 +71,17 @@ public class UIManger : MonoBehaviour
             panel.SetActive(true);
             textScroll.Scroll();
             yield return new WaitForSeconds(scrollLength);
+            Loadscene("ExpositionScene");
 
-            
         }
     }
+
+    public void scrollingText()
+    {
+        StartCoroutine(scrollText);
+        
+    }
+
 
    
 

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TextScroll : MonoBehaviour
 {
     public float growSpeed = 50f; // Speed of growth in pixels per second
     public float maxHeight = 500f; // Maximum height of the text box
+    public float scrollTime;
 
     private RectTransform rectTransform;
 
@@ -17,6 +19,7 @@ public class TextScroll : MonoBehaviour
     void Update()
     {
         Scroll();
+        StartCoroutine(ScrollIng);
     }
 
 
@@ -27,5 +30,21 @@ public class TextScroll : MonoBehaviour
             // Increase the height over time
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + growSpeed * Time.deltaTime);
         }
+    }
+
+
+    public IEnumerator ScrollIng
+    {
+        get
+        {
+            yield return new WaitForSeconds(scrollTime);
+            LoadScene("MainScene");
+
+        }
+    }
+
+    public void LoadScene(string MainScene)
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
