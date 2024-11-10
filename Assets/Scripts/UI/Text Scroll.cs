@@ -9,17 +9,21 @@ public class TextScroll : MonoBehaviour
     public float maxHeight = 500f; // Maximum height of the text box
     public float scrollTime;
 
-    private RectTransform rectTransform;
+    public Animator fadeToBlack;
+
+    public RectTransform rectTransform;
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+        //rectTransform = GetComponent<RectTransform>();
+
     }
 
     void Update()
     {
         Scroll();
         StartCoroutine(ScrollIng);
+        Invoke("PlayAnim", scrollTime - 5f);
     }
 
 
@@ -37,14 +41,23 @@ public class TextScroll : MonoBehaviour
     {
         get
         {
+
+
             yield return new WaitForSeconds(scrollTime);
             LoadScene("MainScene");
 
         }
     }
+    public void PlayAnim()
+    {
+        fadeToBlack.SetTrigger("StartFade");
+    }
 
     public void LoadScene(string MainScene)
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(MainScene);
+
     }
+
+    
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Player/Player Container")]
 public class PlayerScriptable : ScriptableObject
@@ -18,8 +19,9 @@ public class PlayerScriptable : ScriptableObject
     public int MaxPlayerHP { get => _maxPlayerHP; }
     public float MaxWeaponWeight { get => _maxWeaponWeight; }
 
-    public void PlayerDeath()
+    public void PlayerDeath(string sceneToLoad)
     {
+        SceneManager.LoadScene(sceneToLoad);
         Debug.Log("Player is dead");
     }
 }

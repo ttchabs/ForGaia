@@ -18,8 +18,9 @@ public class UIManger : MonoBehaviour
 
     public void Start()
     {
-        panel.SetActive(false);
+        //panel.SetActive(false);
     }
+
     // Method to rotate the camera left by 90 degrees
     public void RotateCameraLeftBy90Degrees()
     {
@@ -55,8 +56,9 @@ public class UIManger : MonoBehaviour
     {
         StartCoroutine(scrollText);
         
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene(ExpositionScene);
     }
+
 
     public void OnApplicationQuit()
     {
@@ -68,8 +70,8 @@ public class UIManger : MonoBehaviour
     {
         get
         {
-            panel.SetActive(true);
-            textScroll.Scroll();
+            //panel.SetActive(true);
+            //textScroll.Scroll();
             yield return new WaitForSeconds(scrollLength);
             Loadscene("ExpositionScene");
 

@@ -7,10 +7,13 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
+
+    public static FirstPersonControls Instance;
     [Header("INITIALIZATIONS")]
     [Space(5)]
     public GameObject playerModel;//The 3D imported model of the player
@@ -101,6 +104,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     HealthGain healthGain;
     #endregion
 
+    public string currentScene;
+
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
@@ -110,8 +115,15 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         currentPlayerHP = playerConfigs.MaxPlayerHP;
         //OnDamageReceived += KnockedBack;
 
-        
+        if (Instance == null) 
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        currentScene = SceneManager.GetActiveScene().name;
     }
+
+    
 
     private void OnEnable()
     {
@@ -452,7 +464,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         OnDamageReceived?.Invoke(damageAmount);
 
         if (currentPlayerHP <= 0)
-            playerConfigs.PlayerDeath();
+            playerConfigs.PlayerDeath(currentScene);
     }
 
     public void UseHealthGrub()

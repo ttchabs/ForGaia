@@ -11,9 +11,10 @@ public class InventoryManager : MonoBehaviour
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
-    public int amount;
+
     [Space(2)]
-    public Transform[] ConsumableSlot;
+    public Transform ConsumableSlot;
+    public int amount;
 
     [Header("SACK SLOTS")]
     public Transform sackStorage;
@@ -27,35 +28,31 @@ public class InventoryManager : MonoBehaviour
 
     public void Awake()
     {
-        Instance = this;
-        UpdateStorageCount();
+        if (Instance == null)
+        {
+            Instance = this;
+            UpdateStorageCount();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
-
-
 
     public bool AddConsumable(PickUpScriptable item)
     {
-        for (int i = 0; i < ConsumableSlot.Length; i++)
+        ItemBehaviour ConsumableInInventory = ConsumableSlot.GetComponentInChildren<ItemBehaviour>();
+        if(ConsumableInInventory != null && ConsumableInInventory.itemData == item && ConsumableInInventory.amount <= amount)
         {
-            Transform slot = ConsumableSlot[i];
-            ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
-            if (itemInInventory != null && itemInInventory.itemData == item && itemInInventory.amount <= amount)
-            {
-                itemInInventory.amount++;
-                itemInInventory.AmountText();
-                return true;
-            }
+            ConsumableInInventory.amount++;
+            ConsumableInInventory.AmountText();
+            return true;
         }
-
-        for (int i = 0; i < ConsumableSlot.Length; i++)
+        else if(ConsumableInInventory == null)
         {
-            Transform slot = ConsumableSlot[i];
-            ItemBehaviour itemInInventory = slot.GetComponentInChildren<ItemBehaviour>();
-            if (itemInInventory == null)
-            {
-                SpawnInventoryItem(item, slot.transform);
-                return true;
-            }
+            SpawnInventoryItem(item, ConsumableSlot);
+            return true;
         }
         return false;
     }

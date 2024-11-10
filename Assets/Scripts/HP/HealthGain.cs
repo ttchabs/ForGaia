@@ -7,6 +7,7 @@ public class HealthGain : MonoBehaviour
     public int healthRecovered;
     public FirstPersonControls playerHealth;
 
+    public PickUpScriptable HealthGrubsData;
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -16,6 +17,11 @@ public class HealthGain : MonoBehaviour
             if (playerHealth.currentPlayerHP >= playerHealth.playerConfigs.MaxPlayerHP)
                 playerHealth.currentPlayerHP = playerHealth.playerConfigs.MaxPlayerHP;
             Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            InventoryManager.Instance.AddConsumable(HealthGrubsData);
         }
     }
 }

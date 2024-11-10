@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2bf93aeeb826843bc6c4e526fba0c5, type: 3}
+  m_Name: StoneCrusherID
+  m_EditorClassIdentifier: 
+  _itemName: Stone Crusher
+  _itemDescription: A mean, heavy sword forged from the stones of First Mountain.
+    this sword was used to crush the heads, spines and legs of the Bear tribe with
+    no chance of recovery!
+  _itemModel: {fileID: 7695108773255861316, guid: b31adc21176a24e4685a8cd17fe9c680, type: 3}
+  _itemSprite: {fileID: 21300000, guid: fc3de5c15078b554e9df62abcf8f1812, type: 3}
+  _itemType: 1
