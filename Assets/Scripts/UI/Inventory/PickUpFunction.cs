@@ -5,8 +5,6 @@ using UnityEngine;
 public class PickUpFunction : MonoBehaviour
 {
     public PickUpScriptable itemData;
-/*    public WeaponScriptable weaponData;
-    public GunScriptable gunScriptable;*/
 
     public void Pickup()
     {

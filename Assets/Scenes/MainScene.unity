@@ -38482,9 +38482,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4646436824673592287, guid: 6b843b69b3b62454883ccbfd8d336501, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5007429944816776093, guid: 6b843b69b3b62454883ccbfd8d336501, type: 3}
       propertyPath: m_Name
       value: ===UI ELEMENTS===
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698192549780816486, guid: 6b843b69b3b62454883ccbfd8d336501, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -466
       objectReference: {fileID: 0}
     - target: {fileID: 7474350903696655964, guid: 6b843b69b3b62454883ccbfd8d336501, type: 3}
       propertyPath: m_LocalPosition.x
