@@ -278,6 +278,7 @@ MonoBehaviour:
   scrollTime: 22
   fadeToBlack: {fileID: 419824011}
   rectTransform: {fileID: 76580393}
+  sceneToLoad: Level 1
 --- !u!224 &419824008 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8085208300550567408, guid: 8495dd33a52370f46852105a40847937, type: 3}

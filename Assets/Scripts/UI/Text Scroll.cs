@@ -12,6 +12,7 @@ public class TextScroll : MonoBehaviour
     public Animator fadeToBlack;
 
     public RectTransform rectTransform;
+    public string sceneToLoad;
 
     void Start()
     {
@@ -23,7 +24,7 @@ public class TextScroll : MonoBehaviour
     {
         Scroll();
         StartCoroutine(ScrollIng);
-        Invoke("PlayAnim", scrollTime - 5f);
+        Invoke("PlayAnim", scrollTime - 2.4f);
     }
 
 
@@ -44,7 +45,7 @@ public class TextScroll : MonoBehaviour
 
 
             yield return new WaitForSeconds(scrollTime);
-            LoadScene("MainScene");
+            LoadScene(sceneToLoad);
 
         }
     }
