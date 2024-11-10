@@ -44,7 +44,7 @@ public class TextScroll : MonoBehaviour
 
 
             yield return new WaitForSeconds(scrollTime);
-            LoadScene("MainScene");
+            LoadScene("Level 1");
 
         }
     }

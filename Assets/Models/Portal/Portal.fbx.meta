@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3471d795bae13f644a97d7135c01f691
+guid: c45b588be83c745448e7cbea82702bc2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 58efe1cf08bbbd54f9d7130c25a7c20b, type: 2}
+      name: portal juice
+    second: {fileID: 2100000, guid: f30ad59711b2e834698aaa1326f0a50a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: portal rim
+    second: {fileID: 2100000, guid: 4704cf3d8e54d5046b2ae5e2f09852d4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
