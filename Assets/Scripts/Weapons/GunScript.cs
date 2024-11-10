@@ -23,7 +23,7 @@ public class GunScript : MonoBehaviour
         if (currentMagAmount == 0)
         {
             _reloading = true;
-            Invoke("ReloadGun", 3f);
+            Invoke("ReloadGun", 2f);
             return;
         }
     }
