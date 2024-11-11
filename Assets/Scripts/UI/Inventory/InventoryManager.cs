@@ -39,7 +39,6 @@ public class InventoryManager : MonoBehaviour
         {
             Instance = this;
             UpdateStorageCount();
-            LoadInventory();
         }
         else
         {
