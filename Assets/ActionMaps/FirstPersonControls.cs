@@ -352,14 +352,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void PickUpObject()
     {
-/*        // Check if we are already holding an object
+        // Check if we are already holding an object
         if (heldObject != null)
         {
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
             holdingGun = false;
-        }*/
+        }
 
         // Perform a raycast from the camera's position forward
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
