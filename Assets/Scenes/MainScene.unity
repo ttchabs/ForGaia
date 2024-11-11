@@ -2664,6 +2664,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BranchSap (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5771008499783546483, guid: 3dc7bc3d73cc5ce4f91025082f988d4f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4112,11 +4116,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2543791954344835642, guid: 07345499ccaa65b4daca701010fc6e12, type: 3}
   m_PrefabInstance: {fileID: 299608356}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &304258893 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-  m_PrefabInstance: {fileID: 1053952135}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &306955953
 GameObject:
@@ -6440,7 +6439,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &487618489
 Transform:
@@ -11258,6 +11257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SapDrop
       objectReference: {fileID: 0}
+    - target: {fileID: 9207849466625067337, guid: 1775945a318952640b0cc4572e3c07fd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11335,6 +11338,10 @@ PrefabInstance:
     - target: {fileID: 5771008499783546483, guid: 3dc7bc3d73cc5ce4f91025082f988d4f, type: 3}
       propertyPath: m_Name
       value: BranchSap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5771008499783546483, guid: 3dc7bc3d73cc5ce4f91025082f988d4f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12945,6 +12952,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909718140}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &915782809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1285661847705586105, guid: e39d9a75a63946f488f206172b786651, type: 3}
+  m_PrefabInstance: {fileID: 71849375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &918090392
 GameObject:
   m_ObjectHideFlags: 0
@@ -14792,10 +14804,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1424697390}
     m_Modifications:
-    - target: {fileID: 6690995600501197041, guid: cb14dbccf5a93fe44a5312b51c85f8dd, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b7be63aed61443f478e3bf8d3b33c6ab, type: 2}
     - target: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -152.96
@@ -14840,24 +14848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: seed
       objectReference: {fileID: 0}
-    - target: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-      propertyPath: m_TagString
-      value: SorterPuzzleStone
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1533850061}
-    - targetCorrespondingSourceObject: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1533850060}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
 --- !u!1 &1067033097
 GameObject:
@@ -20283,6 +20277,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiddleSapPool
       objectReference: {fileID: 0}
+    - target: {fileID: 4899417650299116842, guid: 7e94d759859ecee469fd7a444b202bb0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21457,6 +21455,7 @@ MonoBehaviour:
   mismatchCount: 0
   maximumMismatchCount: 3
   SceneToLoad: MainScene
+  portal: {fileID: 915782809}
 --- !u!1 &1426637595
 GameObject:
   m_ObjectHideFlags: 0
@@ -22532,6 +22531,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroundSap
       objectReference: {fileID: 0}
+    - target: {fileID: 7935309900961941723, guid: b7a345cbb351fc1488d638d28fc1c342, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23233,54 +23236,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
   m_PrefabInstance: {fileID: 1053952135}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1533850060
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304258893}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &1533850061
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304258893}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1535343426
 GameObject:
   m_ObjectHideFlags: 0
@@ -36752,6 +36707,10 @@ PrefabInstance:
     - target: {fileID: 4899417650299116842, guid: 7e94d759859ecee469fd7a444b202bb0, type: 3}
       propertyPath: m_Name
       value: MiddleSapPool (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899417650299116842, guid: 7e94d759859ecee469fd7a444b202bb0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

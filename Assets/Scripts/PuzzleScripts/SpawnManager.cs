@@ -17,13 +17,19 @@ public class SpawnManager : MonoBehaviour
     public int maximumMismatchCount;
     public string SceneToLoad;
 
+    public GameObject portal;
+
     private void Start()
     {
         foreach (GameObject stone in stoneToSpawn)
         {
             stone.SetActive(false);
+            portal.SetActive(false);
         }
     }
+
+  
+    
     public void SpawnStone()
     {
         if (stoneToSpawn.Count != 0 )
@@ -51,7 +57,8 @@ public class SpawnManager : MonoBehaviour
     public void SpawnGourd()
     {
             GameObject gourd = Instantiate(healingGourd, gourdSpawn.position, gourdSpawn.rotation);
-            gourd.name = healingGourd.name;         
+            gourd.name = healingGourd.name; 
+        portal.SetActive(true);
             return;
     }
 }
