@@ -1619,19 +1619,19 @@ PrefabInstance:
     - target: {fileID: 2797543728905490995, guid: c43efda76f2527c41bba9a59b822e3a5, type: 3}
       propertyPath: healthGrub
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1038027882}
     - target: {fileID: 2797543728905490995, guid: c43efda76f2527c41bba9a59b822e3a5, type: 3}
       propertyPath: pickUpText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1038027879}
     - target: {fileID: 2797543728905490995, guid: c43efda76f2527c41bba9a59b822e3a5, type: 3}
       propertyPath: grubCounttxt
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1038027881}
     - target: {fileID: 2797543728905490995, guid: c43efda76f2527c41bba9a59b822e3a5, type: 3}
       propertyPath: HealthDisplay
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 809798097}
     - target: {fileID: 8001302372064283857, guid: c43efda76f2527c41bba9a59b822e3a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 514
