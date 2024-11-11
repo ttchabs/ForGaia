@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -104,6 +103,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     HealthGain healthGain;
     #endregion
 
+    #region INVENTORY
+    [Header("Inventory")][Space(5)]
+
+    #endregion
+
     public string currentScene;
 
     private void Awake()
@@ -165,8 +169,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         //Subscribe to the USEHEALTHGRUB input event
         playerInput.Player.USeHealthGrub.performed += ctx => UseHealthGrub();
 
+        playerInput.Player.Inventory.performed += ctx => Inventory();
 
-}
+
+    }
 
     private void Update()
     {
@@ -482,6 +488,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         else {
             return;
         }
+
+    }
+
+    public void Inventory()
+    {
 
     }
 
