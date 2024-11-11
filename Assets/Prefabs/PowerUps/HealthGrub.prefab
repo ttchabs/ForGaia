@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthRecovered: 3
   playerHealth: {fileID: 0}
+  HealthGrubsData: {fileID: 11400000, guid: 311c7850cfb59734f91fb7f33bd057c9, type: 2}
 --- !u!65 &4313324674030086560
 BoxCollider:
   m_ObjectHideFlags: 0
