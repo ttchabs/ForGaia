@@ -17,5 +17,5 @@ MonoBehaviour:
     and objects, yet despite this it can deal a nasty punch. It is on its wits end
     however.
   _itemModel: {fileID: 383414822537077855, guid: a55729c04ebe92b4686637fb537f8e43, type: 3}
-  _itemSprite: {fileID: 0}
+  _itemSprite: {fileID: 21300000, guid: e10606df941556d4a98c80830b57b047, type: 3}
   _itemType: 0

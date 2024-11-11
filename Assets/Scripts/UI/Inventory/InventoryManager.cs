@@ -45,7 +45,16 @@ public class InventoryManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        
     }
+
+    public void AddMeleeListener()
+    {
+        EquipButton.onClick.AddListener(EquipMelee);
+        EquipButton.onClick.RemoveListener(EquipGun);
+    }
+
+
 
     public void LoadInventory()
     {
@@ -130,12 +139,48 @@ public class InventoryManager : MonoBehaviour
         if(MeleeSlot == null)
         {
             equippableMelee.transform.parent = MeleeSlot;
+            InstantiateMelee(equippableMelee);
         }
         else if (MeleeSlot != null)
         {
             var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
-            returnMelee.transform.parent = sackStorage;
+            var hand = FirstPersonControls.Instance;
+            hand.RemoveMelee();
+            returnMelee.transform.SetParent(sackStorage);
+            equippableMelee.transform.SetParent(MeleeSlot);
+            InstantiateMelee(equippableMelee);
         }
+
+    }
+
+    public void InstantiateMelee(MeleeItemBehaviour behaviour) 
+    {
+        var hand = FirstPersonControls.Instance;
+        GameObject weapon = Instantiate(behaviour.itemData.ItemModel, hand.meleeHoldPosition);
+        hand.InitialiseMelee(weapon);
+    }
+
+
+    public void EquipGun()
+    {
+        if (GunSlot == null)
+        {
+            equippableGun.transform.parent = GunSlot;
+            InstantiateMelee(equippableMelee);
+        }
+        else if (GunSlot != null)
+        {
+            var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
+            var hand = FirstPersonControls.Instance;
+            hand.RemoveMelee();
+            returnMelee.transform.parent = sackStorage;
+            InstantiateMelee(equippableMelee);
+        }
+    }
+
+    public void InstantiateGun(RangedItemBehaviour behaviour)
+    {
+        var hand = FirstPersonControls.Instance;
 
     }
 

@@ -8,9 +8,8 @@ public class PickUpFunction : MonoBehaviour
 
     public void Pickup()
     {
-
-/*        GameObject sackCounter = GameObject.Find("Sack");
-        transform.SetParent(sackCounter.transform, true);*/
+        GameObject sackCounter = GameObject.Find("Sack");
+        transform.SetParent(sackCounter.transform, true);
         if (InventoryManager.Instance.AddItemToInventory(itemData) == false)
         {
             gameObject.SetActive(false);
@@ -22,7 +21,7 @@ public class PickUpFunction : MonoBehaviour
 
         if (InventoryManager.Instance.AddMeleeToInventory(itemData, meleeData) == true)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
@@ -30,7 +29,7 @@ public class PickUpFunction : MonoBehaviour
     {
         if (InventoryManager.Instance.AddRangedToInventory(itemData, gunData) == true)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
