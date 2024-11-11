@@ -22,6 +22,7 @@ public class HealthGain : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InventoryManager.Instance.AddConsumable(HealthGrubsData);
+            Destroy(gameObject);
         }
     }
 }
