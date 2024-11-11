@@ -55,7 +55,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
             player.DamageReceived(enemyConfigs.EnemyAttackDamage);
-            //StartCoroutine(playerHP.KnockedBack(direction));
         }
     }
 

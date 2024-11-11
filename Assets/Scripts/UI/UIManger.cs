@@ -70,8 +70,6 @@ public class UIManger : MonoBehaviour
     {
         get
         {
-            //panel.SetActive(true);
-            //textScroll.Scroll();
             yield return new WaitForSeconds(scrollLength);
             Loadscene("ExpositionScene");
 

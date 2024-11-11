@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303d58f7730e60e4ba38b0533b988a21, type: 3}
   m_Name: MoleEnemies
   m_EditorClassIdentifier: 
-  _enemyName: 
+  _enemyName: Mole
   _enemyDescription: 
   enemyModelPrefab: {fileID: 3273891270323321126, guid: 1fbc3addd9e47f54fb35ee84b3186d23, type: 3}
   enemyType: 1
-  _maxEnemyHP: 12
+  _maxEnemyHP: 100
   _enemyAttackDamage: 7
   _enemyKnockbackFactor: 8.4
   _enemyMoveSpeed: 2

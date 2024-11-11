@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModel: {fileID: 969096925331432594}
   playerConfigs: {fileID: 11400000, guid: 5cbb4b0e4553b3448befb61c0d7b679b, type: 2}
+  startPos: {fileID: 0}
   moveSpeed: 10
   lookSpeed: 0.5
   gravity: -9.81
@@ -69,6 +70,7 @@ MonoBehaviour:
   holdingMelee: 1
   _cooldownOver: 1
   currentPlayerHP: 0
+  HealthDisplay: {fileID: 0}
   pickUpText: {fileID: 0}
   healthBar: {fileID: 0}
   healthGrub: {fileID: 0}
@@ -78,6 +80,7 @@ MonoBehaviour:
   grubCounttxt: {fileID: 0}
   grubCount: 0
   animator: {fileID: 7539648491032995526}
+  currentScene: 
 --- !u!143 &3463152879028519589
 CharacterController:
   m_ObjectHideFlags: 0
@@ -118,7 +121,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -726,17 +729,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4879448319847545638}
     m_Modifications:
+    - target: {fileID: 2354848107738419397, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_Size.y
+      value: 3.268444
+      objectReference: {fileID: 0}
+    - target: {fileID: 2354848107738419397, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_Center.x
+      value: -0.000000050712924
+      objectReference: {fileID: 0}
+    - target: {fileID: 2354848107738419397, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_Center.y
+      value: 1.2062784
+      objectReference: {fileID: 0}
+    - target: {fileID: 2354848107738419397, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_Center.z
+      value: 0.017691106
+      objectReference: {fileID: 0}
     - target: {fileID: 5484261534181828093, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1419103
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5484261534181828093, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1419106
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5484261534181828093, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1419106
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5484261534181828093, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
       propertyPath: m_LocalPosition.x
@@ -778,9 +797,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5484261534181828093, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5918954987855155851, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
       propertyPath: m_Name
       value: Longsword
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109201549895423025, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 119.381294
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109201549895423025, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2845
+      objectReference: {fileID: 0}
+    - target: {fileID: 9109201549895423025, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

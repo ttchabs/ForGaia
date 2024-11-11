@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeType: 2
   _meleeDamage:
-    minDamage: 2
-    maxDamage: 4
+    minDamage: 10
+    maxDamage: 20
   _weaponStanceBreak: 3.78
   _weaponWeight: 3
   _swingCooldown: 1

@@ -15,8 +15,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public static FirstPersonControls Instance;
     [Header("INITIALIZATIONS")]
     [Space(5)]
+    [HideInInspector]public Controls playerInput;
     public GameObject playerModel;//The 3D imported model of the player
     public PlayerScriptable playerConfigs;//The data container for the player 
+
+    public Transform startPos;
 
     #region PLAYER MOVEMENT:
     [Header("MOVEMENT SETTINGS")]
@@ -74,14 +77,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("HEALTH:")]
     [Space(5)]
     public int currentPlayerHP;//current hp of the player
-
+    public Slider HealthDisplay;
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
 
     #region UI
     [Header("UI SETTINGS")]
     public TextMeshProUGUI pickUpText;
-    public Image healthBar;
     public GameObject healthGrub; //image in the UI
     public Image healthGrubSprite;
     //public Sprite healReference; // Image in Inspector
@@ -115,9 +117,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
         weaponAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
-        //weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;
         currentPlayerHP = playerConfigs.MaxPlayerHP;
-        //OnDamageReceived += KnockedBack;
 
         if (Instance == null) 
             Instance = this;
@@ -125,6 +125,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             Destroy(gameObject);
 
         currentScene = SceneManager.GetActiveScene().name;
+
+        SetMaxHP();
     }
 
     
@@ -132,8 +134,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         // Create a new instance of the input actions
-        var playerInput = new Controls();
-
+        playerInput = new Controls();
         // Enable the input actions
         playerInput.Player.Enable();
 
@@ -171,7 +172,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         playerInput.Player.Inventory.performed += ctx => Inventory();
 
-
+        playerInput.Player.Pause.performed += ctx => PauseGame();
     }
 
     private void Update()
@@ -264,6 +265,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
+        if (holdingMelee == true)
+        {
+            holdingMelee = false;
+            meleeAttacks.gameObject.SetActive(false);
+            gunFire.gameObject.SetActive(true);
+            holdingGun = true;
+        }
         if (holdingGun == true) 
         {
             gunFire.GunTriggerPulled();
@@ -272,6 +280,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Melee() //Right click mouse
     {
+        if (holdingGun == true)
+        {
+            holdingGun = false;
+            gunFire.gameObject.SetActive(false);
+            meleeAttacks.gameObject.SetActive(true);
+            holdingMelee = true;
+        }
         if (holdingMelee == true && meleeAttacks.cooldown == false)
         {
             meleeAttacks.cooldown = true;//When the player clicks right-click, cooldown starts
@@ -467,7 +482,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public void DamageReceived(int damageAmount)
     {
         currentPlayerHP -= damageAmount;
-        healthBar.fillAmount -= damageAmount;
+        HealthDisplay.value = currentPlayerHP;
         OnDamageReceived?.Invoke(damageAmount);
 
         if (currentPlayerHP <= 0)
@@ -491,9 +506,33 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     }
 
+    public void InitialiseMelee()
+    {
+        
+        var melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>();
+        if (melee != null) {
+            melee.gameObject.GetComponent<Collider>().enabled = false;
+            melee.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+            melee.transform.position = meleeHoldPosition.position;
+        }
+
+        
+    }
+
+    public void SetMaxHP()
+    {
+        HealthDisplay.maxValue = playerConfigs.MaxPlayerHP;        
+    }
+
+    public void PauseGame()
+    {
+        PauseManager.instance.PauseGame();
+    }
+
     public void Inventory()
     {
-
+        InventoryManager.Instance.inventoryPanel.SetActive(true);
     }
 
 

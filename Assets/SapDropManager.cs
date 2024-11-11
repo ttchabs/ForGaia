@@ -8,12 +8,6 @@ public class SapDropManager : MonoBehaviour
     public List<Transform> spawnpos;
 
     public float timeToDespawn;
-
-/*    public void Update()
-    {
-        InvokeRepeating("ChooseRandomSpawn", 2f, 2f);
-    }
-*/
     public void Start()
     {
         InvokeRepeating("ChooseRandomSpawn", 2f, 2f);

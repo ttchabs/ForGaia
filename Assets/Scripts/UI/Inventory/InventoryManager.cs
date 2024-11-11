@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
-
+    public GameObject inventoryPanel;
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
+    public MeleeItemBehaviour equippableMelee;
+    public RangedItemBehaviour equippableGun;
 
     [Space(2)]
     public Transform ConsumableSlot;
@@ -26,18 +29,27 @@ public class InventoryManager : MonoBehaviour
     public GameObject meleePrefab;
     public GameObject gunPrefab;
 
+    [Header("Buttons")]
+    public Button EquipButton;
+
     public void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             UpdateStorageCount();
+            LoadInventory();
         }
         else
         {
             Destroy(gameObject);
         }
 
+    }
+
+    public void LoadInventory()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
     public bool AddConsumable(PickUpScriptable item)
@@ -113,8 +125,17 @@ public class InventoryManager : MonoBehaviour
         rangedItemDrag.InitialiseRanged(itemID, gunID);
     }
 
-    public void RemoveItemFromInventory(PickUpScriptable itemID)
+    public void EquipMelee()
     {
+        if(MeleeSlot == null)
+        {
+            equippableMelee.transform.parent = MeleeSlot;
+        }
+        else if (MeleeSlot != null)
+        {
+            var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
+            returnMelee.transform.parent = sackStorage;
+        }
 
     }
 
@@ -122,4 +143,6 @@ public class InventoryManager : MonoBehaviour
     {
         maxStorageDisplay.text = $"{sackStorage.transform.childCount} / {maxSackStorage}";
     }
+
+
 }

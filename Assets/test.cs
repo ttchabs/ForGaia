@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
-    public void OnTriggerEnter(Collider other)
-    {
-        SceneManager.LoadScene("Level 1");
-        //UIManger.instance.ChangeScenes();
+    public GameObject thisItem;
+
+    public void TurnOff(){
+        thisItem.SetActive(false);
     }
 }
