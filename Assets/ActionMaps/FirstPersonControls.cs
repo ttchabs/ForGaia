@@ -72,6 +72,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private Animator weaponAnimation;//animation attached to the weapon will be played
     public bool holdingMelee = false;
     public bool _cooldownOver = true;
+
+    public AudioSource swordSwing;
     #endregion
 
     #region PLAYER HEALTH:
@@ -300,6 +302,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     break;
                 case MeleeWeaponType.Light:
                     weaponAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
+                    swordSwing.Play();
                     break;
                 case MeleeWeaponType.Medium:
                     animator.SetTrigger("MediumWeaponAttack"); //medium weapon swing

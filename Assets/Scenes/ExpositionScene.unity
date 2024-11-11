@@ -278,7 +278,7 @@ MonoBehaviour:
   scrollTime: 22
   fadeToBlack: {fileID: 419824011}
   rectTransform: {fileID: 76580393}
-  sceneToLoad: Level 1
+  sceneToLoad: MainScene
 --- !u!224 &419824008 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8085208300550567408, guid: 8495dd33a52370f46852105a40847937, type: 3}
@@ -403,7 +403,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 69e0b296a1b717f4fa9891e87f527a19, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
