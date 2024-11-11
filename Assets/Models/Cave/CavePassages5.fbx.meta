@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fdf1404e9d2f68b499d976e3ca8c2011
+guid: 7dbed8c8915fe71449399996159def7a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,28 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blindfold
-    second: {fileID: 2100000, guid: 9eaec1f06a1e7664e97f07545a69decb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Snout
-    second: {fileID: 2100000, guid: 201f78c482a0515429d3c9636d5f9a6c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Tail Fur
-    second: {fileID: 2100000, guid: 2023045c82a55df4db11ce8b3d7aca17, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Tail Fur.001
-    second: {fileID: 2100000, guid: 172f1d8903079b546bf4a05980e4a91e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mouth
-    second: {fileID: 2100000, guid: 33eedd0a64d804c499ba6911939cda3d, type: 2}
+      name: CavePassageMaterial
+    second: {fileID: 2100000, guid: 491023dd0c6fd1e46bae67161408259d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
