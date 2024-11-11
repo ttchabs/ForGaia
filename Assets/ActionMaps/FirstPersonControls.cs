@@ -43,6 +43,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
     public GunScript gunFire; //The script attached to the gun in hand
+    public Transform gunHoldPos;
     private bool holdingGun = false;
     #endregion
 
@@ -299,15 +300,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     break;
                 case MeleeWeaponType.Light:
                     weaponAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
-                    //weaponAnimation.Play("LightWeaponAttack", 0, 0);
                     break;
                 case MeleeWeaponType.Medium:
                     animator.SetTrigger("MediumWeaponAttack"); //medium weapon swing
-                    //weaponAnimation.Play("MediumWeaponAttack", 0, 0);
                     break;
                 case MeleeWeaponType.Heavy:
                     weaponAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
-                    //weaponAnimation.Play("HeavyWeaponAttack", 0, 0);
                     break;
                 default:
                     break;
@@ -506,18 +504,30 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     }
 
-    public void InitialiseMelee()
+    public void InitialiseMelee(GameObject melee)
     {
         
-        var melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>();
+        melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>().gameObject;
         if (melee != null) {
+            meleeWeapon = melee;
+            meleeAttacks = melee.GetComponent<WeaponScript>();
             melee.gameObject.GetComponent<Collider>().enabled = false;
-            melee.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-
+            melee.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             melee.transform.position = meleeHoldPosition.position;
+            melee.transform.rotation = meleeHoldPosition.rotation;
         }
+    }
 
-        
+    public void RemoveMelee()
+    {
+        var melee = meleeWeapon;
+        if (melee != null)
+        {
+            Destroy(melee);
+            meleeWeapon = null;
+            meleeAttacks = null;
+
+        }
     }
 
     public void SetMaxHP()

@@ -25,6 +25,7 @@ public class MeleeItemBehaviour : MonoBehaviour, IPointerClickHandler
     {
         ItemInfoDisplay.Instance.MeleeDisplayFunction(itemData, meleeData);
         var meleeEquip = InventoryManager.Instance;
+        meleeEquip.AddMeleeListener();
         meleeEquip.equippableMelee = this;
     }
 }
