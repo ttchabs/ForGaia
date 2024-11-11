@@ -42,6 +42,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region PLAYER SHOOTING:
     [Header("SHOOTING SETTINGS")]
     [Space(5)]
+    public GameObject gunWeapon;
     public GunScript gunFire; //The script attached to the gun in hand
     public Transform gunHoldPos;
     private bool holdingGun = false;
@@ -509,9 +510,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void InitialiseMelee(GameObject melee)
     {
-        
-        melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>().gameObject;
-        if (melee != null) {
+        if (melee != null) 
+        {
+            melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>().gameObject;
             meleeWeapon = melee;
             meleeAttacks = melee.GetComponent<WeaponScript>();
             melee.gameObject.GetComponent<Collider>().enabled = false;
@@ -521,16 +522,32 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
+    public void InitialiseGun(GameObject gun)
+    {
+        if (gun != null)
+        {
+            gun = gunHoldPos.GetComponentInChildren<WeaponScript>().gameObject;
+            gunWeapon = gun;
+            gunFire = gun.GetComponent<GunScript>();
+            gun.gameObject.GetComponent<Collider>().enabled = false;
+            gun.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            gun.transform.position = gunHoldPos.position;
+            gun.transform.rotation = gunHoldPos.rotation;
+        }
+    }
+
     public void RemoveMelee()
     {
-        var melee = meleeWeapon;
-        if (melee != null)
-        {
-            Destroy(melee);
+            Destroy(meleeWeapon);
             meleeWeapon = null;
-            meleeAttacks = null;
+            meleeAttacks = null;   
+    }
 
-        }
+    public void RemoveGun()
+    {
+        Destroy(gunWeapon);
+        gunWeapon = null;
+        gunFire = null; 
     }
 
     public void SetMaxHP()

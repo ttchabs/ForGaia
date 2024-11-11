@@ -12,12 +12,13 @@ public class InventoryManager : MonoBehaviour
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
-    public MeleeItemBehaviour equippableMelee;
-    public RangedItemBehaviour equippableGun;
+
+/*    public MeleeItemBehaviour equippableMelee;
+    public RangedItemBehaviour equippableGun;*/
 
     [Space(2)]
     public Transform ConsumableSlot;
-    public int amount;
+    public int amount = 100;
 
     [Header("SACK SLOTS")]
     public Transform sackStorage;
@@ -48,11 +49,17 @@ public class InventoryManager : MonoBehaviour
         
     }
 
-    public void AddMeleeListener()
+/*    public void AddMeleeListener()
     {
-        EquipButton.onClick.AddListener(EquipMelee);
-        EquipButton.onClick.RemoveListener(EquipGun);
+        EquipButton.onClick.RemoveAllListeners();
+        EquipButton.onClick.AddListener(EquipMelee);;
     }
+
+    public void AddGunListener()
+    {
+        EquipButton.onClick.RemoveAllListeners();
+        EquipButton.onClick.AddListener(EquipGun); 
+    }*/
 
 
 
@@ -134,14 +141,9 @@ public class InventoryManager : MonoBehaviour
         rangedItemDrag.InitialiseRanged(itemID, gunID);
     }
 
-    public void EquipMelee()
+/*    public void EquipMelee()
     {
-        if(MeleeSlot == null)
-        {
-            equippableMelee.transform.parent = MeleeSlot;
-            InstantiateMelee(equippableMelee);
-        }
-        else if (MeleeSlot != null)
+        if (MeleeSlot != null)
         {
             var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
             var hand = FirstPersonControls.Instance;
@@ -149,9 +151,10 @@ public class InventoryManager : MonoBehaviour
             returnMelee.transform.SetParent(sackStorage);
             equippableMelee.transform.SetParent(MeleeSlot);
             InstantiateMelee(equippableMelee);
+            return;
         }
 
-    }
+    }*/
 
     public void InstantiateMelee(MeleeItemBehaviour behaviour) 
     {
@@ -161,27 +164,24 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-    public void EquipGun()
+/*    public void EquipGun()
     {
-        if (GunSlot == null)
+        if (GunSlot != null)
         {
-            equippableGun.transform.parent = GunSlot;
-            InstantiateMelee(equippableMelee);
-        }
-        else if (GunSlot != null)
-        {
-            var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
+            var returnGun = GetComponentInChildren<RangedItemBehaviour>();
             var hand = FirstPersonControls.Instance;
-            hand.RemoveMelee();
-            returnMelee.transform.parent = sackStorage;
-            InstantiateMelee(equippableMelee);
+            hand.RemoveGun();
+            equippableGun.transform.SetParent(sackStorage);
+            returnGun.transform.parent = sackStorage;
+            InstantiateGun(equippableGun);
         }
-    }
+    }*/
 
     public void InstantiateGun(RangedItemBehaviour behaviour)
     {
         var hand = FirstPersonControls.Instance;
-
+        GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPos);
+        hand.InitialiseGun(gun);
     }
 
     public void UpdateStorageCount()
