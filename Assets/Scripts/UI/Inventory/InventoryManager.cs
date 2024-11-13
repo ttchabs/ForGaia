@@ -43,9 +43,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-
-        
+        }    
     }
 
     public void AddMeleeListener()
@@ -145,16 +143,17 @@ public class InventoryManager : MonoBehaviour
             hand.RemoveMelee();
             returnMelee.transform.SetParent(sackStorage);
             equippableMelee.transform.SetParent(MeleeSlot);
-            InstantiateMelee(equippableMelee);
+            StartCoroutine(InstantiateMelee(equippableMelee));
             return;
         
 
     }
 
-    public void InstantiateMelee(MeleeItemBehaviour behaviour) 
+    public IEnumerator InstantiateMelee(MeleeItemBehaviour behaviour) 
     {
         var hand = FirstPersonControls.Instance;
         GameObject weapon = Instantiate(behaviour.itemData.ItemModel, hand.meleeHoldPosition);
+        yield return new WaitForEndOfFrame();
         hand.InitialiseMelee(weapon);
     }
 
@@ -171,10 +170,11 @@ public class InventoryManager : MonoBehaviour
         return;
     }
 
-    public void InstantiateGun(RangedItemBehaviour behaviour)
+    public IEnumerator InstantiateGun(RangedItemBehaviour behaviour)
     {
         var hand = FirstPersonControls.Instance;
         GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPos);
+        yield return new WaitForEndOfFrame();
         hand.InitialiseGun(gun);
     }
 

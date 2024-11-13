@@ -16,7 +16,7 @@ MonoBehaviour:
   _meleeDamage:
     minDamage: 25
     maxDamage: 33
-  _weaponStanceBreak: 10
+  _knockback: 0
   _weaponWeight: 5.5
   _swingCooldown: 1.7
   uniqueAnimation: {fileID: 0}

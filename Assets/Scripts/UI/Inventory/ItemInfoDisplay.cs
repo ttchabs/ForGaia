@@ -50,8 +50,8 @@ public class ItemInfoDisplay : MonoBehaviour
         Description.text = $"{meleePickUp.ItemDescription}";
 
         text1.text = "Damage:  " + $"{meleeDescriptionInfo.MeleeDamageRange.minDamage} - {meleeDescriptionInfo.MeleeDamageRange.maxDamage}";
-        text2.text = "Knockback:  " + $"{meleeDescriptionInfo.WeaponStanceBreak}";
-        text3.text = "Weight:  " + $"{meleeDescriptionInfo.WeaponWeight}";
+        text2.text = "Knockback:  " + $"{meleeDescriptionInfo.Knockback}";
+        text3.text = "Weight:  " + $"{meleeDescriptionInfo.WeaponWeight} KG";
         text4.text = "Sword Class:  " + $"{meleeDescriptionInfo.meleeType}";
         text5.text = "Swing Cooldown:  " + $"{meleeDescriptionInfo.SwingCooldown}";
         text6.text = null ;

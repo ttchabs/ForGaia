@@ -423,8 +423,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 pickUp.Pickup();
             }
         }
-    } 
-    
+    }
+
     public void PickUpDisplay() //Displays the name of the item you are picking up
     {
         Ray displayRay = new Ray(playerCamera.position, playerCamera.forward);
@@ -439,10 +439,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             {
                 pickUpText.text = null;
             }
-
         }
-
-
     }
 
     public void ToggleCrouch()
@@ -519,16 +516,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             melee.transform.rotation = meleeHoldPosition.rotation;       
     }
 
-    public void StartMeleeInitial(GameObject melee)
-    {
-
-    }
-
     public void InitialiseGun(GameObject gun)
     {
         if (gun != null)
         {
-            gun = gunHoldPos.GetComponentInChildren<WeaponScript>().gameObject;
+            gun = gunHoldPos.GetComponentInChildren<GunScript>().gameObject;
             gunWeapon = gun;
             gunFire = gun.GetComponent<GunScript>();
             gun.gameObject.GetComponent<Collider>().enabled = false;

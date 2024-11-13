@@ -2,17 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour, IDamageable
 {
 
     [Header("STATS CONTROLS:")]
     public EnemyScriptable enemyConfigs; //data container for enemy stats
-    public float enemyCurrentHP;
+    public int enemyCurrentHP;
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
     private Rigidbody rb;
+
+    [Header("ENEMY HEALTH DISPLAY")]
+    public Slider enemyHealth;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
@@ -22,6 +26,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
+
+        SetMaxEnemyHP();
     }
 
     void Update()
@@ -40,8 +46,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
-            transform.rotation = lookDirection;
-            
+            transform.rotation = lookDirection;           
         }
     }
 
@@ -63,6 +68,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
+        UpdateHealthBar();
         OnDamageReceived?.Invoke(damage);
         BreakStance();
         if (enemyCurrentHP < 0)
@@ -73,7 +79,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
-        rb.AddForce(direction * -4, ForceMode.Impulse);
+        rb.AddForce(direction * -3, ForceMode.Impulse);
         
     }
 
@@ -85,7 +91,16 @@ public class EnemyController : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    public void SetMaxEnemyHP()
+    {
+        enemyHealth.maxValue = enemyConfigs.MaxEnemyHP;
+        UpdateHealthBar();
+    }
 
+    public void UpdateHealthBar()
+    {
+        enemyHealth.value = enemyCurrentHP;
+    }
 
     public void OnDisable()
     {

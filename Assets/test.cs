@@ -5,9 +5,5 @@ using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
-    public GameObject thisItem;
-
-    public void TurnOff(){
-        thisItem.SetActive(false);
-    }
+    
 }

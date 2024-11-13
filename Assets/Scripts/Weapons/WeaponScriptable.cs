@@ -19,7 +19,7 @@ public class WeaponScriptable : ScriptableObject
     [Header("WEAPON STATISTICS:")]
     [Space(2)]
     [SerializeField] WeaponDamage _meleeDamage; [Space (3)] //random range of damage dealt
-    [SerializeField] float _weaponStanceBreak; //the time in which the enemy will be stunned for
+    [SerializeField] float _knockback; //the time in which the enemy will be stunned for
     [SerializeField] float _weaponWeight; //the heaviness of the weapon. slows you down as you walk
     [SerializeField] float _swingCooldown; //the amount of time that needs to elapse betfore next swing
     public AnimatorOverrideController uniqueAnimation; //the animation called when this weapon is swung
@@ -32,7 +32,7 @@ public class WeaponScriptable : ScriptableObject
     public Sprite WeaponSprite { get => _weaponSprite; }*/
     public WeaponDamage MeleeDamageRange { get => _meleeDamage; }
     public float WeaponWeight { get => _weaponWeight; }
-    public float WeaponStanceBreak { get => _weaponStanceBreak; }
+    public float Knockback { get => _knockback; }
 
     public float SwingCooldown { get => _swingCooldown; }
 
@@ -40,7 +40,7 @@ public class WeaponScriptable : ScriptableObject
     {             
         if (((1 << other.gameObject.layer) & attackable) != 0) //checks what layers are being attacked
         {            
-            IDamageable damaged = other?.GetComponent<IDamageable>();
+            IDamageable damaged = other.GetComponent<IDamageable>();
             int damage = MeleeDamageRange.GetRandomDamage();
             damaged.DamageReceived(damage);
         }

@@ -19,6 +19,7 @@ public class WeaponScript : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         weaponConfigs.Attacking(other);
+        KnockBack(other);
     }
 
     public IEnumerator CooldownCounter()
@@ -26,6 +27,14 @@ public class WeaponScript : MonoBehaviour
         cooldown = true;
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
         cooldown = false; 
+    }
+
+    public void KnockBack(Collider other)
+    {
+        var playerPos = FirstPersonControls.Instance;
+        Vector3 direction = playerPos.transform.forward;
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+        rb.AddForce(direction * weaponConfigs.Knockback, ForceMode.Impulse);
     }
 
 }
