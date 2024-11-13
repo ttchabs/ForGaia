@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIManger : MonoBehaviour
+public class StartScreenManger : MonoBehaviour
 {
+    [Header("START SCREEN CONFIGS:")]
     public Camera mainCamera; // Reference to the camera (assign in the Inspector)
     public float rotationSpeed = 5f; // Speed at which the camera rotates
     private bool isRotating = false; // Track if the camera is currently rotating
     public GameObject[] UIElements;
     public GameObject initialButton;
-    public TextScroll textScroll;
-    public float scrollLength;
-    public GameObject panel;
-    public GameObject tree;
+
 
 
     public void Start()
@@ -54,7 +52,6 @@ public class UIManger : MonoBehaviour
 
     public void Loadscene(string ExpositionScene)
     {
-        StartCoroutine(scrollText);
         
         SceneManager.LoadScene(ExpositionScene);
     }
@@ -66,21 +63,7 @@ public class UIManger : MonoBehaviour
     }
 
 
-    private IEnumerator scrollText
-    {
-        get
-        {
-            yield return new WaitForSeconds(scrollLength);
-            Loadscene("ExpositionScene");
 
-        }
-    }
-
-    public void scrollingText()
-    {
-        StartCoroutine(scrollText);
-        
-    }
 
 
    

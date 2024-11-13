@@ -13,8 +13,8 @@ public class InventoryManager : MonoBehaviour
     public Transform MeleeSlot;
     public Transform GunSlot;
 
-/*    public MeleeItemBehaviour equippableMelee;
-    public RangedItemBehaviour equippableGun;*/
+    public MeleeItemBehaviour equippableMelee;
+    public RangedItemBehaviour equippableGun;
 
     [Space(2)]
     public Transform ConsumableSlot;
@@ -48,20 +48,17 @@ public class InventoryManager : MonoBehaviour
         
     }
 
-/*    public void AddMeleeListener()
+    public void AddMeleeListener()
     {
         EquipButton.onClick.RemoveAllListeners();
-        EquipButton.onClick.AddListener(EquipMelee);;
+        EquipButton.onClick.AddListener(EquipMelee); ;
     }
 
     public void AddGunListener()
     {
         EquipButton.onClick.RemoveAllListeners();
-        EquipButton.onClick.AddListener(EquipGun); 
-    }*/
-
-
-
+        EquipButton.onClick.AddListener(EquipGun);
+    }
     public void LoadInventory()
     {
         DontDestroyOnLoad(gameObject);
@@ -140,10 +137,9 @@ public class InventoryManager : MonoBehaviour
         rangedItemDrag.InitialiseRanged(itemID, gunID);
     }
 
-/*    public void EquipMelee()
+    public void EquipMelee()
     {
-        if (MeleeSlot != null)
-        {
+
             var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
             var hand = FirstPersonControls.Instance;
             hand.RemoveMelee();
@@ -151,9 +147,9 @@ public class InventoryManager : MonoBehaviour
             equippableMelee.transform.SetParent(MeleeSlot);
             InstantiateMelee(equippableMelee);
             return;
-        }
+        
 
-    }*/
+    }
 
     public void InstantiateMelee(MeleeItemBehaviour behaviour) 
     {
@@ -163,18 +159,17 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-/*    public void EquipGun()
+    public void EquipGun()
     {
-        if (GunSlot != null)
-        {
+
             var returnGun = GetComponentInChildren<RangedItemBehaviour>();
             var hand = FirstPersonControls.Instance;
+            returnGun.transform.SetParent(sackStorage);
+            equippableGun.transform.SetParent(GunSlot);
             hand.RemoveGun();
-            equippableGun.transform.SetParent(sackStorage);
-            returnGun.transform.parent = sackStorage;
             InstantiateGun(equippableGun);
-        }
-    }*/
+        return;
+    }
 
     public void InstantiateGun(RangedItemBehaviour behaviour)
     {

@@ -33,9 +33,8 @@ public class PuzzleSolve : MonoBehaviour
                 spawnManager.SpawnStone();
                 _collider.enabled = false;
 
-                if (spawnManager.matchCount > 6) 
+                if (spawnManager.matchCount > 5) 
                 {
-                    spawnManager.matchCount++;
                     spawnManager.SpawnGourd();
                     _collider.enabled = false;
                 }

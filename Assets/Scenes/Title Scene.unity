@@ -3528,8 +3528,6 @@ MonoBehaviour:
   initialButton: {fileID: 0}
   textScroll: {fileID: 0}
   scrollLength: 0
-  panel: {fileID: 0}
-  tree: {fileID: 0}
 --- !u!4 &853334096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2813248947246646375, guid: b7a345cbb351fc1488d638d28fc1c342, type: 3}
@@ -6676,7 +6674,7 @@ GameObject:
   - component: {fileID: 1201855271}
   - component: {fileID: 1201855270}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: StartScreenManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6703,8 +6701,6 @@ MonoBehaviour:
   initialButton: {fileID: 962083393}
   textScroll: {fileID: 0}
   scrollLength: 4
-  panel: {fileID: 0}
-  tree: {fileID: 0}
 --- !u!4 &1201855271
 Transform:
   m_ObjectHideFlags: 0
@@ -7692,8 +7688,6 @@ MonoBehaviour:
   initialButton: {fileID: 962083393}
   textScroll: {fileID: 0}
   scrollLength: 3
-  panel: {fileID: 0}
-  tree: {fileID: 0}
 --- !u!1001 &1461763072
 PrefabInstance:
   m_ObjectHideFlags: 0

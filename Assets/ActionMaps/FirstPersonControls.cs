@@ -510,16 +510,18 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void InitialiseMelee(GameObject melee)
     {
-        if (melee != null) 
-        {
             melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>().gameObject;
             meleeWeapon = melee;
             meleeAttacks = melee.GetComponent<WeaponScript>();
             melee.gameObject.GetComponent<Collider>().enabled = false;
             melee.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             melee.transform.position = meleeHoldPosition.position;
-            melee.transform.rotation = meleeHoldPosition.rotation;
-        }
+            melee.transform.rotation = meleeHoldPosition.rotation;       
+    }
+
+    public void StartMeleeInitial(GameObject melee)
+    {
+
     }
 
     public void InitialiseGun(GameObject gun)
@@ -538,9 +540,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void RemoveMelee()
     {
-            Destroy(meleeWeapon);
-            meleeWeapon = null;
-            meleeAttacks = null;   
+        Destroy(meleeWeapon);
+        meleeWeapon = null;
+        meleeAttacks = null;   
     }
 
     public void RemoveGun()

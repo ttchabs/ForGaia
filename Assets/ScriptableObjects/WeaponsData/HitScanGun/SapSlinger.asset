@@ -21,12 +21,13 @@ MonoBehaviour:
   gunTypes: 0
   _projectileSpeed: 90
   _fireRate: 0.53
+  _gunWeight: 0
   _magSize: 7
   _maxDistance: 50
   _reloadSequence: {fileID: 0}
   _bulletDamage:
-    minDamage: 5
-    maxDamage: 8
+    minDamage: 10
+    maxDamage: 17
   _bulletPrefab: {fileID: 2586385609988217719, guid: 2c042fcd7111e4a48b9bfc688e04f41c, type: 3}
   hitLayers:
     serializedVersion: 2

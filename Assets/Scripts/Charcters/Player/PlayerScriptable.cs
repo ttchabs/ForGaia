@@ -21,7 +21,7 @@ public class PlayerScriptable : ScriptableObject
 
     public void PlayerDeath(string sceneToLoad)
     {
-        SceneManager.LoadScene(sceneToLoad);
+        GameManager.managerInstance.ReloadGame(sceneToLoad);
         Debug.Log("Player is dead");
     }
 }

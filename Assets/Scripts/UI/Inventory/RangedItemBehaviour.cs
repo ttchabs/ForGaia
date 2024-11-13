@@ -24,8 +24,9 @@ public class RangedItemBehaviour : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         ItemInfoDisplay.Instance.GunDisplayFunction(itemData, gunData);
-/*        var gunEquip = InventoryManager.Instance;
+        var gunEquip = InventoryManager.Instance;
+        gunEquip.equippableGun = this;
         gunEquip.AddGunListener();
-        gunEquip.equippableGun = this;*/
+
     }
 }
