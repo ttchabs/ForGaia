@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9f83519fe6d944ba04d40972f29e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toWhichLevel: Level 3
-  portalTransition: {fileID: 0}
+  toWhichLevel: Title Scene
   switchSceneInterval: 1.8
 --- !u!65 &4093906788666551939
 BoxCollider:
