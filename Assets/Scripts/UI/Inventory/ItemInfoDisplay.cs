@@ -8,7 +8,7 @@ public class ItemInfoDisplay : MonoBehaviour
 {
     public static ItemInfoDisplay Instance;
 
-    [Header("Display")]
+    [Header("DISPLAY:")]
     public GameObject InfoPanel;
     [Space(2)]
     public TextMeshProUGUI Name;
@@ -20,9 +20,8 @@ public class ItemInfoDisplay : MonoBehaviour
     public TextMeshProUGUI text5;
     public TextMeshProUGUI text6;
 
-    [Header("Equip & Exit button")]
+    [Header("BUTTONS:")]
     [Space(2)]
-    public Button equipButton;
     public Button exitButton;
 
     public void Awake()

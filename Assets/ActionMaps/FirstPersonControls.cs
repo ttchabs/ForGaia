@@ -557,6 +557,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public void Inventory()
     {
         InventoryManager.Instance.inventoryPanel.SetActive(true);
+        InventoryManager.Instance.OpenInventoryPanel();
     }
 
 

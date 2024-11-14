@@ -291,9 +291,9 @@ GameObject:
   - component: {fileID: 7375218475418201124}
   - component: {fileID: 6398981604166636947}
   - component: {fileID: 5885500213242306727}
-  - component: {fileID: 7695912705315143443}
   - component: {fileID: 1500915736814327500}
-  m_Layer: 0
+  - component: {fileID: 7695912705315143443}
+  m_Layer: 7
   m_Name: Rabbit
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -360,6 +360,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1500915736814327500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7143046285306434224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e03ba56b2d67040bbc1ca427497383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rabbitanim: {fileID: 5464527506720922697}
+  isMoving: 0
+  moveSPeed: 0.1
+  distance: 2
+  player: {fileID: 0}
 --- !u!65 &7695912705315143443
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -381,23 +398,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.71318, z: 1}
   m_Center: {x: 0, y: 1.3564866, z: 0}
---- !u!114 &1500915736814327500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143046285306434224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42e03ba56b2d67040bbc1ca427497383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rabbitanim: {fileID: 5464527506720922697}
-  isMoving: 0
-  moveSPeed: 0.1
-  distance: 2
-  player: {fileID: 0}
 --- !u!1 &8788826975570819798
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,9 +525,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Village Rabbit5
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2311459327371818945, guid: 3a96fbe665ef7d64caef787d7dc8e47d, type: 3}
-    - {fileID: 8565187082871266718, guid: 3a96fbe665ef7d64caef787d7dc8e47d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

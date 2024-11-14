@@ -9,6 +9,8 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
     public GameObject inventoryPanel;
+    public bool isInventoryOpen = false;
+
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
@@ -44,6 +46,26 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(gameObject);
         }    
+    }
+
+    public void OpenInventoryPanel()
+    {
+        if (isInventoryOpen == false)
+        {
+            inventoryPanel.SetActive(true);
+            FirstPersonControls.Instance.playerInput.Disable();
+            isInventoryOpen = true;
+        }
+    }
+
+    public void CloseInventoryPanel()
+    {
+        if (isInventoryOpen == true)
+        {
+            inventoryPanel.SetActive(false);
+            FirstPersonControls.Instance.playerInput.Enable();
+            isInventoryOpen = false;
+        }
     }
 
     public void AddMeleeListener()
