@@ -15,6 +15,8 @@ public class GunScriptable : ScriptableObject
         [TextArea(2, 3), SerializeField] string _gunDescription;
         [SerializeField] GameObject _gunModel;
         [SerializeField] Sprite _gunSprite; //the inventory image of the gun*/
+    [Range(0f, 1f)]
+    [SerializeField] float _volume;
     [SerializeField] AudioClip _gunFireSFX;
     [SerializeField] AudioClip _gunEmptySFX;
     [SerializeField] AudioClip _gunReloadSFX;
@@ -40,6 +42,10 @@ public class GunScriptable : ScriptableObject
     public GameObject GunModel => _gunModel;
     public Sprite GunSprite => _gunSprite;*/
 
+    public float Volume => _volume; 
+    public AudioClip GunFireSFX => _gunFireSFX;
+    public AudioClip GunEmptySFX => _gunEmptySFX;
+    public AudioClip GunReloadSFX => _gunReloadSFX;
     public GameObject BulletPrefab => _bulletPrefab;
     public float ProjectileSpeed => _projectileSpeed;
     public WeaponDamage BulletDamage => _bulletDamage;

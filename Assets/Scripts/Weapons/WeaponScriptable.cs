@@ -10,10 +10,11 @@ public class WeaponScriptable : ScriptableObject
 {
     [Header("WEAPON IDENTIFICATION:")]
     [Space(2)]
-/*    [SerializeField] string _weaponName; //Name of the weapon
-    [TextArea(3, 3), SerializeField] string _weaponDescription; //lore behind the weapon
-    [SerializeField] GameObject _weaponModelPrefab; //Prefab of the weapon for instantiation
-    [SerializeField] Sprite _weaponSprite; //2d image of the weapon for the UI aspect*/
+    /*    [SerializeField] string _weaponName; //Name of the weapon
+        [TextArea(3, 3), SerializeField] string _weaponDescription; //lore behind the weapon
+        [SerializeField] GameObject _weaponModelPrefab; //Prefab of the weapon for instantiation
+        [SerializeField] Sprite _weaponSprite; //2d image of the weapon for the UI aspect*/
+    public AudioClip slashSound;
     public MeleeWeaponType meleeType; //weapon category
 
     [Header("WEAPON STATISTICS:")]

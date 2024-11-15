@@ -8,6 +8,7 @@ public class WeaponScript : MonoBehaviour
 {
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
+    public AudioSource meleeSlash;
     [HideInInspector] public bool cooldown = false;
 
 
