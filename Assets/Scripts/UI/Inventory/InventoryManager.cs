@@ -84,7 +84,7 @@ public class InventoryManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public bool AddConsumable(PickUpScriptable item)
+    public bool AddConsumableToInventory(PickUpScriptable item)
     {
         ItemBehaviour ConsumableInInventory = ConsumableSlot.GetComponentInChildren<ItemBehaviour>();
         if(ConsumableInInventory != null && ConsumableInInventory.itemData == item && ConsumableInInventory.amount <= amount)
@@ -159,16 +159,13 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipMelee()
     {
-
-            var returnMelee = GetComponentInChildren<MeleeItemBehaviour>();
-            var hand = FirstPersonControls.Instance;
-            hand.RemoveMelee();
-            returnMelee.transform.SetParent(sackStorage);
-            equippableMelee.transform.SetParent(MeleeSlot);
-            StartCoroutine(InstantiateMelee(equippableMelee));
-            return;
-        
-
+        var returnMelee = MeleeSlot.GetChild(0);
+        var hand = FirstPersonControls.Instance;
+        hand.RemoveMelee();
+        returnMelee.SetParent(sackStorage);
+        equippableMelee.transform.SetParent(MeleeSlot);
+        StartCoroutine(InstantiateMelee(equippableMelee));
+        return;
     }
 
     public IEnumerator InstantiateMelee(MeleeItemBehaviour behaviour) 
@@ -176,28 +173,27 @@ public class InventoryManager : MonoBehaviour
         var hand = FirstPersonControls.Instance;
         GameObject weapon = Instantiate(behaviour.itemData.ItemModel, hand.meleeHoldPosition);
         yield return new WaitForEndOfFrame();
-        hand.InitialiseMelee(weapon);
+        hand.MeleeInitialise(weapon);
     }
 
 
     public void EquipGun()
     {
-
-            var returnGun = GetComponentInChildren<RangedItemBehaviour>();
-            var hand = FirstPersonControls.Instance;
-            returnGun.transform.SetParent(sackStorage);
-            equippableGun.transform.SetParent(GunSlot);
-            hand.RemoveGun();
-            InstantiateGun(equippableGun);
+        var returnGun = GunSlot.GetChild(0);
+        var hand = FirstPersonControls.Instance;
+        returnGun.SetParent(sackStorage);
+        equippableGun.transform.SetParent(GunSlot);
+        hand.RemoveGun();
+        InstantiateGun(equippableGun);
         return;
     }
 
     public IEnumerator InstantiateGun(RangedItemBehaviour behaviour)
     {
         var hand = FirstPersonControls.Instance;
-        GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPos);
+        GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPosition);
         yield return new WaitForEndOfFrame();
-        hand.InitialiseGun(gun);
+        hand.GunInitialise(gun);
     }
 
     public void UpdateStorageCount()

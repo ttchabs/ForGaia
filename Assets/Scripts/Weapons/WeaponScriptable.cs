@@ -23,7 +23,6 @@ public class WeaponScriptable : ScriptableObject
     [SerializeField] float _weaponWeight; //the heaviness of the weapon. slows you down as you walk
     [SerializeField] float _swingCooldown; //the amount of time that needs to elapse betfore next swing
     public AnimatorOverrideController uniqueAnimation; //the animation called when this weapon is swung
-    public LayerMask attackable; //the layers which the weapon hitBox can interact with
 
     //these make the variables above accessible to other scripts. reference these when necessary.
 /*    public string WeaponName { get => _weaponName; } 
@@ -33,25 +32,23 @@ public class WeaponScriptable : ScriptableObject
     public WeaponDamage MeleeDamageRange { get => _meleeDamage; }
     public float WeaponWeight { get => _weaponWeight; }
     public float Knockback { get => _knockback; }
-
     public float SwingCooldown { get => _swingCooldown; }
 
-    public void Attacking(Collider other) //Attacking function. called in the WeaponScript.
-    {             
-        if (((1 << other.gameObject.layer) & attackable) != 0) //checks what layers are being attacked
-        {            
-            IDamageable damaged = other.GetComponent<IDamageable>();
-            int damage = MeleeDamageRange.GetRandomDamage();
-            damaged.DamageReceived(damage);
-        }
-    }
-
-    public void Attacks(Collider other)
+    public void Attacks(Collider other) //Attack function that is called i nthe weapon script
     {
         if (other.TryGetComponent(out IDamageable sliced))
         {
             int damage = MeleeDamageRange.GetRandomDamage();
             sliced.DamageReceived(damage);
+            KnockBack(other);
         }
+    }
+
+    public void KnockBack(Collider other)
+    {
+        var playerPos = FirstPersonControls.Instance;
+        Vector3 direction = playerPos.transform.forward;
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+        rb.AddForce(direction * Knockback, ForceMode.Impulse);
     }
 }

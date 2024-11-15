@@ -13,18 +13,17 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 {
 
     public static FirstPersonControls Instance;
-    [Header("INITIALIZATIONS")]
+    [Header("---INITIALIZATIONS---")]
     [Space(5)]
-    [HideInInspector]public Controls playerInput;
-    public GameObject playerModel;//The 3D imported model of the player
-    public PlayerScriptable playerConfigs;//The data container for the player 
-
-    public Transform startPos;
+    public GameObject playerModel; //The 3D imported model of the player
+    public PlayerScriptable playerConfigs;//The data container for the player
+    [HideInInspector] public Controls playerInput;
+    [HideInInspector] public Animator playerAnimation; //Animations that will be played thrughtout the game
 
     #region PLAYER MOVEMENT:
-    [Header("MOVEMENT SETTINGS")]
+    [Header("---MOVEMENT SETTINGS---")]
     [Space(5)]
-    // Public variables to set movement and look speed, and the player camera
+    //Public variables to set movement and look speed, and the player camera
     public float moveSpeed; // Speed at which the player moves
     public float lookSpeed; // Sensitivity of the camera movement
     public float gravity = -9.81f; // Gravity value
@@ -39,48 +38,46 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private CharacterController characterController; // Reference to the CharacterController component
     #endregion
 
-    #region PLAYER SHOOTING:
-    [Header("SHOOTING SETTINGS")]
+    #region PLAYER CROUCH:
+    [Header("---CROUCH SETTINGS---")] 
     [Space(5)]
-    public GameObject gunWeapon;
-    public GunScript gunFire; //The script attached to the gun in hand
-    public Transform gunHoldPos;
-    private bool holdingGun = false;
+    public float crouchHeight = 1f; // Height of the player when crouching
+    public float standingHeight = 2f; // Height of te player when standing
+    public float crouchSpeed = 1.5f; //Speed at which the player moves when crouching
+    private bool _isCrouching = false; //Whethere the player is currently crouching
     #endregion
 
     #region PLAYEY PICKUP ITEMS:
-    [Header("PICKING UP SETTINGS")]
+    [Header("---PICKING UP SETTINGS---")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
     [HideInInspector] public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
 
     #endregion
-    
-    #region PLAYER CROUCH:
-    [Header("CROUCH SETTINGS")] [Space(5)] 
-    public float crouchHeight = 1f; // Height of the player when crouching
-    public float standingHeight = 2f; // Height of te player when standing
-    public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
-    private bool _isCrouching = false;//Whethere the player is currently crouching
-    #endregion
 
     #region PLAYER MELEE ATTACKING:
-    [Header("MELEE SETTINGS")] [Space(5)]
+    [Header("---MELEE SETTINGS---")] 
+    [Space(5)]
     public GameObject meleeWeapon;//weapon model in hand 
-    public WeaponScript meleeAttacks;//script attached to the weapon
     public Transform meleeHoldPosition;//location in which the weapon will go to 
-    private Animator weaponAnimation;//animation attached to the weapon will be played
-    public bool holdingMelee = false;
-    public bool _cooldownOver = true;
-
+    public WeaponScript meleeAttacks;//script attached to the weapon
+    bool _holdingMelee = true;
     public AudioSource swordSwing;
     #endregion
 
-    #region PLAYER HEALTH:
-    [Header("HEALTH:")]
+    #region PLAYER SHOOTING:
+    [Header("---SHOOTING SETTINGS---")]
     [Space(5)]
-    public int currentPlayerHP;//current hp of the player
+    public Transform gunHoldPosition;
+    public GunScript gunFire; //The script attached to the gun in hand
+    private bool holdingGun = false;
+    #endregion
+
+    #region PLAYER HEALTH:
+    [Header("---HEALTH---")]
+    [Space(5)]
+    public int currentPlayerHP; //current hp of the player
     public Slider HealthDisplay;
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
@@ -100,7 +97,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region ANIMATION
 
     [Header("ANIMATION SETTINGS")] [Space(5)]
-    public Animator animator;
 
     #endregion
 
@@ -120,8 +116,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
-        weaponAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
-        currentPlayerHP = playerConfigs.MaxPlayerHP;
+        playerAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
+        SetMaxHP();
 
         if (Instance == null) 
             Instance = this;
@@ -129,8 +125,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             Destroy(gameObject);
 
         currentScene = SceneManager.GetActiveScene().name;
-
-        SetMaxHP();
     }
 
     
@@ -159,14 +153,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
+
+        //Subscribe to the pick-up-weapon input event
+        playerInput.Player.PickUpMelee.performed += ctx => ReloadGun(); // Call the ReloadGun method when reload-gun input is performed
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
         //Subscribe to the melee input event
         playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when melee input is performed
 
-        //Subscribe to the pick-up-weapon input event
-        playerInput.Player.PickUpMelee.performed += ctx => PickUpMelee(); // Call the PickUpWeapon method when pick-up-melee input is performed
+
 
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.ScrollThroughMelee.performed += ctx => PickUpDisplay(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
@@ -209,12 +205,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             currentSpeed = crouchSpeed;
         }
-        else if (meleeAttacks != null)
+        else if (_holdingMelee == true)
         {
             currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
             currentSpeed = Mathf.Max(currentSpeed, 0f);
         }
-        else if (gunFire != null)
+        else if (holdingGun == true)
         {
             currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
         }
@@ -226,8 +222,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
         //animator.SetFloat("Speed", currentSpeed);
-
-       
+        Debug.Log(currentSpeed);
     }
 
     public void LookAround()
@@ -269,14 +264,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
-        if (holdingMelee == true)
+        if (_holdingMelee == true)
         {
-            holdingMelee = false;
-            meleeAttacks.gameObject.SetActive(false);
-            gunFire.gameObject.SetActive(true);
+            _holdingMelee = false;
+            meleeHoldPosition.gameObject.SetActive(false);
+            gunHoldPosition.gameObject.SetActive(true);
             holdingGun = true;
         }
-        if (holdingGun == true) 
+        if (holdingGun == true && gunFire != null) 
         {
             gunFire.GunTriggerPulled();
         }
@@ -287,14 +282,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (holdingGun == true)
         {
             holdingGun = false;
-            gunFire.gameObject.SetActive(false);
-            meleeAttacks.gameObject.SetActive(true);
-            holdingMelee = true;
+            gunHoldPosition.gameObject.SetActive(false);
+            meleeHoldPosition.gameObject.SetActive(true);
+            _holdingMelee = true;
         }
-        if (holdingMelee == true && meleeAttacks.cooldown == false)
+        if (_holdingMelee == true && meleeAttacks.cooldown == false && meleeAttacks != null)
         {
             meleeAttacks.cooldown = true;//When the player clicks right-click, cooldown starts
-            weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;   
+            playerAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;   
             //checks what is currently in the player's melee hand and activates an animation based on the weapon type
             switch (meleeAttacks.weaponConfigs.meleeType)
             {
@@ -302,14 +297,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     Debug.Log("clawed");
                     break;
                 case MeleeWeaponType.Light:
-                    weaponAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
+                    playerAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
                     swordSwing.Play();
                     break;
                 case MeleeWeaponType.Medium:
-                    animator.SetTrigger("MediumWeaponAttack"); //medium weapon swing
+                    playerAnimation.SetTrigger("MediumWeaponAttack"); //medium weapon swing
                     break;
                 case MeleeWeaponType.Heavy:
-                    weaponAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
+                    playerAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
                     break;
                 default:
                     break;
@@ -318,7 +313,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
-    public void PickUpMelee()
+    public void ReloadGun()
     {
         // Perform a raycast from the camera's position forward
         Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
@@ -342,14 +337,15 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 meleeWeapon.transform.position = meleeHoldPosition.position;
                 meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
                 meleeWeapon.transform.parent = meleeHoldPosition;
-                holdingMelee = true;          
+                _holdingMelee = true;          
             }
-            else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon") && meleeHoldPosition.childCount > 0)
+            else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
             {
                 var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
                 itemCollect.Pickup();
             }
         }
+
 
     }
 
@@ -493,7 +489,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         if (grubCount > 0)
         {
-            DamageReceived(-3);
+            DamageReceived(-10);
             grubCount--;
             grubCounttxt.text = grubCount.ToString();
             if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
@@ -505,48 +501,40 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     }
 
-    public void InitialiseMelee(GameObject melee)
+    public void MeleeInitialise(GameObject melee)
     {
-            melee = meleeHoldPosition.GetComponentInChildren<WeaponScript>().gameObject;
-            meleeWeapon = melee;
-            meleeAttacks = melee.GetComponent<WeaponScript>();
-            melee.gameObject.GetComponent<Collider>().enabled = false;
-            melee.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            melee.transform.position = meleeHoldPosition.position;
-            melee.transform.rotation = meleeHoldPosition.rotation;       
+        meleeAttacks = melee.GetComponent<WeaponScript>();
+        melee.GetComponent<Collider>().enabled = false;
+        melee.GetComponent<Rigidbody>().isKinematic = true;
+        melee.transform.position = meleeHoldPosition.position;
+        melee.transform.rotation = meleeHoldPosition.rotation;
     }
 
-    public void InitialiseGun(GameObject gun)
+    public void GunInitialise(GameObject gun)
     {
-        if (gun != null)
-        {
-            gun = gunHoldPos.GetComponentInChildren<GunScript>().gameObject;
-            gunWeapon = gun;
-            gunFire = gun.GetComponent<GunScript>();
-            gun.gameObject.GetComponent<Collider>().enabled = false;
-            gun.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gun.transform.position = gunHoldPos.position;
-            gun.transform.rotation = gunHoldPos.rotation;
-        }
+        gunFire = gun.GetComponent<GunScript>();
+        gun.GetComponent <Collider>().enabled = false;
+        gun.GetComponent<Rigidbody>().isKinematic = true;
+        gun.transform.position = gunHoldPosition.position;
+        gun.transform.rotation = gunHoldPosition.rotation;
     }
 
     public void RemoveMelee()
     {
-        Destroy(meleeWeapon);
-        meleeWeapon = null;
+        Destroy(meleeAttacks.gameObject);
         meleeAttacks = null;   
     }
 
     public void RemoveGun()
     {
-        Destroy(gunWeapon);
-        gunWeapon = null;
-        gunFire = null; 
+        Destroy(gunFire.gameObject);
+        gunFire = null;
     }
 
     public void SetMaxHP()
     {
-        HealthDisplay.maxValue = playerConfigs.MaxPlayerHP;        
+        currentPlayerHP = playerConfigs.MaxPlayerHP;
+        HealthDisplay.maxValue = currentPlayerHP;        
     }
 
     public void PauseGame()

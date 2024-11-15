@@ -50,7 +50,7 @@ public class GunScriptable : ScriptableObject
     {
         var fab = SpawnProjectile();
         var g = fab.GetComponent<BulletScript>();
-        g.OnHit += BulletImpact; //subscribes to the bullet onHit event so that when the event is called onCollision, the BulleImpact function is called
+        g.OnHit += ProjectileImpact; //subscribes to the bullet onHit event so that when the event is called onCollision, the BulleImpact function is called
         fab.transform.position = origin.position;
 
         // Get the Rigidbody component of the projectile and set its velocity
@@ -110,7 +110,7 @@ public class GunScriptable : ScriptableObject
 
     }
 
-    public void BulletImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
+    public void ProjectileImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
     {
         IDamageable damage = collision.collider.GetComponent<IDamageable>();
         if (damage != null)

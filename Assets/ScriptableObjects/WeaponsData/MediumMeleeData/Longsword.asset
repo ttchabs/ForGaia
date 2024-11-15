@@ -16,10 +16,7 @@ MonoBehaviour:
   _meleeDamage:
     minDamage: 10
     maxDamage: 20
-  _weaponStanceBreak: 3.78
-  _weaponWeight: 3
+  _knockback: 3
+  _weaponWeight: 2
   _swingCooldown: 1
   uniqueAnimation: {fileID: 22100000, guid: e542f7ba04aec2f49b32d1fbe328a5d4, type: 2}
-  attackable:
-    serializedVersion: 2
-    m_Bits: 384

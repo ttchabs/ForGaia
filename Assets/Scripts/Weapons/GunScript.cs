@@ -53,8 +53,10 @@ public class GunScript : MonoBehaviour
         }
     }
 
-    public void ReloadGun()
+    public IEnumerator ReloadGun()
     {
+        _reloading = true;
+        yield return new WaitForSeconds(2f);
         currentMagAmount = gunConfigs.MagSize;
         _reloading = false;
     }
