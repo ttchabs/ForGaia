@@ -87,9 +87,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseHealthGrub",
+                    "name": "USeHealthGrub",
                     "type": "Button",
-                    "id": "9f9fdd5e-e42d-4aba-90a0-8ffb8e7613bd",
+                    "id": "e8ef59cd-72ec-462a-9e12-802cc5b18fd6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "ab031647-4460-45c9-93d1-0fa2e150672e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "9cc4ccb8-bae9-4ef3-84a7-e32f92c0a52e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -396,12 +414,34 @@
                 },
                 {
                     "name": "",
-                    "id": "68d46277-9afc-4962-b039-ea7d2ce2d32b",
+                    "id": "066b9818-88fa-4e57-b991-f930ccd9b69a",
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseHealthGrub",
+                    "action": "USeHealthGrub",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8879c85-7cd1-4f18-b3b5-52b92e1a90d7",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8392c6ab-a3d2-49d8-aff7-303b2fd57b67",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

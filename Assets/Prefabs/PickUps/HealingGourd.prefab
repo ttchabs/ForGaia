@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 6690995600501197041}
   - component: {fileID: -5576598849686722413}
   - component: {fileID: 1465133815617852713}
+  - component: {fileID: -5663013016675892178}
   m_Layer: 0
   m_Name: HealingGourd
   m_TagString: PickUp
@@ -254,3 +255,16 @@ CapsuleCollider:
   m_Height: 0.99999994
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5663013016675892178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104710978153708205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 0}

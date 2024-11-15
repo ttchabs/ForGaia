@@ -12,19 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
   m_Name: Longsword
   m_EditorClassIdentifier: 
-  _weaponName: Longsword
-  _weaponDescription: A sword purchased from the blacksmith market,this weapon is
-    known for its lightness and durability. It's great for novice adventurers.
-  _weaponModelPrefab: {fileID: 5918954987855155851, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
-  _weaponSprite: {fileID: 0}
   meleeType: 2
   _meleeDamage:
-    minDamage: 2
-    maxDamage: 4
-  _weaponStanceBreak: 3.78
+    minDamage: 10
+    maxDamage: 20
+  _knockback: 3
   _weaponWeight: 2
   _swingCooldown: 1
   uniqueAnimation: {fileID: 22100000, guid: e542f7ba04aec2f49b32d1fbe328a5d4, type: 2}
-  attackable:
-    serializedVersion: 2
-    m_Bits: 384

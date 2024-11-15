@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7822020606819136606}
   - component: {fileID: 9017686354508105415}
   - component: {fileID: 3994545018778186928}
+  - component: {fileID: 7246048698991467333}
   m_Layer: 0
   m_Name: SapSlinger
   m_TagString: Gun
@@ -96,9 +97,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a68398dab704d4c9cdc82f9fc31212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PickupID: {fileID: 11400000, guid: 4511055f144c02841918d8989f813138, type: 2}
   gunConfigs: {fileID: 11400000, guid: 0ea5f5dd83c018042be489b586c7b125, type: 2}
   firePoint: {fileID: 5496366025106576354}
   currentMagAmount: 0
+--- !u!114 &7246048698991467333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383414822537077855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 4511055f144c02841918d8989f813138, type: 2}
 --- !u!1 &5499819115641292407
 GameObject:
   m_ObjectHideFlags: 0

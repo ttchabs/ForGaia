@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Statistics Container")]
 public class GunScriptable : ScriptableObject
 {
     [Header("GUN IDENTIFICATION:")]
@@ -14,22 +14,24 @@ public class GunScriptable : ScriptableObject
     [SerializeField] string _gunName;
     [TextArea(2, 3), SerializeField] string _gunDescription;
     [SerializeField] GameObject _gunModel;
-    [SerializeField] Sprite _gunSprite;
-    public GunTypes gunTypes;
+    [SerializeField] Sprite _gunSprite; //the inventory image of the gun
+    public GunTypes gunTypes; //the type of shot the gun will perform
 
     [Header("GUN STATISTICS:")]
     [Space(4)]
     [SerializeField] float _projectileSpeed; //the rate at which the bullet travels
     [SerializeField] float _fireRate; // the amount of time elapsed between each gunfire
+    [SerializeField] float _gunWeight;
     [SerializeField] int _magSize; //the maximum number of bullets a gun can hold
     [SerializeField] float _maxDistance; //The furhest distance the bullet is allowed to travel
     [SerializeField] AnimatorOverrideController _reloadSequence; //The animation that plays when reloading a gun.
 
     [Header("BULLET STATISTICS:")]
-    [SerializeField] WeaponDamage _bulletDamage; [Space(2)]
-    [SerializeField] GameObject _bulletPrefab;
-    public LayerMask hitLayers;
-    
+    [SerializeField] WeaponDamage _bulletDamage; [Space(2)] //amount of damage dealt by the bullet
+    [SerializeField] GameObject _bulletPrefab; //the bullets that will be shot
+    public LayerMask hitLayers; //only applicable if hitscan
+
+    //these make the variables above accessible to other scripts. reference these when necessary.
     public string GunName => _gunName;
     public string GunDescription => _gunDescription;
     public GameObject GunModel => _gunModel;
@@ -39,6 +41,7 @@ public class GunScriptable : ScriptableObject
     public float ProjectileSpeed => _projectileSpeed;
     public WeaponDamage BulletDamage => _bulletDamage;
     public float FireRate => _fireRate;
+    public float GunWeight => _gunWeight;
     public int MagSize => _magSize;
     public float MaxDistance => _maxDistance;
 
@@ -47,7 +50,7 @@ public class GunScriptable : ScriptableObject
     {
         var fab = SpawnProjectile();
         var g = fab.GetComponent<BulletScript>();
-        g.OnHit += BulletImpact; //subscribes to the bullet onHit event so that when the event is called onCollision, the BulleImpact function is called
+        g.OnHit += ProjectileImpact; //subscribes to the bullet onHit event so that when the event is called onCollision, the BulleImpact function is called
         fab.transform.position = origin.position;
 
         // Get the Rigidbody component of the projectile and set its velocity
@@ -107,7 +110,7 @@ public class GunScriptable : ScriptableObject
 
     }
 
-    public void BulletImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
+    public void ProjectileImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
     {
         IDamageable damage = collision.collider.GetComponent<IDamageable>();
         if (damage != null)

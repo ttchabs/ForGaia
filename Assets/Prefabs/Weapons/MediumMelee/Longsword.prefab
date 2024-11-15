@@ -64,9 +64,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5484261534181828093}
-  - component: {fileID: 592800644206194893}
   - component: {fileID: 2354848107738419397}
   - component: {fileID: 8734102198926236255}
+  - component: {fileID: 592800644206194893}
+  - component: {fileID: -1132886099540367953}
   m_Layer: 0
   m_Name: Longsword
   m_TagString: MeleeWeapon
@@ -90,20 +91,6 @@ Transform:
   - {fileID: 9109201549895423025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &592800644206194893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5918954987855155851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponConfigs: {fileID: 11400000, guid: e95beaf9cf7199246a9cd2db20e09b45, type: 2}
-  hitBox: {fileID: 5103931327812812348}
 --- !u!65 &2354848107738419397
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -152,6 +139,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &592800644206194893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918954987855155851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PickupID: {fileID: 11400000, guid: 70e86e381a6e5324584ba01345dd7349, type: 2}
+  weaponConfigs: {fileID: 11400000, guid: e95beaf9cf7199246a9cd2db20e09b45, type: 2}
+  hitBox: {fileID: 5103931327812812348}
+  cooldown: 0
+--- !u!114 &-1132886099540367953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5918954987855155851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 70e86e381a6e5324584ba01345dd7349, type: 2}
 --- !u!1001 &8782261103490577370
 PrefabInstance:
   m_ObjectHideFlags: 0

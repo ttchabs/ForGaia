@@ -5,10 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
-{    
+{
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
-    public bool cooldown = false;
+    [HideInInspector] public bool cooldown = false;
 
 
     public void Awake()
@@ -18,7 +18,7 @@ public class WeaponScript : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        weaponConfigs.Attacking(other);
+        weaponConfigs.Attacks(other);
     }
 
     public IEnumerator CooldownCounter()
@@ -27,4 +27,7 @@ public class WeaponScript : MonoBehaviour
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
         cooldown = false; 
     }
+
+
+
 }

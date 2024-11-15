@@ -17,7 +17,15 @@ public enum GunTypes
 {
     HitScan,
     Projectile,
-    Thrower,
+    Thrower
+}
+
+public enum ItemTypes
+{
+    Ranged,
+    Melee,
+    PickUp,
+    Special
 }
 
 

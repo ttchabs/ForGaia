@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: 
   _epithet: 
-  _maxPlayerHP: 20
+  _maxPlayerHP: 100
   _maxWeaponWeight: 12

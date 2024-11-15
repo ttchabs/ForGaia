@@ -5,28 +5,32 @@ using System.Diagnostics.Tracing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
 
-    [Header("INITIALIZATIONS")]
+    public static FirstPersonControls Instance;
+    [Header("---INITIALIZATIONS---")]
     [Space(5)]
-    public GameObject playerModel;//The 3D imported model of the player
-    public PlayerScriptable playerConfigs;//The data container for the player 
-
-
+    public GameObject playerModel; //The 3D imported model of the player
+    public PlayerScriptable playerConfigs;//The data container for the player
+    [HideInInspector] public Controls playerInput;
+    [HideInInspector] public Animator playerAnimation; //Animations that will be played thrughtout the game
 
     #region PLAYER MOVEMENT:
-    [Header("MOVEMENT SETTINGS")]
+    [Header("---MOVEMENT SETTINGS---")]
     [Space(5)]
-    // Public variables to set movement and look speed, and the player camera
+    //Public variables to set movement and look speed, and the player camera
     public float moveSpeed; // Speed at which the player moves
     public float lookSpeed; // Sensitivity of the camera movement
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
     public Transform playerCamera; // Reference to the player's camera
-                                   // Private variables to store input values and the character controller
+    public AudioSource walk;
+    // Private variables to store input values and the character controller
     private Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
@@ -34,15 +38,17 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private CharacterController characterController; // Reference to the CharacterController component
     #endregion
 
-    #region PLAYER SHOOTING:
-    [Header("SHOOTING SETTINGS")]
+    #region PLAYER CROUCH:
+    [Header("---CROUCH SETTINGS---")] 
     [Space(5)]
-    public GunScript gunFire; //The script attached to the gun in hand
-    private bool holdingGun = false;
+    public float crouchHeight = 1f; // Height of the player when crouching
+    public float standingHeight = 2f; // Height of te player when standing
+    public float crouchSpeed = 1.5f; //Speed at which the player moves when crouching
+    private bool _isCrouching = false; //Whethere the player is currently crouching
     #endregion
 
     #region PLAYEY PICKUP ITEMS:
-    [Header("PICKING UP SETTINGS")]
+    [Header("---PICKING UP SETTINGS---")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
     [HideInInspector] public GameObject heldObject; // Reference to the currently held object
@@ -50,84 +56,90 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     #endregion
 
-
-
-    #region PLAYER CROUCH:
-    [Header("CROUCH SETTINGS")][Space(5)]
-    public float crouchHeight = 1f; // Height of the player when crouching
-    public float standingHeight = 2f; // Height of te player when standing
-    public float crouchSpeed = 1.5f;//Speed at which the player moves when crouching
-    private bool _isCrouching = false;//Whethere the player is currently crouching
+    #region PLAYER MELEE ATTACKING:
+    [Header("---MELEE SETTINGS---")] 
+    [Space(5)]
+    public GameObject meleeWeapon;//weapon model in hand 
+    public Transform meleeHoldPosition;//location in which the weapon will go to 
+    public WeaponScript meleeAttacks;//script attached to the weapon
+    bool _holdingMelee = true;
+    public AudioSource swordSwing;
     #endregion
 
-    #region PLAYER MELEE ATTACKING:
-    [Header("MELEE SETTINGS")][Space(5)]
-    public GameObject meleeWeapon;//weapon model in hand 
-    public WeaponScript meleeAttacks;//script attached to the weapon
-    public Transform meleeHoldPosition;//location in which the weapon will go to 
-    private Animator weaponAnimation;//animation attached to the weapon will be played
-    public bool holdingMelee = false;
-    public bool _cooldownOver = true;
+    #region PLAYER SHOOTING:
+    [Header("---SHOOTING SETTINGS---")]
+    [Space(5)]
+    public Transform gunHoldPosition;
+    public GunScript gunFire; //The script attached to the gun in hand
+    private bool holdingGun = false;
     #endregion
 
     #region PLAYER HEALTH:
-    [Header("HEALTH:")]
+    [Header("---HEALTH---")]
     [Space(5)]
-    public float currentPlayerHP;//current hp of the player
-
+    public int currentPlayerHP; //current hp of the player
+    public Slider HealthDisplay;
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
-
     #endregion
 
     #region UI
     [Header("UI SETTINGS")]
     public TextMeshProUGUI pickUpText;
-    public Image healthBar;
-    public float damageAmount = 0.25f; // Reduce the health bar by this amount
-    private float healAmount = 0.5f;// Fill the health bar by this amount
     public GameObject healthGrub; //image in the UI
     public Image healthGrubSprite;
-    public Sprite healReference; // Image in Inspector
-    public Image Gun;
-    public Image Sword;
-    public TextMeshProUGUI healthGrubNum; //the amount of healthgrubs in possesion
+    //public Sprite healReference; // Image in Inspector
+    public Image GunSlot;
+    public Image SwordSlot;
+    public TextMeshProUGUI grubCounttxt;
     public int grubCount = 0;
-
     #endregion
 
     #region ANIMATION
 
-    [Header("ANIMATION SETTINGS")][Space(5)]
-    public Animator animator;
+    [Header("ANIMATION SETTINGS")] [Space(5)]
 
     #endregion
 
     #region USEHEALTHGRUB
-    [Header("UseHealthGrub")][Space(5)]
-    HealthGain HealthGain;
-        #endregion
+    [Header("UseHealthGrub")][Space (5)]
+    HealthGain healthGain;
+    #endregion
+
+    #region INVENTORY
+    [Header("Inventory")][Space(5)]
+
+    #endregion
+
+    public string currentScene;
+
     private void Awake()
     {
         // Get and store the CharacterController component attached to this GameObject
         characterController = GetComponent<CharacterController>();
-        weaponAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
-        //weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;
-        currentPlayerHP = playerConfigs.MaxPlayerHP;
-        //OnDamageReceived += KnockedBack;
+        playerAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
+        SetMaxHP();
 
+        if (Instance == null) 
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        currentScene = SceneManager.GetActiveScene().name;
     }
+
+    
 
     private void OnEnable()
     {
         // Create a new instance of the input actions
-        var playerInput = new Controls();
-
+        playerInput = new Controls();
         // Enable the input actions
         playerInput.Player.Enable();
 
         // Subscribe to the movement input events
         playerInput.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>(); // Update moveInput when movement input is performed
         playerInput.Player.Movement.canceled += ctx => moveInput = Vector2.zero; // Reset moveInput when movement input is canceled
+       
 
         // Subscribe to the look input events
         playerInput.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>(); // Update lookInput when look input is performed
@@ -141,22 +153,27 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
+
+        //Subscribe to the pick-up-weapon input event
+        playerInput.Player.PickUpMelee.performed += ctx => ReloadGun(); // Call the ReloadGun method when reload-gun input is performed
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
         //Subscribe to the melee input event
         playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when melee input is performed
 
-        //Subscribe to the pick-up-weapon input event
-        playerInput.Player.PickUpMelee.performed += ctx => PickUpMelee(); // Call the PickUpWeapon method when pick-up-melee input is performed
+
 
         //Subscribe to the ScrollThroughMelee input event
-        playerInput.Player.ScrollThroughMelee.performed += ctx => CallMeleeWeapon(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
+        playerInput.Player.ScrollThroughMelee.performed += ctx => PickUpDisplay(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
 
-        //Subscribe to the UseHealthGrub input event
-        playerInput.Player.UseHealthGrub.performed += ctx => UseHealthGrub();
-}
+        //Subscribe to the USEHEALTHGRUB input event
+        playerInput.Player.USeHealthGrub.performed += ctx => UseHealthGrub();
 
+        playerInput.Player.Inventory.performed += ctx => Inventory();
+
+        playerInput.Player.Pause.performed += ctx => PauseGame();
+    }
 
     private void Update()
     {
@@ -164,12 +181,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         Move();
         LookAround();
         ApplyGravity();
+
+        PickUpDisplay();
     }
 
     public void Move()
     {
         // Create a movement vector based on the input
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+      
+       
 
         // Transform direction from local to world space
         move = transform.TransformDirection(move);
@@ -184,10 +205,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             currentSpeed = crouchSpeed;
         }
-        else if (meleeAttacks != null)
+        else if (_holdingMelee == true)
         {
             currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
             currentSpeed = Mathf.Max(currentSpeed, 0f);
+        }
+        else if (holdingGun == true)
+        {
+            currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
         }
         else
         {
@@ -197,7 +222,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
         //animator.SetFloat("Speed", currentSpeed);
-        
+        Debug.Log(currentSpeed);
     }
 
     public void LookAround()
@@ -239,7 +264,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Shoot()
     {
-        if (holdingGun == true) 
+        if (_holdingMelee == true)
+        {
+            _holdingMelee = false;
+            meleeHoldPosition.gameObject.SetActive(false);
+            gunHoldPosition.gameObject.SetActive(true);
+            holdingGun = true;
+        }
+        if (holdingGun == true && gunFire != null) 
         {
             gunFire.GunTriggerPulled();
         }
@@ -247,10 +279,17 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Melee() //Right click mouse
     {
-        if (holdingMelee == true && meleeAttacks.cooldown == false)
+        if (holdingGun == true)
+        {
+            holdingGun = false;
+            gunHoldPosition.gameObject.SetActive(false);
+            meleeHoldPosition.gameObject.SetActive(true);
+            _holdingMelee = true;
+        }
+        if (_holdingMelee == true && meleeAttacks.cooldown == false && meleeAttacks != null)
         {
             meleeAttacks.cooldown = true;//When the player clicks right-click, cooldown starts
-            weaponAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;   
+            playerAnimation.runtimeAnimatorController = meleeAttacks.weaponConfigs.uniqueAnimation;   
             //checks what is currently in the player's melee hand and activates an animation based on the weapon type
             switch (meleeAttacks.weaponConfigs.meleeType)
             {
@@ -258,16 +297,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                     Debug.Log("clawed");
                     break;
                 case MeleeWeaponType.Light:
-                    weaponAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
-                    //weaponAnimation.Play("LightWeaponAttack", 0, 0);
+                    playerAnimation.SetTrigger("LightWeaponAttack"); //light weapon swing
+                    swordSwing.Play();
                     break;
                 case MeleeWeaponType.Medium:
-                    animator.SetTrigger("MediumWeaponAttack"); //medium weapon swing
-                    //weaponAnimation.Play("MediumWeaponAttack", 0, 0);
+                    playerAnimation.SetTrigger("MediumWeaponAttack"); //medium weapon swing
                     break;
                 case MeleeWeaponType.Heavy:
-                    weaponAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
-                    //weaponAnimation.Play("HeavyWeaponAttack", 0, 0);
+                    playerAnimation.SetTrigger("HeavyWeaponAttack"); //Heavy weapon swing
                     break;
                 default:
                     break;
@@ -276,19 +313,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
-    public void PickUpMelee()
+    public void ReloadGun()
     {
-        //Check if we are already holding a weapon
-        if (meleeWeapon != null) 
-        {
-            meleeWeapon.GetComponent<Rigidbody>().isKinematic = false; //Enable Physics
-            meleeWeapon.GetComponent<Collider>().enabled = true; //Reactivate the collider so it can land on the ground 
-            meleeWeapon.transform.parent = null;
-            meleeAttacks = null;
-            //weaponAnimation.runtimeAnimatorController = null;
-            holdingMelee = false;
-        }
-
         // Perform a raycast from the camera's position forward
         Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hitMeleeWeapon;
@@ -311,9 +337,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 meleeWeapon.transform.position = meleeHoldPosition.position;
                 meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
                 meleeWeapon.transform.parent = meleeHoldPosition;
-                holdingMelee = true;          
+                _holdingMelee = true;          
+            }
+            else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
+            {
+                var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
+                itemCollect.Pickup();
             }
         }
+
+
     }
 
     public void PickUpObject()
@@ -338,7 +371,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
             // Check if the hit object has the tag "PickUp"
-            if (hit.collider.CompareTag("PickUp") || hit.collider.CompareTag("SorterPuzzleStone"))
+            if (hit.collider.CompareTag("SorterPuzzleStone"))
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -349,7 +382,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.rotation = holdPosition.rotation;
                 heldObject.transform.parent = holdPosition;
             }
-            else if (hit.collider.CompareTag("Gun")) 
+/*            else if (hit.collider.CompareTag("Gun")) 
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
@@ -363,12 +396,46 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.parent = holdPosition;
                 holdingGun = true;
             }
-        }
-    } 
-    
-    public void CallMeleeWeapon() //Places the melee weapon away or calls it to hand
-    {
+*/
+            ////////
 
+            if (hit.collider.CompareTag("MeleeWeapon"))
+            {
+                var meleePickUp = hit.collider.GetComponent<PickUpFunction>();
+                var meleeData = hit.collider.GetComponent<WeaponScript>();               
+                meleePickUp.MeleePickUp(meleeData.weaponConfigs);               
+            }
+
+            else if (hit.collider.CompareTag("Gun")) 
+            {
+                var gunPickUp = hit.collider.GetComponent<PickUpFunction>();
+                var gunData = hit.collider.GetComponent<GunScript>();
+                gunPickUp.GunPickUp(gunData.gunConfigs);
+                
+            } 
+            else if (hit.collider.CompareTag("PickUp"))
+            {
+                var pickUp = hit.collider.GetComponent<PickUpFunction>();
+                pickUp.Pickup();
+            }
+        }
+    }
+
+    public void PickUpDisplay() //Displays the name of the item you are picking up
+    {
+        Ray displayRay = new Ray(playerCamera.position, playerCamera.forward);
+        RaycastHit displayHit;
+        if (Physics.Raycast(displayRay, out displayHit, pickUpRange))
+        {
+            if(displayHit.collider.TryGetComponent(out PickUpFunction name))
+            {
+                pickUpText.text = "(E)";
+            }
+            else
+            {
+                pickUpText.text = null;
+            }
+        }
     }
 
     public void ToggleCrouch()
@@ -390,11 +457,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (other.gameObject.CompareTag("PowerUp"))
         {
-           healthGrub.SetActive(true);
+            healthGrub.SetActive(true);
             grubCount++;
-            print(grubCount);
-            healthGrubNum.text = grubCount.ToString();
-
+            grubCounttxt.text = grubCount.ToString();
         }
     }
 
@@ -409,34 +474,79 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     }
 
     //The function that is called whenever the player is hit by an enemy
-    public void DamageReceived(float damageAmount)
+    public void DamageReceived(int damageAmount)
     {
         currentPlayerHP -= damageAmount;
-        healthBar.fillAmount -= damageAmount;
+        HealthDisplay.value = currentPlayerHP;
         OnDamageReceived?.Invoke(damageAmount);
 
         if (currentPlayerHP <= 0)
-            playerConfigs.PlayerDeath();
+            playerConfigs.PlayerDeath(currentScene);
     }
 
-
-   private void UseHealthGrub()
+    public void UseHealthGrub()
     {
-      
+
         if (grubCount > 0)
         {
-            DamageReceived(-3);
+            DamageReceived(-10);
             grubCount--;
+            grubCounttxt.text = grubCount.ToString();
             if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
                 currentPlayerHP = playerConfigs.MaxPlayerHP;
-            
         }
-        else
-        {
+        else {
             return;
         }
-       
 
-       
     }
+
+    public void MeleeInitialise(GameObject melee)
+    {
+        meleeAttacks = melee.GetComponent<WeaponScript>();
+        melee.GetComponent<Collider>().enabled = false;
+        melee.GetComponent<Rigidbody>().isKinematic = true;
+        melee.transform.position = meleeHoldPosition.position;
+        melee.transform.rotation = meleeHoldPosition.rotation;
+    }
+
+    public void GunInitialise(GameObject gun)
+    {
+        gunFire = gun.GetComponent<GunScript>();
+        gun.GetComponent <Collider>().enabled = false;
+        gun.GetComponent<Rigidbody>().isKinematic = true;
+        gun.transform.position = gunHoldPosition.position;
+        gun.transform.rotation = gunHoldPosition.rotation;
+    }
+
+    public void RemoveMelee()
+    {
+        Destroy(meleeAttacks.gameObject);
+        meleeAttacks = null;   
+    }
+
+    public void RemoveGun()
+    {
+        Destroy(gunFire.gameObject);
+        gunFire = null;
+    }
+
+    public void SetMaxHP()
+    {
+        currentPlayerHP = playerConfigs.MaxPlayerHP;
+        HealthDisplay.maxValue = currentPlayerHP;        
+    }
+
+    public void PauseGame()
+    {
+        PauseManager.instance.PauseGame();
+    }
+
+    public void Inventory()
+    {
+        InventoryManager.Instance.inventoryPanel.SetActive(true);
+        InventoryManager.Instance.OpenInventoryPanel();
+    }
+
+
 }

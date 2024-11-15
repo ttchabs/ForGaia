@@ -109,9 +109,27 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""UseHealthGrub"",
+                    ""name"": ""USeHealthGrub"",
                     ""type"": ""Button"",
-                    ""id"": ""9f9fdd5e-e42d-4aba-90a0-8ffb8e7613bd"",
+                    ""id"": ""e8ef59cd-72ec-462a-9e12-802cc5b18fd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab031647-4460-45c9-93d1-0fa2e150672e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9cc4ccb8-bae9-4ef3-84a7-e32f92c0a52e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -418,12 +436,34 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""68d46277-9afc-4962-b039-ea7d2ce2d32b"",
+                    ""id"": ""066b9818-88fa-4e57-b991-f930ccd9b69a"",
                     ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""UseHealthGrub"",
+                    ""action"": ""USeHealthGrub"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8879c85-7cd1-4f18-b3b5-52b92e1a90d7"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8392c6ab-a3d2-49d8-aff7-303b2fd57b67"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -466,7 +506,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_PickUpMelee = m_Player.FindAction("PickUpMelee", throwIfNotFound: true);
         m_Player_ScrollThroughMelee = m_Player.FindAction("ScrollThroughMelee", throwIfNotFound: true);
-        m_Player_UseHealthGrub = m_Player.FindAction("UseHealthGrub", throwIfNotFound: true);
+        m_Player_USeHealthGrub = m_Player.FindAction("USeHealthGrub", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -537,7 +579,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_PickUpMelee;
     private readonly InputAction m_Player_ScrollThroughMelee;
-    private readonly InputAction m_Player_UseHealthGrub;
+    private readonly InputAction m_Player_USeHealthGrub;
+    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -551,7 +595,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @PickUpMelee => m_Wrapper.m_Player_PickUpMelee;
         public InputAction @ScrollThroughMelee => m_Wrapper.m_Player_ScrollThroughMelee;
-        public InputAction @UseHealthGrub => m_Wrapper.m_Player_UseHealthGrub;
+        public InputAction @USeHealthGrub => m_Wrapper.m_Player_USeHealthGrub;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -588,9 +634,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ScrollThroughMelee.started += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled += instance.OnScrollThroughMelee;
-            @UseHealthGrub.started += instance.OnUseHealthGrub;
-            @UseHealthGrub.performed += instance.OnUseHealthGrub;
-            @UseHealthGrub.canceled += instance.OnUseHealthGrub;
+            @USeHealthGrub.started += instance.OnUSeHealthGrub;
+            @USeHealthGrub.performed += instance.OnUSeHealthGrub;
+            @USeHealthGrub.canceled += instance.OnUSeHealthGrub;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -622,9 +674,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ScrollThroughMelee.started -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled -= instance.OnScrollThroughMelee;
-            @UseHealthGrub.started -= instance.OnUseHealthGrub;
-            @UseHealthGrub.performed -= instance.OnUseHealthGrub;
-            @UseHealthGrub.canceled -= instance.OnUseHealthGrub;
+            @USeHealthGrub.started -= instance.OnUSeHealthGrub;
+            @USeHealthGrub.performed -= instance.OnUSeHealthGrub;
+            @USeHealthGrub.canceled -= instance.OnUSeHealthGrub;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -671,6 +729,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMelee(InputAction.CallbackContext context);
         void OnPickUpMelee(InputAction.CallbackContext context);
         void OnScrollThroughMelee(InputAction.CallbackContext context);
-        void OnUseHealthGrub(InputAction.CallbackContext context);
+        void OnUSeHealthGrub(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
