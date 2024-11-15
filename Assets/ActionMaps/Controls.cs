@@ -55,9 +55,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""Crouch"",
                     ""type"": ""Button"",
-                    ""id"": ""2873f6d6-8ed0-4c3a-b0c0-90829849e107"",
+                    ""id"": ""73e6064e-1c17-4a62-861d-7c6bbb37c725"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -73,15 +73,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Crouch"",
-                    ""type"": ""Button"",
-                    ""id"": ""73e6064e-1c17-4a62-861d-7c6bbb37c725"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Melee"",
                     ""type"": ""Button"",
                     ""id"": ""af58ae42-46e6-4ec5-8ed9-939ac5ac8a5d"",
@@ -91,7 +82,16 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""PickUpMelee"",
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""2873f6d6-8ed0-4c3a-b0c0-90829849e107"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReloadGun"",
                     ""type"": ""Button"",
                     ""id"": ""1d098810-f905-4983-bbe8-8921c830e287"",
                     ""expectedControlType"": ""Button"",
@@ -109,7 +109,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""USeHealthGrub"",
+                    ""name"": ""UseHealthGrub"",
                     ""type"": ""Button"",
                     ""id"": ""e8ef59cd-72ec-462a-9e12-802cc5b18fd6"",
                     ""expectedControlType"": ""Button"",
@@ -326,45 +326,56 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e77048ef-2381-46c9-947d-44fafbc81be4"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""PickUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""648eef03-b95e-4388-b922-7f7dd33733a7"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""id"": ""856fbea1-2a03-45ab-8598-cbc74cab581a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""PickUp"",
+                    ""action"": ""ScrollThroughMelee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""260cd84b-3d8d-4ecd-9e4d-eda3d8820ca9"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""id"": ""cb1ef8ba-90be-409f-b075-fa05a9e69bc3"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Crouch"",
+                    ""action"": ""ScrollThroughMelee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b02438b0-6401-4b03-a951-1c4b5217c995"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""id"": ""066b9818-88fa-4e57-b991-f930ccd9b69a"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
+                    ""groups"": """",
+                    ""action"": ""UseHealthGrub"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8879c85-7cd1-4f18-b3b5-52b92e1a90d7"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8392c6ab-a3d2-49d8-aff7-303b2fd57b67"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -397,7 +408,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""PickUpMelee"",
+                    ""action"": ""ReloadGun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -408,62 +419,51 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""PickUpMelee"",
+                    ""action"": ""ReloadGun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""856fbea1-2a03-45ab-8598-cbc74cab581a"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""id"": ""260cd84b-3d8d-4ecd-9e4d-eda3d8820ca9"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b02438b0-6401-4b03-a951-1c4b5217c995"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""ScrollThroughMelee"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cb1ef8ba-90be-409f-b075-fa05a9e69bc3"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""id"": ""e77048ef-2381-46c9-947d-44fafbc81be4"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""ScrollThroughMelee"",
+                    ""action"": ""PickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""066b9818-88fa-4e57-b991-f930ccd9b69a"",
-                    ""path"": ""<Keyboard>/h"",
+                    ""id"": ""648eef03-b95e-4388-b922-7f7dd33733a7"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""USeHealthGrub"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e8879c85-7cd1-4f18-b3b5-52b92e1a90d7"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8392c6ab-a3d2-49d8-aff7-303b2fd57b67"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Pause"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -500,13 +500,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
-        m_Player_PickUpMelee = m_Player.FindAction("PickUpMelee", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_ReloadGun = m_Player.FindAction("ReloadGun", throwIfNotFound: true);
         m_Player_ScrollThroughMelee = m_Player.FindAction("ScrollThroughMelee", throwIfNotFound: true);
-        m_Player_USeHealthGrub = m_Player.FindAction("USeHealthGrub", throwIfNotFound: true);
+        m_Player_UseHealthGrub = m_Player.FindAction("UseHealthGrub", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
@@ -573,13 +573,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_Melee;
-    private readonly InputAction m_Player_PickUpMelee;
+    private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_ReloadGun;
     private readonly InputAction m_Player_ScrollThroughMelee;
-    private readonly InputAction m_Player_USeHealthGrub;
+    private readonly InputAction m_Player_UseHealthGrub;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Pause;
     public struct PlayerActions
@@ -589,13 +589,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
-        public InputAction @PickUpMelee => m_Wrapper.m_Player_PickUpMelee;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @ReloadGun => m_Wrapper.m_Player_ReloadGun;
         public InputAction @ScrollThroughMelee => m_Wrapper.m_Player_ScrollThroughMelee;
-        public InputAction @USeHealthGrub => m_Wrapper.m_Player_USeHealthGrub;
+        public InputAction @UseHealthGrub => m_Wrapper.m_Player_UseHealthGrub;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -616,27 +616,27 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Shoot.started += instance.OnShoot;
-            @Shoot.performed += instance.OnShoot;
-            @Shoot.canceled += instance.OnShoot;
-            @PickUp.started += instance.OnPickUp;
-            @PickUp.performed += instance.OnPickUp;
-            @PickUp.canceled += instance.OnPickUp;
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @PickUp.started += instance.OnPickUp;
+            @PickUp.performed += instance.OnPickUp;
+            @PickUp.canceled += instance.OnPickUp;
             @Melee.started += instance.OnMelee;
             @Melee.performed += instance.OnMelee;
             @Melee.canceled += instance.OnMelee;
-            @PickUpMelee.started += instance.OnPickUpMelee;
-            @PickUpMelee.performed += instance.OnPickUpMelee;
-            @PickUpMelee.canceled += instance.OnPickUpMelee;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @ReloadGun.started += instance.OnReloadGun;
+            @ReloadGun.performed += instance.OnReloadGun;
+            @ReloadGun.canceled += instance.OnReloadGun;
             @ScrollThroughMelee.started += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed += instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled += instance.OnScrollThroughMelee;
-            @USeHealthGrub.started += instance.OnUSeHealthGrub;
-            @USeHealthGrub.performed += instance.OnUSeHealthGrub;
-            @USeHealthGrub.canceled += instance.OnUSeHealthGrub;
+            @UseHealthGrub.started += instance.OnUseHealthGrub;
+            @UseHealthGrub.performed += instance.OnUseHealthGrub;
+            @UseHealthGrub.canceled += instance.OnUseHealthGrub;
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
@@ -656,27 +656,27 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Shoot.started -= instance.OnShoot;
-            @Shoot.performed -= instance.OnShoot;
-            @Shoot.canceled -= instance.OnShoot;
-            @PickUp.started -= instance.OnPickUp;
-            @PickUp.performed -= instance.OnPickUp;
-            @PickUp.canceled -= instance.OnPickUp;
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @PickUp.started -= instance.OnPickUp;
+            @PickUp.performed -= instance.OnPickUp;
+            @PickUp.canceled -= instance.OnPickUp;
             @Melee.started -= instance.OnMelee;
             @Melee.performed -= instance.OnMelee;
             @Melee.canceled -= instance.OnMelee;
-            @PickUpMelee.started -= instance.OnPickUpMelee;
-            @PickUpMelee.performed -= instance.OnPickUpMelee;
-            @PickUpMelee.canceled -= instance.OnPickUpMelee;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @ReloadGun.started -= instance.OnReloadGun;
+            @ReloadGun.performed -= instance.OnReloadGun;
+            @ReloadGun.canceled -= instance.OnReloadGun;
             @ScrollThroughMelee.started -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.performed -= instance.OnScrollThroughMelee;
             @ScrollThroughMelee.canceled -= instance.OnScrollThroughMelee;
-            @USeHealthGrub.started -= instance.OnUSeHealthGrub;
-            @USeHealthGrub.performed -= instance.OnUSeHealthGrub;
-            @USeHealthGrub.canceled -= instance.OnUSeHealthGrub;
+            @UseHealthGrub.started -= instance.OnUseHealthGrub;
+            @UseHealthGrub.performed -= instance.OnUseHealthGrub;
+            @UseHealthGrub.canceled -= instance.OnUseHealthGrub;
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
@@ -723,13 +723,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
-        void OnPickUp(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
-        void OnPickUpMelee(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnReloadGun(InputAction.CallbackContext context);
         void OnScrollThroughMelee(InputAction.CallbackContext context);
-        void OnUSeHealthGrub(InputAction.CallbackContext context);
+        void OnUseHealthGrub(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
     }

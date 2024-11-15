@@ -15,12 +15,12 @@ public class InventoryManager : MonoBehaviour
     public Transform MeleeSlot;
     public Transform GunSlot;
 
-    public MeleeItemBehaviour equippableMelee;
-    public RangedItemBehaviour equippableGun;
+    [HideInInspector]public MeleeItemBehaviour equippableMelee;
+    [HideInInspector]public RangedItemBehaviour equippableGun;
 
     [Space(2)]
     public Transform ConsumableSlot;
-    public int amount = 100;
+    public int amount = 5;
 
     [Header("SACK SLOTS")]
     public Transform sackStorage;
@@ -31,6 +31,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject itemPrefab;
     public GameObject meleePrefab;
     public GameObject gunPrefab;
+
+    [Header("")]
 
     [Header("Buttons")]
     public Button EquipButton;

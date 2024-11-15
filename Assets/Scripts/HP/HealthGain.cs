@@ -5,7 +5,6 @@ using UnityEngine;
 public class HealthGain : MonoBehaviour
 {
     public int healthRecovered;
-    public FirstPersonControls playerHealth;
 
     public PickUpScriptable HealthGrubsData;
     public void OnTriggerEnter(Collider other)
@@ -14,6 +13,7 @@ public class HealthGain : MonoBehaviour
         {
             InventoryManager.Instance.AddConsumableToInventory(HealthGrubsData);
             Destroy(gameObject);
+
         }
     }
 }

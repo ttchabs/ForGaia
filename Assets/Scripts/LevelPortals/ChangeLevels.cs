@@ -13,7 +13,7 @@ public class ChangeLevels : MonoBehaviour
 
     public void Start()
     {
-     
+    
     }
 
     public void OnTriggerEnter(Collider other)

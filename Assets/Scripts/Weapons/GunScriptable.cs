@@ -11,10 +11,13 @@ public class GunScriptable : ScriptableObject
 {
     [Header("GUN IDENTIFICATION:")]
     [Space(4)]
-    [SerializeField] string _gunName;
-    [TextArea(2, 3), SerializeField] string _gunDescription;
-    [SerializeField] GameObject _gunModel;
-    [SerializeField] Sprite _gunSprite; //the inventory image of the gun
+    /*    [SerializeField] string _gunName;
+        [TextArea(2, 3), SerializeField] string _gunDescription;
+        [SerializeField] GameObject _gunModel;
+        [SerializeField] Sprite _gunSprite; //the inventory image of the gun*/
+    [SerializeField] AudioClip _gunFireSFX;
+    [SerializeField] AudioClip _gunEmptySFX;
+    [SerializeField] AudioClip _gunReloadSFX;
     public GunTypes gunTypes; //the type of shot the gun will perform
 
     [Header("GUN STATISTICS:")]
@@ -32,10 +35,10 @@ public class GunScriptable : ScriptableObject
     public LayerMask hitLayers; //only applicable if hitscan
 
     //these make the variables above accessible to other scripts. reference these when necessary.
-    public string GunName => _gunName;
+/*    public string GunName => _gunName;
     public string GunDescription => _gunDescription;
     public GameObject GunModel => _gunModel;
-    public Sprite GunSprite => _gunSprite;
+    public Sprite GunSprite => _gunSprite;*/
 
     public GameObject BulletPrefab => _bulletPrefab;
     public float ProjectileSpeed => _projectileSpeed;

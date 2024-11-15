@@ -155,20 +155,18 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
 
         //Subscribe to the pick-up-weapon input event
-        playerInput.Player.PickUpMelee.performed += ctx => ReloadGun(); // Call the ReloadGun method when reload-gun input is performed
+        playerInput.Player.ReloadGun.performed += ctx => ReloadGun(); // Call the ReloadGun method when reload-gun input is performed
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
         //Subscribe to the melee input event
         playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when melee input is performed
 
-
-
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.ScrollThroughMelee.performed += ctx => PickUpDisplay(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
 
         //Subscribe to the USEHEALTHGRUB input event
-        playerInput.Player.USeHealthGrub.performed += ctx => UseHealthGrub();
+        playerInput.Player.UseHealthGrub.performed += ctx => UseHealthGrub();
 
         playerInput.Player.Inventory.performed += ctx => Inventory();
 
@@ -190,8 +188,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Create a movement vector based on the input
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
       
-       
-
         // Transform direction from local to world space
         move = transform.TransformDirection(move);
 
@@ -222,7 +218,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Move the character controller based on the movement vector and speed
         characterController.Move(move * currentSpeed * Time.deltaTime);
         //animator.SetFloat("Speed", currentSpeed);
-        Debug.Log(currentSpeed);
     }
 
     public void LookAround()
@@ -259,6 +254,23 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             // Calculate the jump velocity
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+
+    public void ToggleCrouch()
+    {
+        //CHecks if the crouch button was pressed
+        if (_isCrouching)
+        {
+            characterController.height = standingHeight;
+            _isCrouching = false;
+
+            
+        }
+        else
+        {
+            characterController.height = crouchHeight;
+            _isCrouching = true;
         }
     }
 
@@ -315,7 +327,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void ReloadGun()
     {
-        // Perform a raycast from the camera's position forward
+/*        // Perform a raycast from the camera's position forward
         Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hitMeleeWeapon;
 
@@ -344,8 +356,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
                 itemCollect.Pickup();
             }
+        }*/
+        if(holdingGun == true)
+        {
+            StartCoroutine(gunFire.ReloadGun());
         }
-
 
     }
 
@@ -438,20 +453,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
-    public void ToggleCrouch()
-    {
-        //CHecks if the crouch button was pressed
-        if (_isCrouching)
-        {
-            characterController.height = standingHeight;
-            _isCrouching = false;
-        }
-        else
-        {
-            characterController.height = crouchHeight;
-            _isCrouching = true;
-        }
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -459,7 +461,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             healthGrub.SetActive(true);
             grubCount++;
-            grubCounttxt.text = grubCount.ToString();
+            grubCounttxt.text = $"{grubCount}";
         }
     }
 
@@ -486,7 +488,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void UseHealthGrub()
     {
-
         if (grubCount > 0)
         {
             DamageReceived(-10);
@@ -534,7 +535,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public void SetMaxHP()
     {
         currentPlayerHP = playerConfigs.MaxPlayerHP;
-        HealthDisplay.maxValue = currentPlayerHP;        
+        HealthDisplay.maxValue = currentPlayerHP;    
     }
 
     public void PauseGame()
@@ -544,7 +545,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Inventory()
     {
-        InventoryManager.Instance.inventoryPanel.SetActive(true);
         InventoryManager.Instance.OpenInventoryPanel();
     }
 

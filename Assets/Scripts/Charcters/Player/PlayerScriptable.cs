@@ -10,14 +10,18 @@ public class PlayerScriptable : ScriptableObject
     [Space (5)]
     [SerializeField] string _playerName;
     [SerializeField] string _epithet;
+    [SerializeField] AudioClip _walkSFX;
 
     [Header("PLAYER STATISTICS:")]
     [Space (5)]
     [SerializeField] int _maxPlayerHP;
     [SerializeField] float _maxWeaponWeight;
     
-    public int MaxPlayerHP { get => _maxPlayerHP; }
-    public float MaxWeaponWeight { get => _maxWeaponWeight; }
+    public string PlayerName => _playerName;
+    public string Epithet => _epithet;
+    public AudioClip WalkSFX => _walkSFX;
+    public int MaxPlayerHP => _maxPlayerHP;
+    public float MaxWeaponWeight => _maxWeaponWeight; 
 
     public void PlayerDeath(string sceneToLoad)
     {

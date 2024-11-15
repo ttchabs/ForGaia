@@ -22,9 +22,7 @@ public class GunScript : MonoBehaviour
 
         if (currentMagAmount == 0)
         {
-            _reloading = true;
-            Invoke("ReloadGun", 2f);
-            return;
+            StartCoroutine(ReloadGun());
         }
     }
 
@@ -59,5 +57,6 @@ public class GunScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         currentMagAmount = gunConfigs.MagSize;
         _reloading = false;
+        StopCoroutine(ReloadGun());
     }
 }
