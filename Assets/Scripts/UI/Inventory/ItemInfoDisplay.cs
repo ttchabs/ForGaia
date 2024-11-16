@@ -28,7 +28,7 @@ public class ItemInfoDisplay : MonoBehaviour
     {
         Instance = this;
     }
-    public void ItemDisplayFunction(PickUpScriptable pickUpInfo)
+    public void ItemDisplayFunction(ItemScriptable pickUpInfo)
     {
         InfoPanel.SetActive(true);
         Name.text = $"{pickUpInfo.ItemName}";
@@ -42,7 +42,7 @@ public class ItemInfoDisplay : MonoBehaviour
         text6.text = null;
     }
 
-    public void MeleeDisplayFunction(PickUpScriptable meleePickUp, WeaponScriptable meleeDescriptionInfo) 
+    public void MeleeDisplayFunction(ItemScriptable meleePickUp, WeaponScriptable meleeDescriptionInfo) 
     { 
         InfoPanel.SetActive(true);
         Name.text = $"{meleePickUp.ItemName}";
@@ -56,7 +56,7 @@ public class ItemInfoDisplay : MonoBehaviour
         text6.text = null ;
     }
 
-    public void GunDisplayFunction(PickUpScriptable gunPickUp, GunScriptable gunDescriptionInfo)
+    public void GunDisplayFunction(ItemScriptable gunPickUp, GunScriptable gunDescriptionInfo)
     {
         InfoPanel.SetActive(true);
         Name.text = $"{gunPickUp.ItemName}";

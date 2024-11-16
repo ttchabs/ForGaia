@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "Items/Pickup item Identification container")]
-public class PickUpScriptable : ScriptableObject
+public class ItemScriptable : ScriptableObject
 {
     [SerializeField] string _itemName;
     [SerializeField] [TextArea (3, 10)] string _itemDescription;

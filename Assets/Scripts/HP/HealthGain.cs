@@ -6,7 +6,7 @@ public class HealthGain : MonoBehaviour
 {
     public int healthRecovered;
 
-    public PickUpScriptable HealthGrubsData;
+    public ItemScriptable HealthGrubsData;
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

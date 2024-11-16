@@ -10,10 +10,10 @@ public class RangedItemBehaviour : MonoBehaviour, IPointerClickHandler
     public Image image;
 
     [Header("BTS ASPECTS")]
-    public PickUpScriptable itemData;
+    public ItemScriptable itemData;
     public GunScriptable gunData;
 
-    public void InitialiseRanged(PickUpScriptable newItemData, GunScriptable newGunData)
+    public void InitialiseRanged(ItemScriptable newItemData, GunScriptable newGunData)
     {
         itemData = newItemData;
         image.sprite = newItemData.ItemSprite;

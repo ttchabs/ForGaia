@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpFunction : MonoBehaviour
 {
-    public PickUpScriptable itemData;
+    public ItemScriptable itemData;
 
     public void Pickup()
     {

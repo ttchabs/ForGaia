@@ -13,9 +13,9 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
 
     [Header("BTS ASPECTS")]
     public int amount = 1;
-    public PickUpScriptable itemData;
+    public ItemScriptable itemData;
 
-    public void Initialise(PickUpScriptable newItemData)
+    public void Initialise(ItemScriptable newItemData)
     {
         itemData = newItemData;
         image.sprite = newItemData.ItemSprite;

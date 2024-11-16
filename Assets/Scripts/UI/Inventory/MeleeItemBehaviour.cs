@@ -11,10 +11,10 @@ public class MeleeItemBehaviour : MonoBehaviour, IPointerClickHandler
     public Image image;
 
     [Header("BTS ASPECTS")]
-    public PickUpScriptable itemData;
+    public ItemScriptable itemData;
     public WeaponScriptable meleeData;
 
-    public void InitialiseMelee(PickUpScriptable newItemData, WeaponScriptable newMeleeData)
+    public void InitialiseMelee(ItemScriptable newItemData, WeaponScriptable newMeleeData)
     {
         itemData = newItemData;
         meleeData = newMeleeData;
