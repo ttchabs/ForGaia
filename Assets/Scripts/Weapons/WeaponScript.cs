@@ -8,9 +8,8 @@ public class WeaponScript : MonoBehaviour
 {
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
-    public AudioSource meleeSlash;
+    public AudioSource meleeSlash; 
     [HideInInspector] public bool cooldown = false;
-
 
     public void Awake()
     {
@@ -28,7 +27,4 @@ public class WeaponScript : MonoBehaviour
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
         cooldown = false; 
     }
-
-
-
 }

@@ -27,4 +27,10 @@ public class EnemyScriptable : ScriptableObject
     public float EnemyMoveSpeed { get => _enemyMoveSpeed;  }
     public float AttackRate { get => _attackRate; }
 
+    public IEnumerator EnemyDeath(GameObject enemySpawn)
+    {
+
+        yield return new WaitForSeconds(4f);
+        Destroy(enemySpawn);
+    }
 }

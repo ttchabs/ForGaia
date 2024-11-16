@@ -11,6 +11,8 @@ public class PlayerScriptable : ScriptableObject
     [SerializeField] string _playerName;
     [SerializeField] string _epithet;
     [SerializeField] AudioClip _walkSFX;
+    [SerializeField] AudioClip _deathSFX;
+    [SerializeField] AudioClip _playerHitSFX;
 
     [Header("PLAYER STATISTICS:")]
     [Space (5)]
@@ -23,9 +25,10 @@ public class PlayerScriptable : ScriptableObject
     public int MaxPlayerHP => _maxPlayerHP;
     public float MaxWeaponWeight => _maxWeaponWeight; 
 
-    public void PlayerDeath(string sceneToLoad)
+    public IEnumerator PlayerDeath(string sceneToLoad)
     {
+
+        yield return new WaitForSeconds(7f);
         GameManager.managerInstance.ReloadGame(sceneToLoad);
-        Debug.Log("Player is dead");
     }
 }

@@ -23,11 +23,13 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void Awake()
     {
-        enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
+    }
 
-        SetMaxEnemyHP();
+    public void Start()
+    {
+        SetMaxEnemyHP();        
     }
 
     void Update()
@@ -64,15 +66,14 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
     }
 
-
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
-        UpdateHealthBar();
+        UpdateEnemyHealthBar();
         OnDamageReceived?.Invoke(damage);
         BreakStance();
         if (enemyCurrentHP < 0)
-            EnemyDeath();
+            StartCoroutine(enemyConfigs.EnemyDeath(gameObject));
     }
 
     public void BreakStance()
@@ -83,21 +84,13 @@ public class EnemyController : MonoBehaviour, IDamageable
         
     }
 
-    public void EnemyDeath()
-    {
-        //Enemy death animations will be called below here
-
-        //Destroy the gameObject
-        Destroy(gameObject);
-    }
-
     public void SetMaxEnemyHP()
     {
         enemyHealth.maxValue = enemyConfigs.MaxEnemyHP;
-        UpdateHealthBar();
+        UpdateEnemyHealthBar();
     }
 
-    public void UpdateHealthBar()
+    public void UpdateEnemyHealthBar()
     {
         enemyHealth.value = enemyCurrentHP;
     }
