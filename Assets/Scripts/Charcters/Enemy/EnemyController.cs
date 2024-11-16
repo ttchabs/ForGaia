@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         enemyCurrentHP -= damage;
         UpdateEnemyHealthBar();
-        OnDamageReceived?.Invoke(damage);
+        OnDamageReceived?.Invoke();
         BreakStance();
         if (enemyCurrentHP < 0)
             StartCoroutine(enemyConfigs.EnemyDeath(gameObject));
@@ -86,6 +86,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void SetMaxEnemyHP()
     {
+        enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         enemyHealth.maxValue = enemyConfigs.MaxEnemyHP;
         UpdateEnemyHealthBar();
     }

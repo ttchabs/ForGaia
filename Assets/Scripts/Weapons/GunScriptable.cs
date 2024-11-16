@@ -15,12 +15,13 @@ public class GunScriptable : ScriptableObject
         [TextArea(2, 3), SerializeField] string _gunDescription;
         [SerializeField] GameObject _gunModel;
         [SerializeField] Sprite _gunSprite; //the inventory image of the gun*/
+    public GunTypes gunTypes; //the type of shot the gun will perform
+
+    [Header("GUN SFX:")]
     [Range(0f, 1f)]
     [SerializeField] float _volume;
     [SerializeField] AudioClip _gunFireSFX;
-    [SerializeField] AudioClip _gunEmptySFX;
     [SerializeField] AudioClip _gunReloadSFX;
-    public GunTypes gunTypes; //the type of shot the gun will perform
 
     [Header("GUN STATISTICS:")]
     [Space(4)]
@@ -44,7 +45,6 @@ public class GunScriptable : ScriptableObject
 
     public float Volume => _volume; 
     public AudioClip GunFireSFX => _gunFireSFX;
-    public AudioClip GunEmptySFX => _gunEmptySFX;
     public AudioClip GunReloadSFX => _gunReloadSFX;
     public GameObject BulletPrefab => _bulletPrefab;
     public float ProjectileSpeed => _projectileSpeed;
@@ -125,34 +125,33 @@ public class GunScriptable : ScriptableObject
         if (damage != null)
         {
             damage.DamageReceived(BulletDamage.GetRandomDamage());
-            Destroy(bullet.gameObject);
+            Destroy(bullet);
         }
         else
         {
-            Destroy(bullet.gameObject);
-        }
-    }
-
-    public void HitScanShoot(Transform origin)
-    {
-        Ray bullet = new Ray (origin.position, origin.forward);
-        RaycastHit hitCollider;
-        Debug.DrawRay(origin.position, origin.forward * MaxDistance, Color.yellow, 5f);
-        if (Physics.Raycast(bullet, out hitCollider, MaxDistance))
-        {
-            if(hitCollider.collider.TryGetComponent(out IDamageable damageComponent))
-            {
-                damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
-            }
-        }
-        else
-        {
-            return;
+            Destroy(bullet);
         }
     }
 
     public GameObject SpawnProjectile() //Spawns the projectile 
     {
         return Instantiate(BulletPrefab);
+    }
+
+    public void ReloadGun(int magAmount, AudioSource gunReloadedSound)
+    {
+        magAmount = MagSize;
+        PlayGunReloadedSound(gunReloadedSound);
+    }
+
+    //----------
+    public void PlayGunFireSound(AudioSource gunFireSource)
+    {
+        gunFireSource.PlayOneShot(GunFireSFX, Volume);
+    }
+
+    public void PlayGunReloadedSound(AudioSource gunReloadedSound)
+    {
+        gunReloadedSound.PlayOneShot(GunFireSFX, Volume);
     }
 }

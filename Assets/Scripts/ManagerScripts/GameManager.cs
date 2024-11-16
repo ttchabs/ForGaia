@@ -51,12 +51,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ReloadGame(string currentSceneName)
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(currentSceneName);
-    }
-
     public IEnumerator LoadGame()
     {
         AsyncOperation loadScene = SceneManager.LoadSceneAsync(managerConfigs.SceneNames[0]);

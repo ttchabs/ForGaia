@@ -18,7 +18,6 @@ public class EnemyScriptable : ScriptableObject
     [SerializeField] float _enemyKnockbackFactor;
     [SerializeField] float _enemyMoveSpeed;
     [SerializeField] float _attackRate;
-
     public string EnemyName => _enemyName;
     public string EnemyDescription => _enemyDescription;
     public int MaxEnemyHP { get => _maxEnemyHP; }

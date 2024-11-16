@@ -29,7 +29,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
     public Transform playerCamera; // Reference to the player's camera
-    public AudioSource walk;
+    public AudioSource playerSFX;
     // Private variables to store input values and the character controller
     private Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
@@ -100,10 +100,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     #endregion
 
-    #region USEHEALTHGRUB
-    [Header("UseHealthGrub")][Space (5)]
-    HealthGain healthGain;
-    #endregion
 
     #region INVENTORY
     [Header("Inventory")][Space(5)]
@@ -118,6 +114,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         characterController = GetComponent<CharacterController>();
         playerAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
         SetMaxHP();
+
+        
 
         if (Instance == null) 
             Instance = this;
@@ -321,6 +319,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 default:
                     break;
             }
+            meleeAttacks.SwingSound();
             StartCoroutine(meleeAttacks.CooldownCounter()); //Initiate the cooldown for the swing
         }
     }
@@ -393,9 +392,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
                 // Attach the object to the hold position
-                heldObject.transform.position = holdPosition.position;
-                heldObject.transform.rotation = holdPosition.rotation;
-                heldObject.transform.parent = holdPosition;
+
+                heldObject.transform.SetParent(holdPosition);
+                heldObject.transform.SetPositionAndRotation(holdPosition.position, holdPosition.rotation);
             }
 /*            else if (hit.collider.CompareTag("Gun")) 
             {
@@ -480,10 +479,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         currentPlayerHP -= damageAmount;
         HealthDisplay.value = currentPlayerHP;
-        OnDamageReceived?.Invoke(damageAmount);
-
+        OnDamageReceived?.Invoke();
+        playerConfigs.PlayPlayerHitSFX(playerSFX);
         if (currentPlayerHP <= 0)
-            playerConfigs.PlayerDeath(currentScene);
+            StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX));
     }
 
     public void UseHealthGrub()
@@ -507,8 +506,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         meleeAttacks = melee.GetComponent<WeaponScript>();
         melee.GetComponent<Collider>().enabled = false;
         melee.GetComponent<Rigidbody>().isKinematic = true;
-        melee.transform.position = meleeHoldPosition.position;
-        melee.transform.rotation = meleeHoldPosition.rotation;
+        melee.transform.SetPositionAndRotation(meleeHoldPosition.position, meleeHoldPosition.rotation);
     }
 
     public void GunInitialise(GameObject gun)
@@ -516,8 +514,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         gunFire = gun.GetComponent<GunScript>();
         gun.GetComponent <Collider>().enabled = false;
         gun.GetComponent<Rigidbody>().isKinematic = true;
-        gun.transform.position = gunHoldPosition.position;
-        gun.transform.rotation = gunHoldPosition.rotation;
+        gun.transform.SetPositionAndRotation(gunHoldPosition.position, gunHoldPosition.rotation);
     }
 
     public void RemoveMelee()

@@ -8,7 +8,7 @@ public class WeaponScript : MonoBehaviour
 {
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
-    public AudioSource meleeSlash; 
+    public AudioSource meleeSFX; 
     [HideInInspector] public bool cooldown = false;
 
     public void Awake()
@@ -18,7 +18,7 @@ public class WeaponScript : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        weaponConfigs.Attacks(other);
+        weaponConfigs.Attacks(other, meleeSFX);
     }
 
     public IEnumerator CooldownCounter()
@@ -26,5 +26,10 @@ public class WeaponScript : MonoBehaviour
         cooldown = true;
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
         cooldown = false; 
+    }
+
+    public void SwingSound()
+    {
+        weaponConfigs.PlaySwingSound(meleeSFX);
     }
 }

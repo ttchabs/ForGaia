@@ -34,7 +34,7 @@ public class GunScript : MonoBehaviour
         {
             _lastShot = Time.time;
             currentMagAmount--;
-            PlayGunFireSound(gunSFX);
+            gunConfigs.PlayGunFireSound(gunSFX);
             switch (gunConfigs.gunTypes)
             {
                 case GunTypes.Projectile:
@@ -58,13 +58,8 @@ public class GunScript : MonoBehaviour
     {
         _reloading = true;
         yield return new WaitForSeconds(2f);
-        currentMagAmount = gunConfigs.MagSize;
+        gunConfigs.ReloadGun(currentMagAmount, gunSFX);
         _reloading = false;
         StopCoroutine(ReloadGun());
-    }
-
-    public void PlayGunFireSound(AudioSource gunFireSource)
-    {
-        gunFireSource.PlayOneShot(gunConfigs.GunFireSFX, gunConfigs.Volume);
     }
 }
