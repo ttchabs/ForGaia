@@ -11,8 +11,8 @@ using UnityEngine.UI;
 
 public class FirstPersonControls : MonoBehaviour, IDamageable
 {
-
     public static FirstPersonControls Instance;
+
     [Header("---INITIALIZATIONS---")]
     [Space(5)]
     public GameObject playerModel; //The 3D imported model of the player
@@ -57,13 +57,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #endregion
 
     #region PLAYER MELEE ATTACKING:
-    [Header("---MELEE SETTINGS---")] 
+    [Header("---MELEE SETTINGS---")]
     [Space(5)]
     //public GameObject meleeWeapon;//weapon model in hand 
     public Transform meleeHoldPosition;//location in which the weapon will go to 
     public WeaponScript meleeAttacks;//script attached to the weapon
     [SerializeField] bool _holdingMelee = true;
-    public AudioSource swordSwing;
     #endregion
 
     #region PLAYER SHOOTING:
@@ -84,9 +83,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region UI
     [Header("UI SETTINGS")]
     public TextMeshProUGUI pickUpText;
-    //public GameObject healthGrub; //image in the UI
-    //public Image healthGrubSprite;
-    //public Sprite healReference; // Image in Inspector
     public Image GunSlot;
     public Image SwordSlot;
     public TextMeshProUGUI grubCounttxt;
@@ -289,14 +285,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Melee() //Right click mouse
     {
-        if (meleeAttacks == null)
-        {
-            _holdingMelee = false;
-        }
-        if (_holdingMelee == true)
-        {
-            meleeAttacks.SwordSwung(playerAnimation); //When the player swings the sword, an animation will play and then a coroutine will start
-        }
+        
     }
 
     public void ReloadGun()
@@ -387,26 +376,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
                 // Attach the object to the hold position
-
                 heldObject.transform.SetParent(holdPosition);
                 heldObject.transform.SetPositionAndRotation(holdPosition.position, holdPosition.rotation);
             }
-/*            else if (hit.collider.CompareTag("Gun")) 
-            {
-                // Pick up the object
-                heldObject = hit.collider.gameObject;
-                heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
-                gunFire = heldObject.GetComponent<GunScript>();
-                heldObject.GetComponent<Collider>().enabled = false;
-
-                // Attach the object to the hold position
-                heldObject.transform.position = holdPosition.position;
-                heldObject.transform.rotation = holdPosition.rotation;
-                heldObject.transform.parent = holdPosition;
-                holdingGun = true;
-            }
-*/
-            ////////
 
             if (hit.collider.CompareTag("MeleeWeapon"))
             {
@@ -419,8 +391,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             {
                 var gunPickUp = hit.collider.GetComponent<PickUpFunction>();
                 var gunData = hit.collider.GetComponent<GunScript>();
-                gunPickUp.GunPickUp(gunData.gunConfigs);
-                
+                gunPickUp.GunPickUp(gunData.gunConfigs);               
             } 
             else if (hit.collider.CompareTag("PickUp"))
             {

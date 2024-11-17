@@ -5,25 +5,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MeleeItemBehaviour : MonoBehaviour, IPointerClickHandler
+public class MeleeItemBehaviour : ItemBehaviour
 {
-    [Header("UI ASPECTS:")]
-    public Image image;
-
-    [Header("BTS ASPECTS")]
-    public ItemScriptable itemData;
     public WeaponScriptable meleeData;
 
-    public void InitialiseMelee(ItemScriptable newItemData, WeaponScriptable newMeleeData)
+    public override void Initialise(ItemScriptable newItemData)
     {
-        itemData = newItemData;
+        base.Initialise(newItemData);
+    }
+    public void InitialiseMelee(WeaponScriptable newMeleeData)
+    {
         meleeData = newMeleeData;
-        image.sprite = newItemData.ItemSprite;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        ItemInfoDisplay.Instance.MeleeDisplayFunction(itemData, meleeData);
         var meleeEquip = InventoryManager.Instance;
         meleeEquip.equippableMelee = this;
         meleeEquip.AddMeleeListener();

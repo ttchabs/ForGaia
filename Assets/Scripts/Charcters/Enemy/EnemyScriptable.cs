@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Enemy/Enemy Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Characters/Enemy/Enemy Data Container")]
 public class EnemyScriptable : ScriptableObject
 {
     [Header("ENEMY IDENTIFICATION:")]

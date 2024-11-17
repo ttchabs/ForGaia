@@ -12,29 +12,31 @@ public class InventoryManager : MonoBehaviour
     public bool isInventoryOpen = false;
 
     public PlayerHUDManager playerHUDManager;
+    public ItemInfoDisplay displayInfo;
 
+    #region LOADOUT SETUP:
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
-
-    [HideInInspector]public MeleeItemBehaviour equippableMelee;
-    [HideInInspector]public RangedItemBehaviour equippableGun;
-
     [Space(2)]
     public Transform ConsumableSlot;
     public int amount = 5;
 
+    [HideInInspector] public ItemBehaviour equippableMelee;
+    [HideInInspector] public ItemBehaviour equippableGun;
+    #endregion
+
+    #region INVENTORY SETUP:
     [Header("SACK SLOTS")]
     public Transform sackStorage;
     public int maxSackStorage;
     public TextMeshProUGUI maxStorageDisplay;
+    #endregion
 
-    [Header("Item Prefabs")]
+    [Header("ITEM PREFABS")]
     public GameObject itemPrefab;
     public GameObject meleePrefab;
     public GameObject gunPrefab;
-
-    [Header("")]
 
     [Header("Buttons")]
     public Button EquipButton;
@@ -80,6 +82,7 @@ public class InventoryManager : MonoBehaviour
 
     public void AddGunListener()
     {
+
         EquipButton.onClick.RemoveAllListeners();
         EquipButton.onClick.AddListener(EquipGun);
     }
@@ -87,6 +90,8 @@ public class InventoryManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
+    //----ADD ITEMS TO INVENTORY---//
 
     public bool AddConsumableToInventory(ItemScriptable item)
     {
@@ -116,29 +121,29 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public bool AddMeleeToInventory(ItemScriptable item, WeaponScriptable meleeItem)
+    public bool AddMeleeToInventory(WeaponScriptable meleeItem)
     {
         if (sackStorage.childCount < maxSackStorage)
         {
-            SpawnMeleeItem(item, meleeItem, sackStorage.transform);
+            SpawnMeleeItem(meleeItem, sackStorage.transform);
             UpdateStorageCount();
             return true;
         }
         return false;
     }
 
-    public bool AddRangedToInventory(ItemScriptable item, GunScriptable gunItem)
+    public bool AddRangedToInventory(GunScriptable gunItem)
     {
         if (sackStorage.childCount < maxSackStorage)
         {
-            SpawnRangedItem(item, gunItem, sackStorage.transform);
+            SpawnRangedItem(gunItem, sackStorage.transform);
             UpdateStorageCount();
             return true;
         }
         return false;
     }
 
-    //////
+    //----INTANTIATE ITEMS----//
 
     public void SpawnInventoryItem(ItemScriptable itemID, Transform slot)
     {
@@ -147,20 +152,21 @@ public class InventoryManager : MonoBehaviour
         itemDrag.Initialise(itemID);
     }
 
-    public void SpawnMeleeItem(ItemScriptable itemID, WeaponScriptable meleeID, Transform slot)
+    public void SpawnMeleeItem(WeaponScriptable meleeID, Transform slot)
     {
         GameObject newMeleeSprite = Instantiate(meleePrefab, slot);
         MeleeItemBehaviour meleeItemDrag = newMeleeSprite.GetComponent<MeleeItemBehaviour>();
-        meleeItemDrag.InitialiseMelee(itemID, meleeID);
+        meleeItemDrag.InitialiseMelee(meleeID);
     }
 
-    public void SpawnRangedItem(ItemScriptable itemID, GunScriptable gunID, Transform slot)
+    public void SpawnRangedItem(GunScriptable gunID, Transform slot)
     {
         GameObject newRangedSprite = Instantiate(gunPrefab, slot);
         RangedItemBehaviour rangedItemDrag = newRangedSprite.GetComponent<RangedItemBehaviour>();
-        rangedItemDrag.InitialiseRanged(itemID, gunID);
+        rangedItemDrag.InitialiseRanged(gunID);
     }
 
+    //----
     public void EquipMelee()
     {
         var returnMelee = MeleeSlot.GetChild(0);
@@ -172,7 +178,7 @@ public class InventoryManager : MonoBehaviour
         return;
     }
 
-    public IEnumerator InstantiateMelee(MeleeItemBehaviour behaviour) 
+    public IEnumerator InstantiateMelee(ItemBehaviour behaviour) 
     {
         var hand = FirstPersonControls.Instance;
         GameObject weapon = Instantiate(behaviour.itemData.ItemModel, hand.meleeHoldPosition);
@@ -192,7 +198,7 @@ public class InventoryManager : MonoBehaviour
         return;
     }
 
-    public IEnumerator InstantiateGun(RangedItemBehaviour behaviour)
+    public IEnumerator InstantiateGun(ItemBehaviour behaviour)
     {
         var hand = FirstPersonControls.Instance;
         GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPosition);
@@ -204,6 +210,4 @@ public class InventoryManager : MonoBehaviour
     {
         maxStorageDisplay.text = $"{sackStorage.transform.childCount} / {maxSackStorage}";
     }
-
-
 }

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WeaponScript : MonoBehaviour
+public class WeaponScript : PickUpFunction
 {
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
@@ -60,6 +60,11 @@ public class WeaponScript : MonoBehaviour
     public void SwingSound()
     {
         weaponConfigs.PlaySwingSound(meleeSFX);
+    }
+
+    public override void MeleePickUp(WeaponScriptable meleeData)
+    {
+        base.MeleePickUp(meleeData);
     }
 
     public void OnDisable()

@@ -4,29 +4,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RangedItemBehaviour : MonoBehaviour, IPointerClickHandler
+public class RangedItemBehaviour : ItemBehaviour, IPointerClickHandler
 {
-    [Header("UI ASPECTS:")]
-    public Image image;
-
-    [Header("BTS ASPECTS")]
-    public ItemScriptable itemData;
     public GunScriptable gunData;
 
-    public void InitialiseRanged(ItemScriptable newItemData, GunScriptable newGunData)
+    public override void Initialise(ItemScriptable newItemData)
     {
-        itemData = newItemData;
-        image.sprite = newItemData.ItemSprite;
-
+        base.Initialise(newItemData);
+    }
+    public void InitialiseRanged(GunScriptable newGunData)
+    {
         gunData = newGunData;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        ItemInfoDisplay.Instance.GunDisplayFunction(itemData, gunData);
+        //base.OnPointerClick(eventData);
         var gunEquip = InventoryManager.Instance;
         gunEquip.equippableGun = this;
         gunEquip.AddGunListener();
-
     }
 }

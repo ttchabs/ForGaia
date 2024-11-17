@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Items/Pickup item Identification container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Items/Item/Item Identification container")]
 public class ItemScriptable : ScriptableObject
 {
     [SerializeField] string _itemName;

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
 {
@@ -15,19 +16,46 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
     public int amount = 1;
     public ItemScriptable itemData;
 
-    public void Initialise(ItemScriptable newItemData)
+    public virtual void Initialise(ItemScriptable newItemData)
     {
         itemData = newItemData;
         image.sprite = newItemData.ItemSprite;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
-        ItemInfoDisplay.Instance.ItemDisplayFunction(itemData);
+        var display = InventoryManager.Instance;
+        switch (itemData.ItemType)
+        {
+            case ItemTypes.Ranged:
+                display.equippableGun = this;
+                display.displayInfo.GunDisplayFunction(itemData as GunScriptable);
+                display.AddGunListener();
+                break;
+            case ItemTypes.Melee: 
+                display.equippableMelee = this;
+                display.displayInfo.MeleeDisplayFunction(itemData as WeaponScriptable);
+                display.AddMeleeListener();
+                break;
+            case ItemTypes.PickUp:
+                display.displayInfo.ItemDisplayFunction(itemData);
+                break;
+            case ItemTypes.Special: 
+                display.displayInfo.ItemDisplayFunction(itemData);
+                break;
+        }
     }
 
     public void AmountText()
     {
-        amountText.text = amount.ToString();
+        if (amount <= 1) 
+        {
+            amountText.text = null;
+        }
+        else
+        {
+            amountText.text = $"{amount}";
+        }
+
     }
 }

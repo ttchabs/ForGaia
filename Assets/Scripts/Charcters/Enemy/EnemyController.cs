@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
+        OnDamageReceived += BreakStance;
     }
 
     public void Start()
@@ -78,7 +79,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         enemyCurrentHP -= damage;
         UpdateEnemyHealthBar();
         OnDamageReceived?.Invoke();
-        BreakStance();
         if (enemyCurrentHP < 0)
             StartCoroutine(enemyConfigs.EnemyDeath(gameObject));
     }

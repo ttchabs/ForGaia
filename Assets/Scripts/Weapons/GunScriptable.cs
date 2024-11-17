@@ -6,15 +6,11 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Statistics Container")]
-public class GunScriptable : ScriptableObject
+[CreateAssetMenu(fileName = "New Item", menuName = "Items/Weapons/Gun Statistics Container")]
+public class GunScriptable : ItemScriptable
 {
     [Header("GUN IDENTIFICATION:")]
     [Space(4)]
-    /*    [SerializeField] string _gunName;
-        [TextArea(2, 3), SerializeField] string _gunDescription;
-        [SerializeField] GameObject _gunModel;
-        [SerializeField] Sprite _gunSprite; //the inventory image of the gun*/
     public GunTypes gunTypes; //the type of shot the gun will perform
 
     [Header("GUN SFX:")]
@@ -38,11 +34,6 @@ public class GunScriptable : ScriptableObject
     public LayerMask hitLayers; //only applicable if hitscan
 
     //these make the variables above accessible to other scripts. reference these when necessary.
-/*    public string GunName => _gunName;
-    public string GunDescription => _gunDescription;
-    public GameObject GunModel => _gunModel;
-    public Sprite GunSprite => _gunSprite;*/
-
     public float Volume => _volume; 
     public AudioClip GunFireSFX => _gunFireSFX;
     public AudioClip GunReloadSFX => _gunReloadSFX;

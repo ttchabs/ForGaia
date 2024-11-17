@@ -6,30 +6,35 @@ public class PickUpFunction : MonoBehaviour
 {
     public ItemScriptable itemData;
 
-    public void Pickup()
+    public virtual void Pickup()
     {
-        GameObject sackCounter = GameObject.Find("Sack");
-        transform.SetParent(sackCounter.transform, true);
+/*        GameObject sackCounter = GameObject.Find("Sack");
+        transform.SetParent(sackCounter.transform, true);*/
         if (InventoryManager.Instance.AddItemToInventory(itemData) == false)
         {
             gameObject.SetActive(false);
         }
     }
 
-    public void MeleePickUp(WeaponScriptable meleeData)
+    public virtual void MeleePickUp(WeaponScriptable meleeData)
     {
 
-        if (InventoryManager.Instance.AddMeleeToInventory(itemData, meleeData) == true)
+        if (InventoryManager.Instance.AddMeleeToInventory(meleeData) == true)
         {
             Destroy(gameObject);
         }
     }
 
-    public void GunPickUp(GunScriptable gunData) 
+    public virtual void GunPickUp(GunScriptable gunData) 
     {
-        if (InventoryManager.Instance.AddRangedToInventory(itemData, gunData) == true)
+        if (InventoryManager.Instance.AddRangedToInventory(gunData) == true)
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Yes()
+    {
+
     }
 }

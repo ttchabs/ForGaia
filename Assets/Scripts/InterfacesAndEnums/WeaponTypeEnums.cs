@@ -18,8 +18,6 @@ public enum EnemyTypes
     Shoot
 }
 
-
-
 public enum ItemTypes
 {
     Ranged,

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Player/Player Container")]
+[CreateAssetMenu(fileName = "NewItem", menuName = "Characters/Player/Player Data Container")]
 public class PlayerScriptable : ScriptableObject
 {
     [Header("PLAYER IDENTIFICATION:")]
