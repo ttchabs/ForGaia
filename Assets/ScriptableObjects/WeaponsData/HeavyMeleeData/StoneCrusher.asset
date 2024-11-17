@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: StoneCrusher
   m_EditorClassIdentifier: 
   meleeType: 3
+  _volume: 0
+  _slashSound: {fileID: 0}
+  _swingSound: {fileID: 0}
   _meleeDamage:
     minDamage: 25
     maxDamage: 33
+    critMultiplier: 1.4
+    critChance: 0.208
   _knockback: 7
   _weaponWeight: 5.5
   _swingCooldown: 1.7

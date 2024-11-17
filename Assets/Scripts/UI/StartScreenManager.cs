@@ -12,13 +12,6 @@ public class StartScreenManger : MonoBehaviour
     public GameObject[] UIElements;
     public GameObject initialButton;
 
-
-
-    public void Start()
-    {
-        //panel.SetActive(false);
-    }
-
     // Method to rotate the camera left by 90 degrees
     public void RotateCameraLeftBy90Degrees()
     {

@@ -49,7 +49,7 @@ public class WeaponScriptable : ScriptableObject
     {
         if (other.TryGetComponent(out IDamageable sliced))
         {
-            int damage = MeleeDamageRange.GetRandomDamage();
+            int damage = MeleeDamageRange.GetDamage();
             sliced.DamageReceived(damage);
             PlaySlashSound(slash);
             KnockBack(other);

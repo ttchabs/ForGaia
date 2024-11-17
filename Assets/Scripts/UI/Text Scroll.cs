@@ -14,17 +14,11 @@ public class TextScroll : MonoBehaviour
     public RectTransform rectTransform;
     public string sceneToLoad;
 
-    void Start()
-    {
-        //rectTransform = GetComponent<RectTransform>();
-
-    }
-
     void Update()
     {
         Scroll();
         StartCoroutine(ScrollIng);
-        Invoke("PlayAnim", scrollTime - 2.4f);
+        Invoke(nameof(PlayAnim), scrollTime - 2.4f);
     }
 
 

@@ -18,8 +18,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     [Header("ENEMY HEALTH DISPLAY")]
     public Slider enemyHealth;
 
-    public event IDamageable.DamageReceivedEvent OnDamageReceived;
+    Transform camToFace;
 
+    public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
     public void Awake()
     {
@@ -29,12 +30,18 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void Start()
     {
+        camToFace = player.GetComponentInChildren<Camera>().transform;
         SetMaxEnemyHP();        
     }
 
     void Update()
     {
         TrackPlayer();
+    }
+
+    void LateUpdate()
+    {
+        enemyHealth.transform.LookAt(camToFace.position + camToFace.forward);
     }
 
     public void TrackPlayer()
@@ -48,7 +55,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
-            transform.rotation = lookDirection;           
+            transform.rotation = lookDirection;
         }
     }
 
@@ -61,7 +68,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             var player = collision.collider.GetComponent<IDamageable>(); //finds the IDamageable component on the player
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
-            player.DamageReceived(enemyConfigs.EnemyAttackDamage);
+            player.DamageReceived(enemyConfigs.EnemyAttackDamage.GetEnemyDamage());
             StartCoroutine(playerHP.KnockedBack(direction));
         }
     }
@@ -80,8 +87,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
-        rb.AddForce(direction * -3, ForceMode.Impulse);
-        
+        rb.AddForce(direction * -3, ForceMode.Impulse);        
     }
 
     public void SetMaxEnemyHP()

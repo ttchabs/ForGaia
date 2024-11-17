@@ -17,7 +17,9 @@ MonoBehaviour:
   enemyModelPrefab: {fileID: 3029534108847243191, guid: 3a96fbe665ef7d64caef787d7dc8e47d, type: 3}
   enemyType: 0
   _maxEnemyHP: 70
-  _enemyAttackDamage: 9
+  _enemyAttackDamage:
+    minDamage: 7
+    maxDamage: 13
   _enemyKnockbackFactor: 7
-  _enemyMoveSpeed: 5
+  _enemyMoveSpeed: 6
   _attackRate: 3

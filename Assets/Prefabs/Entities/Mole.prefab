@@ -362,7 +362,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2808849769310622082}
   - component: {fileID: 5815282013486497053}
-  - component: {fileID: 4926620669015484653}
   m_Layer: 0
   m_Name: EnemyHealthBarContainer
   m_TagString: Untagged
@@ -442,19 +441,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4926620669015484653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4689600317009196496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bce95f9633169947a1f1ee6d578a2d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camToFace: {fileID: 0}
 --- !u!1001 &7927497165168082596
 PrefabInstance:
   m_ObjectHideFlags: 0

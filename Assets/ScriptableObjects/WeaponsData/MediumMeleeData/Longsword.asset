@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
   m_Name: Longsword
   m_EditorClassIdentifier: 
-  meleeType: 2
+  meleeType: 1
+  _volume: 0
+  _slashSound: {fileID: 0}
+  _swingSound: {fileID: 0}
   _meleeDamage:
     minDamage: 10
-    maxDamage: 20
+    maxDamage: 15
+    critMultiplier: 1.93
+    critChance: 0.1
   _knockback: 3
   _weaponWeight: 2
   _swingCooldown: 1

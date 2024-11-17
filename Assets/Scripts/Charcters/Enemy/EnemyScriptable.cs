@@ -14,22 +14,22 @@ public class EnemyScriptable : ScriptableObject
 
     [Header("ENEMY STATISTICS:")]
     [SerializeField] int _maxEnemyHP;
-    [SerializeField] int _enemyAttackDamage;
+    [SerializeField] EnemyDamage _enemyAttackDamage;
+    [Space(2)]
     [SerializeField] float _enemyKnockbackFactor;
     [SerializeField] float _enemyMoveSpeed;
     [SerializeField] float _attackRate;
     public string EnemyName => _enemyName;
     public string EnemyDescription => _enemyDescription;
     public int MaxEnemyHP { get => _maxEnemyHP; }
-    public int EnemyAttackDamage { get => _enemyAttackDamage; }
+    public EnemyDamage EnemyAttackDamage { get => _enemyAttackDamage; }
     public float EnemyKnockbackFactor { get => _enemyKnockbackFactor; }
     public float EnemyMoveSpeed { get => _enemyMoveSpeed;  }
     public float AttackRate { get => _attackRate; }
 
     public IEnumerator EnemyDeath(GameObject enemySpawn)
     {
-
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         Destroy(enemySpawn);
     }
 }

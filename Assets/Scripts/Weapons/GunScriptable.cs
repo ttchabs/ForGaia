@@ -72,7 +72,7 @@ public class GunScriptable : ScriptableObject
         var fab = SpawnProjectile(); 
         fab.transform.position = origin.position;
 
-        Ray bullet = new Ray(origin.position, origin.forward);
+        Ray bullet = new Ray (origin.position, origin.forward);
         RaycastHit hitCollider;
         Debug.DrawRay(origin.position, origin.forward * MaxDistance, Color.yellow, 5f);
         if (Physics.Raycast(bullet, out hitCollider, MaxDistance, hitLayers))
@@ -82,7 +82,7 @@ public class GunScriptable : ScriptableObject
             float displacementOnHit = displacement;
             while (displacementOnHit > 0)
             {
-                Vector3 moveToHit = direction * ProjectileSpeed * Time.deltaTime;
+                Vector3 moveToHit = ProjectileSpeed * Time.deltaTime * direction;
                 fab.transform.Translate(moveToHit);
                 displacementOnHit -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
@@ -90,7 +90,7 @@ public class GunScriptable : ScriptableObject
 
             if(hitCollider.collider.TryGetComponent(out IDamageable damageComponent))
             {
-                damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
+                damageComponent.DamageReceived(BulletDamage.GetDamage());
             }
             fab.transform.position = hitCollider.point;
             yield return null;
@@ -104,7 +104,7 @@ public class GunScriptable : ScriptableObject
             float displacementOnMiss = missDisplacement;
             while (displacementOnMiss > 0)
             {
-                Vector3 move = direction * missDisplacement * Time.deltaTime;
+                Vector3 move = missDisplacement * Time.deltaTime * direction;
                 fab.transform.Translate(move);
                 displacementOnMiss -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
@@ -114,17 +114,12 @@ public class GunScriptable : ScriptableObject
         }
     }
 
-    public void ThrowerShoot(Transform origin)
-    {
-
-    }
 
     public void ProjectileImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
     {
-        IDamageable damage = collision.collider.GetComponent<IDamageable>();
-        if (damage != null)
+        if(collision.gameObject.TryGetComponent(out IDamageable damage))
         {
-            damage.DamageReceived(BulletDamage.GetRandomDamage());
+            damage.DamageReceived(BulletDamage.GetDamage());
             Destroy(bullet);
         }
         else
@@ -138,10 +133,10 @@ public class GunScriptable : ScriptableObject
         return Instantiate(BulletPrefab);
     }
 
-    public void ReloadGun(int magAmount, AudioSource gunReloadedSound)
+    public int ReloadGun(AudioSource gunReloadedSound)
     {
-        magAmount = MagSize;
         PlayGunReloadedSound(gunReloadedSound);
+        return MagSize;
     }
 
     //----------

@@ -100,7 +100,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ScrollThroughMelee"",
+                    ""name"": ""SwitchWeapons"",
                     ""type"": ""Button"",
                     ""id"": ""fdf40de2-ae2b-4dea-aaf3-854f609c49fa"",
                     ""expectedControlType"": ""Button"",
@@ -331,7 +331,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""ScrollThroughMelee"",
+                    ""action"": ""SwitchWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -342,7 +342,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""ScrollThroughMelee"",
+                    ""action"": ""SwitchWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -505,7 +505,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_ReloadGun = m_Player.FindAction("ReloadGun", throwIfNotFound: true);
-        m_Player_ScrollThroughMelee = m_Player.FindAction("ScrollThroughMelee", throwIfNotFound: true);
+        m_Player_SwitchWeapons = m_Player.FindAction("SwitchWeapons", throwIfNotFound: true);
         m_Player_UseHealthGrub = m_Player.FindAction("UseHealthGrub", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
@@ -578,7 +578,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_ReloadGun;
-    private readonly InputAction m_Player_ScrollThroughMelee;
+    private readonly InputAction m_Player_SwitchWeapons;
     private readonly InputAction m_Player_UseHealthGrub;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Pause;
@@ -594,7 +594,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Melee => m_Wrapper.m_Player_Melee;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputAction @ReloadGun => m_Wrapper.m_Player_ReloadGun;
-        public InputAction @ScrollThroughMelee => m_Wrapper.m_Player_ScrollThroughMelee;
+        public InputAction @SwitchWeapons => m_Wrapper.m_Player_SwitchWeapons;
         public InputAction @UseHealthGrub => m_Wrapper.m_Player_UseHealthGrub;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
@@ -631,9 +631,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ReloadGun.started += instance.OnReloadGun;
             @ReloadGun.performed += instance.OnReloadGun;
             @ReloadGun.canceled += instance.OnReloadGun;
-            @ScrollThroughMelee.started += instance.OnScrollThroughMelee;
-            @ScrollThroughMelee.performed += instance.OnScrollThroughMelee;
-            @ScrollThroughMelee.canceled += instance.OnScrollThroughMelee;
+            @SwitchWeapons.started += instance.OnSwitchWeapons;
+            @SwitchWeapons.performed += instance.OnSwitchWeapons;
+            @SwitchWeapons.canceled += instance.OnSwitchWeapons;
             @UseHealthGrub.started += instance.OnUseHealthGrub;
             @UseHealthGrub.performed += instance.OnUseHealthGrub;
             @UseHealthGrub.canceled += instance.OnUseHealthGrub;
@@ -671,9 +671,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ReloadGun.started -= instance.OnReloadGun;
             @ReloadGun.performed -= instance.OnReloadGun;
             @ReloadGun.canceled -= instance.OnReloadGun;
-            @ScrollThroughMelee.started -= instance.OnScrollThroughMelee;
-            @ScrollThroughMelee.performed -= instance.OnScrollThroughMelee;
-            @ScrollThroughMelee.canceled -= instance.OnScrollThroughMelee;
+            @SwitchWeapons.started -= instance.OnSwitchWeapons;
+            @SwitchWeapons.performed -= instance.OnSwitchWeapons;
+            @SwitchWeapons.canceled -= instance.OnSwitchWeapons;
             @UseHealthGrub.started -= instance.OnUseHealthGrub;
             @UseHealthGrub.performed -= instance.OnUseHealthGrub;
             @UseHealthGrub.canceled -= instance.OnUseHealthGrub;
@@ -728,7 +728,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnMelee(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnReloadGun(InputAction.CallbackContext context);
-        void OnScrollThroughMelee(InputAction.CallbackContext context);
+        void OnSwitchWeapons(InputAction.CallbackContext context);
         void OnUseHealthGrub(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);

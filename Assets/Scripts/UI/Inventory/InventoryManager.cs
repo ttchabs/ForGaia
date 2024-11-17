@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryPanel;
     public bool isInventoryOpen = false;
 
+    public PlayerHUDManager playerHUDManager;
+
     [Header("LOADOUT SLOTS")]
     public Transform MeleeSlot;
     public Transform GunSlot;
@@ -186,7 +188,7 @@ public class InventoryManager : MonoBehaviour
         returnGun.SetParent(sackStorage);
         equippableGun.transform.SetParent(GunSlot);
         hand.RemoveGun();
-        InstantiateGun(equippableGun);
+        StartCoroutine(InstantiateGun(equippableGun));
         return;
     }
 

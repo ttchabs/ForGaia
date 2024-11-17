@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 
 public class PlayerPopUpEvents : MonoBehaviour
 {
-
     public static PlayerPopUpEvents instance;
     [Header("DEATH EVENT POP UP:")]
     public CanvasGroup youDiedPopUp;

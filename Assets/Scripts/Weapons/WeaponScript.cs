@@ -9,27 +9,61 @@ public class WeaponScript : MonoBehaviour
     public WeaponScriptable weaponConfigs;
     public Collider hitBox;
     public AudioSource meleeSFX; 
-    [HideInInspector] public bool cooldown = false;
+    bool _cooldown = false;
 
     public void Awake()
     {
         hitBox.isTrigger = true;
         hitBox.enabled = false;
     }
+
+    public void OnEnable()
+    {
+        _cooldown = false;
+    }
     public void OnTriggerEnter(Collider other)
     {
         weaponConfigs.Attacks(other, meleeSFX);
     }
 
+    public void SwordSwung(Animator animator)
+    {
+        if(_cooldown == false)
+        {
+            _cooldown = true;
+            animator.runtimeAnimatorController = weaponConfigs.uniqueAnimation;
+            //checks what is currently in the player's melee hand and activates an animation based on the weapon type
+            switch (weaponConfigs.meleeType)
+            {
+                case MeleeWeaponType.Light:
+                    animator.SetTrigger("LightWeaponAttack");
+                    break;
+                case MeleeWeaponType.Medium:
+                    animator.SetTrigger("MediumWeaponAttack");
+                    break;
+                case MeleeWeaponType.Heavy:
+                    animator.SetTrigger("HeavyWeaponAttack");
+                    break;
+            }
+            SwingSound();
+            StartCoroutine(CooldownCounter());//start swing cooldown
+        }
+    }
+
     public IEnumerator CooldownCounter()
     {
-        cooldown = true;
+        _cooldown = true;
         yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
-        cooldown = false; 
+        _cooldown = false; 
     }
 
     public void SwingSound()
     {
         weaponConfigs.PlaySwingSound(meleeSFX);
+    }
+
+    public void OnDisable()
+    {
+        StopCoroutine(CooldownCounter());
     }
 }
