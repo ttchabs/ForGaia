@@ -31,6 +31,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Transform playerCamera; // Reference to the player's camera
     public AudioSource playerSFX;
     // Private variables to store input values and the character controller
+    public float moveAmount;
+    public float moveAMountY;
     private Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
@@ -45,6 +47,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float standingHeight = 2f; // Height of te player when standing
     public float crouchSpeed = 1.5f; //Speed at which the player moves when crouching
     private bool _isCrouching = false; //Whethere the player is currently crouching
+
+    private GameObject _lastWeapon;
     #endregion
 
     #region PLAYEY PICKUP ITEMS:
@@ -59,9 +63,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region PLAYER MELEE ATTACKING:
     [Header("---MELEE SETTINGS---")]
     [Space(5)]
-    //public GameObject meleeWeapon;//weapon model in hand 
-    public Transform meleeHoldPosition;//location in which the weapon will go to 
-    public WeaponScript meleeAttacks;//script attached to the weapon
+    public Transform meleeHoldPosition; //location in which the weapon will go to 
+    public WeaponScript meleeAttacks; //script attached to the weapon
     [SerializeField] bool _holdingMelee = true;
     #endregion
 
@@ -82,22 +85,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     #region UI
     [Header("UI SETTINGS")]
-    public TextMeshProUGUI pickUpText;
-    public Image GunSlot;
-    public Image SwordSlot;
-    public TextMeshProUGUI grubCounttxt;
     public int grubCount = 0;
     #endregion
 
     #region ANIMATION
-
     [Header("ANIMATION SETTINGS")] [Space(5)]
-
-    #endregion
-
-
-    #region INVENTORY
-    [Header("Inventory")][Space(5)]
 
     #endregion
 
@@ -158,7 +150,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
         //Subscribe to the melee input event
-        playerInput.Player.Melee.performed += ctx => Melee(); // Call the Melee method when melee input is performed
+        playerInput.Player.Melee.performed += ctx => StoreLastWeapon(); // Call the Melee method when melee input is performed
 
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.SwitchWeapons.performed += ctx => SwitchWeapons(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
@@ -174,6 +166,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private void Update()
     {
         // Call Move and LookAround methods every frame to handle player movement and camera rotation
+        //Move();
+        //MoveInputs();
         Move();
         LookAround();
         ApplyGravity();
@@ -184,17 +178,19 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         PickUpDisplay();        
     }
 
+    //---- MOVEMENT BASED CODE---//
+
     public void Move()
     {
         // Create a movement vector based on the input
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-      
         // Transform direction from local to world space
         move = transform.TransformDirection(move);
 
+        //moveAmount = Mathf.Clamp01(Mathf.Abs(move.x) + Mathf.Abs(move.y));
         float currentSpeed;
 
-        if (moveInput.x ==0 && moveInput.y ==0)
+        if (moveInput.x == 0 && moveInput.y == 0)
         {
             currentSpeed = 0;
         }
@@ -210,15 +206,109 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         else if (_holdingGun == true)
         {
             currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
+            currentSpeed = Mathf.Max(currentSpeed, 0f);
         }
         else
         {
             currentSpeed = moveSpeed;
         }
-        
+
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
-        //animator.SetFloat("Speed", currentSpeed);
+        MoveMentAnimations(moveInput.x, moveInput.y);
+    }
+
+    public void MoveMentAnimations(float inputX, float inputY)
+    {
+        //playerAnimation.SetFloat("Horizontal", inputX);
+        //playerAnimation.SetFloat("Vertical", inputY);
+
+        float snappedInputX;
+        float snappedInputY;
+
+        if(inputX > 0 && inputX <= 0.5f)
+        {
+            snappedInputX = 0.5f;
+        }
+        else if(inputX > 0.5f &&  inputX <= 1)
+        {
+            snappedInputX = 1;
+        }
+        else if(inputX < 0 && inputX >= -0.5f)
+        {
+            snappedInputX = -0.5f;
+        }
+        else if (inputX < -0.5f && inputX >= -1)
+        {
+            snappedInputX = -1;
+        }
+        else
+        {
+            snappedInputX = 0;
+        }
+
+
+        if (inputY > 0 && inputY <= 0.5f)
+        {
+            snappedInputY = 0.5f;
+        }
+        else if (inputY > 0.5f && inputY <= 1)
+        {
+            snappedInputY = 1;
+        }
+        else if (inputY < 0 && inputY >= -0.5f)
+        {
+            snappedInputY = -0.5f;
+        }
+        else if (inputY < -0.5f && inputY >= -1)
+        {
+            snappedInputY = -1;
+        }
+        else
+        {
+            snappedInputY = 0;
+        }
+
+        playerAnimation.SetFloat("Horizontal", snappedInputX);
+        playerAnimation.SetFloat("Vertical", snappedInputY);
+    }
+
+    public void MoveInputs()
+    {
+        // Create a movement vector based on the input
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        // Transform direction from local to world space
+        move = transform.TransformDirection(move);
+
+        moveAmount = Mathf.Clamp01(Mathf.Abs(move.x) + Mathf.Abs(move.y));
+        float currentSpeed;
+
+        if (moveAmount == 0)
+        {
+            currentSpeed = 0;
+        }
+        else if (_isCrouching)
+        {
+            currentSpeed = crouchSpeed;
+        }
+        else if (_holdingMelee == true)
+        {
+            currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
+            currentSpeed = Mathf.Max(currentSpeed, 0f);
+        }
+        else if (_holdingGun == true)
+        {
+            currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
+            currentSpeed = Mathf.Max(currentSpeed, 0f);
+        }
+        else
+        {
+            currentSpeed = moveSpeed;
+        }
+
+        // Move the character controller based on the movement vector and speed
+        characterController.Move(currentSpeed * Time.deltaTime * move);
+        MoveMentAnimations(0, moveAmount);
     }
 
     public void LookAround()
@@ -264,64 +354,51 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (_isCrouching)
         {
             characterController.height = standingHeight;
-            _isCrouching = false;         
+            _isCrouching = false;    
+            StoreLastWeapon();
         }
         else
         {
             characterController.height = crouchHeight;
             _isCrouching = true;
+
+            gunHoldPosition.gameObject.SetActive(false);
+            meleeHoldPosition.gameObject.SetActive(false);
+            _holdingGun = false;
+            _holdingMelee = false;
         }
     }
 
+    //----ATTACK RELATED CODE----//
     public void UseWeapon()
     {
-        if (_holdingGun == true) 
+        if (_holdingGun == true && _isCrouching == false) 
         {
             gunFire.GunTriggerPulled();
         }
-        else if (_holdingMelee == true)
+        else if (_holdingMelee == true && _isCrouching == false)
         {
             meleeAttacks.SwordSwung(playerAnimation);
         }
     }
 
-    public void Melee() //Right click mouse
+    public void StoreLastWeapon()
     {
-        
+
+        if (_lastWeapon == gunHoldPosition.gameObject)
+        {
+            _holdingGun = true;
+            gunHoldPosition.gameObject.SetActive(true);
+        }
+        else
+        {
+            _holdingMelee = true;
+            meleeHoldPosition.gameObject.SetActive(true);
+        }
     }
 
     public void ReloadGun()
     {
-/*        // Perform a raycast from the camera's position forward
-        Ray meleeRay = new Ray(playerCamera.position, playerCamera.forward);
-        RaycastHit hitMeleeWeapon;
-
-        // Debugging: Draw the ray in the Scene view
-        Debug.DrawRay(playerCamera.position, playerCamera.forward * pickUpRange, Color.blue);
-
-        if (Physics.Raycast(meleeRay, out hitMeleeWeapon, pickUpRange))
-        {
-            // Check if the hit object has the tag "MeleeWeapon"
-            if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
-            {
-                // Pick up the object
-                meleeWeapon = hitMeleeWeapon.collider.gameObject;
-                meleeWeapon.GetComponent<Rigidbody>().isKinematic = true; //Disable physics
-                meleeWeapon.GetComponent<Collider>().enabled = false; //Switch off the collider to make sure objects don't hit it constantly
-                meleeAttacks = meleeWeapon.GetComponent<WeaponScript>(); //Initialise the weaponScript component of the weapon that is held
-               
-                // Attach the melee weapon to the hold position
-                meleeWeapon.transform.position = meleeHoldPosition.position;
-                meleeWeapon.transform.rotation = meleeHoldPosition.rotation;
-                meleeWeapon.transform.parent = meleeHoldPosition;
-                _holdingMelee = true;          
-            }
-            else if (hitMeleeWeapon.collider.CompareTag("MeleeWeapon"))
-            {
-                var itemCollect = hitMeleeWeapon.collider.GetComponent<PickUpFunction>();              
-                itemCollect.Pickup();
-            }
-        }*/
         if(_holdingGun == true)
         {
             StartCoroutine(gunFire.ReloadGun());
@@ -330,18 +407,20 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void SwitchWeapons()
     {
-        if (_holdingMelee == true && gunFire != null)
+        if (_holdingMelee == true && gunFire != null && _isCrouching == false)
         {
             InventoryManager.Instance.playerHUDManager.UsingGunDisplay();
+            _lastWeapon = gunHoldPosition.gameObject;
             meleeHoldPosition.gameObject.SetActive(false);
             gunHoldPosition.gameObject.SetActive(true);
             _holdingMelee = false;
             _holdingGun = true;
         }
 
-        else if (_holdingGun == true && meleeAttacks != null)
+        else if (_holdingGun == true && meleeAttacks != null && _isCrouching == false)
         {
             InventoryManager.Instance.playerHUDManager.UsingMeleeDisplay();
+            _lastWeapon = meleeHoldPosition.gameObject ;
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(true);
             _holdingGun = false;
@@ -349,6 +428,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
+    //----ITEM BASED CODING----//
     public void PickUpObject()
     {
         // Check if we are already holding an object
@@ -418,8 +498,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
     }
 
-    //Knockback taken when a enemy hits the player
-    public IEnumerator KnockedBack(Vector3 direction)
+    //----HEALTH AND DAMAGE BASED CODE----//
+
+    public IEnumerator KnockedBack(Vector3 direction) //Knockback taken when a enemy hits the player
     {
         Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
         velocity = knockback;
@@ -428,8 +509,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         velocity = Vector3.zero;
     }
 
-    //The function that is called whenever the player is hit by an enemy
-    public void DamageReceived(int damageAmount)
+    public void DamageReceived(int damageAmount) //The function that is called whenever the player is hit by an enemy
     {
         currentPlayerHP -= damageAmount;
         SetCurrentHP();
@@ -439,7 +519,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX));
     }
 
-    public void SetCurrentHP()
+    public void SetCurrentHP() 
     {
         InventoryManager.Instance.playerHUDManager.SetCurrentHPValue(currentPlayerHP);
     }
@@ -455,7 +535,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             DamageReceived(-10);
             grubCount--;
-            grubCounttxt.text = grubCount.ToString();
             if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
                 currentPlayerHP = playerConfigs.MaxPlayerHP;
         }
@@ -464,6 +543,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
 
     }
+
+    //----INVENTORY BASED CODE----//
 
     public void MeleeInitialise(GameObject melee)
     {
@@ -476,7 +557,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public void GunInitialise(GameObject gun)
     {
         gunFire = gun.GetComponent<GunScript>();
-        gun.GetComponent <Collider>().enabled = false;
+        gun.GetComponent<Collider>().enabled = false;
         gun.GetComponent<Rigidbody>().isKinematic = true;
         gun.transform.SetPositionAndRotation(gunHoldPosition.position, gunHoldPosition.rotation);
     }
@@ -493,8 +574,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         gunFire = null;
     }
 
-
-
     public void PauseGame()
     {
         PauseManager.instance.PauseGame();
@@ -504,6 +583,5 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         InventoryManager.Instance.OpenInventoryPanel();
     }
-
 
 }

@@ -25,11 +25,11 @@ MonoBehaviour:
   _slashSound: {fileID: 0}
   _swingSound: {fileID: 0}
   _meleeDamage:
-    minDamage: 0
-    maxDamage: 0
-    critMultiplier: 0
-    critChance: 0
-  _knockback: 0
+    minDamage: 10
+    maxDamage: 16
+    critMultiplier: 3
+    critChance: 0.175
+  _knockback: 1.3
   _weaponWeight: 0.71
   _swingCooldown: 0.2
   uniqueAnimation: {fileID: 22100000, guid: 2c870ef43229a3d429e608d43967095c, type: 2}

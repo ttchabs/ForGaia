@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
   m_Name: Longsword
   m_EditorClassIdentifier: 
+  _itemName: Longsword
+  _itemDescription: A sword purchased from the blacksmith market,this weapon is known
+    for its lightness and durability. It's great for novice adventurers.
+  _itemModel: {fileID: 5918954987855155851, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
+  _itemSprite: {fileID: 21300000, guid: 62b3e573fd9a89a42a2e386db5ab6d57, type: 3}
+  _itemType: 1
   meleeType: 1
   _volume: 0
   _slashSound: {fileID: 0}
   _swingSound: {fileID: 0}
   _meleeDamage:
-    minDamage: 10
-    maxDamage: 15
+    minDamage: 12
+    maxDamage: 17
     critMultiplier: 1.93
-    critChance: 0.1
+    critChance: 0.179
   _knockback: 3
   _weaponWeight: 2
   _swingCooldown: 1

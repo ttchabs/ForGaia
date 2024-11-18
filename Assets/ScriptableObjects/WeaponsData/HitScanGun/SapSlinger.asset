@@ -30,11 +30,15 @@ MonoBehaviour:
   _maxDistance: 50
   _reloadSequence: {fileID: 0}
   _bulletDamage:
-    minDamage: 10
-    maxDamage: 17
+    minDamage: 16
+    maxDamage: 20
     critMultiplier: 1.82
     critChance: 0.105
   _bulletPrefab: {fileID: 2586385609988217719, guid: 2c042fcd7111e4a48b9bfc688e04f41c, type: 3}
   hitLayers:
     serializedVersion: 2
     m_Bits: 192
+  recoilX: 2.29
+  recoilY: 0.99
+  currentX: 0
+  currentY: 0

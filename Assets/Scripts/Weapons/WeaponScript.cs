@@ -64,13 +64,13 @@ public class WeaponScript : PickUpFunction
         var cdDisplay = InventoryManager.Instance.playerHUDManager;
         _cooldown = true;
         float endTime = 0;
-        while(timer + 0.11f > endTime)
+        while(timer  > endTime)
         {
-            cdDisplay.meleeCooldownSlider.value = Mathf.Lerp(cdDisplay.meleeCooldownSlider.value, 1.4f, timer * Time.deltaTime);
+            cdDisplay.meleeCooldownSlider.value = Mathf.LerpAngle(cdDisplay.meleeCooldownSlider.value, 1.59f, timer * Time.deltaTime);
             endTime += Time.deltaTime;
             yield return null;
         }
-        //cdDisplay.meleeCooldownSlider.value = 1;
+        cdDisplay.meleeCooldownSlider.value = 1;
         _cooldown = false; 
         yield return null;
     }

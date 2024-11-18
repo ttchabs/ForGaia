@@ -91,7 +91,8 @@ public class PlayerHUDManager : MonoBehaviour
         while(time > endTime)
         {
             endTime += Time.deltaTime;
-            meleeCooldownSlider.value = Mathf.Lerp(meleeCooldownSlider.value, 1, time * Time.deltaTime);
+            //meleeCooldownSlider.value = Mathf.Lerp(meleeCooldownSlider.value, 1, time * Time.deltaTime);
+            meleeCooldownSlider.value = Mathf.LerpAngle(meleeCooldownSlider.value, 180, time * Time.deltaTime);
             yield return null;
         }
         meleeCooldownSlider.value = 1;
