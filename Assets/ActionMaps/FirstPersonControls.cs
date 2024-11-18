@@ -117,14 +117,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         { 
             Destroy(gameObject);        
         }
-
+        currentScene = SceneManager.GetActiveScene().name;
+        characterController = GetComponent<CharacterController>();
+        playerAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
     }
 
     void Start()
     {
-        currentScene = SceneManager.GetActiveScene().name;
-        characterController = GetComponent<CharacterController>();
-        playerAnimation = playerModel.GetComponent<Animator>();//Get and store the animator component attached to the GameObject
         SetMaxHP();
     }  
 
@@ -178,8 +177,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         Move();
         LookAround();
         ApplyGravity();
+    }
 
-        PickUpDisplay();
+    public void FixedUpdate()
+    {
+        PickUpDisplay();        
     }
 
     public void Move()
@@ -364,7 +366,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Debugging: Draw the ray in the Scene view
         Debug.DrawRay(playerCamera.position, playerCamera.forward * pickUpRange, Color.red, 2f);
-
+        
 
         if (Physics.Raycast(ray, out hit, pickUpRange))
         {
@@ -380,7 +382,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.SetPositionAndRotation(holdPosition.position, holdPosition.rotation);
             }
 
-            if (hit.collider.CompareTag("MeleeWeapon"))
+            if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
+            {
+                canPickUp.Pickup();
+            }
+
+/*            if (hit.collider.CompareTag("MeleeWeapon"))
             {
                 var meleePickUp = hit.collider.GetComponent<PickUpFunction>();
                 var meleeData = hit.collider.GetComponent<WeaponScript>();               
@@ -397,7 +404,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             {
                 var pickUp = hit.collider.GetComponent<PickUpFunction>();
                 pickUp.Pickup();
-            }
+            }*/
         }
     }
 
@@ -407,14 +414,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         RaycastHit displayHit;
         if (Physics.Raycast(displayRay, out displayHit, pickUpRange))
         {
-            if(displayHit.collider.TryGetComponent(out PickUpFunction name))
-            {
-                pickUpText.text = "(E)";
-            }
-            else
-            {
-                pickUpText.text = null;
-            }
+           InventoryManager.Instance.playerHUDManager.Interactable(displayHit);
         }
     }
 

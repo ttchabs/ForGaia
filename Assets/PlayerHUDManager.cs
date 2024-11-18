@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerHUDManager : MonoBehaviour
 {
-
     [Header("HEALTH DISPLAY:")]
     public Slider healthBar;
 
@@ -66,6 +65,18 @@ public class PlayerHUDManager : MonoBehaviour
     public void UpdateGunAmmo(int currentAmount, int maxAmount)
     {
         gunAmmoText.text = $"{currentAmount} / {maxAmount}";
+    }
+
+    public void Interactable(RaycastHit info)
+    {
+        if (info.collider.TryGetComponent(out PickUpFunction name))
+        {
+            pickUpText.text = "(E)";
+        }
+        else
+        {
+            pickUpText.text = null;
+        }
     }
 
 

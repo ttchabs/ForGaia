@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
   m_Name: StoneCrusher
   m_EditorClassIdentifier: 
-  meleeType: 3
+  _itemName: 
+  _itemDescription: 
+  _itemModel: {fileID: 0}
+  _itemSprite: {fileID: 0}
+  _itemType: 1
+  meleeType: 2
   _volume: 0
   _slashSound: {fileID: 0}
   _swingSound: {fileID: 0}

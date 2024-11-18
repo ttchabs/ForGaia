@@ -67,7 +67,6 @@ GameObject:
   - component: {fileID: 2354848107738419397}
   - component: {fileID: 8734102198926236255}
   - component: {fileID: 592800644206194893}
-  - component: {fileID: -1132886099540367953}
   - component: {fileID: 434937377493667823}
   m_Layer: 0
   m_Name: Longsword
@@ -152,23 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponConfigs: {fileID: 11400000, guid: e95beaf9cf7199246a9cd2db20e09b45, type: 2}
+  itemData: {fileID: 11400000, guid: e95beaf9cf7199246a9cd2db20e09b45, type: 2}
+  weaponConfigs: {fileID: 0}
   hitBox: {fileID: 5103931327812812348}
   meleeSFX: {fileID: 434937377493667823}
-  cooldown: 0
---- !u!114 &-1132886099540367953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5918954987855155851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 70e86e381a6e5324584ba01345dd7349, type: 2}
 --- !u!82 &434937377493667823
 AudioSource:
   m_ObjectHideFlags: 0

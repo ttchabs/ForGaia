@@ -4,15 +4,23 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class GunScript : MonoBehaviour
+public class GunScript : PickUpFunction
 {
-    public GunScriptable gunConfigs;
+    [HideInInspector] public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
     public AudioSource gunSFX;
 
     float _lastShot = 0f;
     bool _reloading = false;
+
+    public void Awake()
+    {
+        if(itemData is GunScriptable gun)
+        {
+            gunConfigs = gun;
+        }        
+    }
 
     private void OnEnable()
     {
@@ -58,6 +66,12 @@ public class GunScript : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void RecoilMath(Transform camera)
+    {
+        transform.localPosition -= Vector3.forward * gunConfigs.recoilX;
+
     }
 
     public IEnumerator ReloadGun()

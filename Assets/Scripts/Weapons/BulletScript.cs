@@ -17,7 +17,7 @@ public class BulletScript : PickUpFunction
         OnHit?.Invoke(gameObject, collision);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         OnHit = null;
     }

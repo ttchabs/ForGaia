@@ -67,7 +67,6 @@ GameObject:
   - component: {fileID: 9095131874725347817}
   - component: {fileID: 3433393535680813843}
   - component: {fileID: 4027662931922787028}
-  - component: {fileID: 5263734120840920480}
   - component: {fileID: 6218434027636688812}
   m_Layer: 0
   m_Name: StoneCrusher
@@ -153,23 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7961c480c69f92b47b18b0b8bb27afdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 60462e72c0bd5d24d990aa94e15a56b1, type: 2}
   weaponConfigs: {fileID: 11400000, guid: 60462e72c0bd5d24d990aa94e15a56b1, type: 2}
   hitBox: {fileID: 7354707498657949769}
   meleeSFX: {fileID: 6218434027636688812}
-  cooldown: 0
---- !u!114 &5263734120840920480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7695108773255861316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adfc6d831f2f7164aacdb5a921904f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 4807c2b67d59e624cae31bf20ab728c0, type: 2}
 --- !u!82 &6218434027636688812
 AudioSource:
   m_ObjectHideFlags: 0

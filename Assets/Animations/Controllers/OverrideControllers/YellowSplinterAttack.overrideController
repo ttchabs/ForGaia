@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LeafDaggerAttack
+  m_Name: YellowSplinterAttack
   m_Controller: {fileID: 9100000, guid: 65725d199b8e83243a79d23cc635c3ec, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 5f25a54cbb0fcfb498bda8acc587beeb, type: 2}

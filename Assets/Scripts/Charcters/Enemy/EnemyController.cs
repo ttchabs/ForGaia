@@ -17,20 +17,22 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY HEALTH DISPLAY")]
     public Slider enemyHealth;
-
     Transform camToFace;
+
+    [Header("ENEMY MODEL AND ANIMATIONS:")]
+    public Animator enemyAnimations;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
     public void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
         OnDamageReceived += BreakStance;
     }
 
     public void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         camToFace = player.GetComponentInChildren<Camera>().transform;
         SetMaxEnemyHP();        
     }

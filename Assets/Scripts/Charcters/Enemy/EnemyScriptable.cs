@@ -21,11 +21,11 @@ public class EnemyScriptable : ScriptableObject
     [SerializeField] float _attackRate;
     public string EnemyName => _enemyName;
     public string EnemyDescription => _enemyDescription;
-    public int MaxEnemyHP { get => _maxEnemyHP; }
-    public EnemyDamage EnemyAttackDamage { get => _enemyAttackDamage; }
-    public float EnemyKnockbackFactor { get => _enemyKnockbackFactor; }
-    public float EnemyMoveSpeed { get => _enemyMoveSpeed;  }
-    public float AttackRate { get => _attackRate; }
+    public int MaxEnemyHP => _maxEnemyHP; 
+    public EnemyDamage EnemyAttackDamage => _enemyAttackDamage; 
+    public float EnemyKnockbackFactor => _enemyKnockbackFactor;
+    public float EnemyMoveSpeed => _enemyMoveSpeed;
+    public float AttackRate => _attackRate; 
 
     public IEnumerator EnemyDeath(GameObject enemySpawn)
     {

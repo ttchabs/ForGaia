@@ -42,14 +42,6 @@ public class RabbitAnimations : MonoBehaviour
         rabbitanim.SetTrigger("Attack");
     }
 
-
-    public void LookAtPlayer()
-    {
-        Vector3 directioToPlayer = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(directioToPlayer);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime);
-    }
-
     public void Still() 
     {
         rabbitanim.SetTrigger("IsStill");

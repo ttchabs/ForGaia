@@ -24,8 +24,13 @@ public class PauseManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+    }
+
+    public void Start()
+    {
         Resume.onClick.AddListener(ResumeGame);
-        Quit.onClick.AddListener(QuitGame);
+        Quit.onClick.AddListener(QuitGame);        
     }
     public void PauseGame()
     {

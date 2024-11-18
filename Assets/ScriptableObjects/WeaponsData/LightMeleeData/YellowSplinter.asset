@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e47a35e4874204e8de14c13ef3d51e, type: 3}
+  m_Name: YellowSplinter
+  m_EditorClassIdentifier: 
+  _itemName: Yellow Splinter
+  _itemDescription: 'This knife was crafted from the bark of one of the largest trees
+    to ever exist: the Yellow-Bark. The bark''s toughness makes it hard to pull one
+    of these off. As a result of this, weaponsmithswait for a splinter to fall off
+    and carve it using the same tree it fell from.'
+  _itemModel: {fileID: 0}
+  _itemSprite: {fileID: 0}
+  _itemType: 1
+  meleeType: 0
+  _volume: 0
+  _slashSound: {fileID: 0}
+  _swingSound: {fileID: 0}
+  _meleeDamage:
+    minDamage: 0
+    maxDamage: 0
+    critMultiplier: 0
+    critChance: 0
+  _knockback: 0
+  _weaponWeight: 0.71
+  _swingCooldown: 0.2
+  uniqueAnimation: {fileID: 22100000, guid: 2c870ef43229a3d429e608d43967095c, type: 2}

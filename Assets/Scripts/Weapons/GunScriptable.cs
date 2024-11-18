@@ -33,6 +33,12 @@ public class GunScriptable : ItemScriptable
     [SerializeField] GameObject _bulletPrefab; //the bullets that will be shot
     public LayerMask hitLayers; //only applicable if hitscan
 
+    [Header("RECOIL SYSTEM:")]
+    [Range(0f, 7f)] public float recoilX;
+    [Range(0f,7f)] public float recoilY;
+    public float currentX;
+    public float currentY;
+
     //these make the variables above accessible to other scripts. reference these when necessary.
     public float Volume => _volume; 
     public AudioClip GunFireSFX => _gunFireSFX;

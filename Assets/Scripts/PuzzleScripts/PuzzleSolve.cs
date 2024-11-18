@@ -19,7 +19,6 @@ public class PuzzleSolve : MonoBehaviour
     {
         if (other.gameObject.CompareTag("SorterPuzzleStone") && other.gameObject.GetComponent<Rigidbody>().isKinematic == false )
         {          
-
             Collider _collider = gameObject.GetComponent<Collider>();
             StoneIdentity idNumber = other.GetComponent<StoneIdentity>();
             stoneID = idNumber.stoneNumber;
@@ -27,6 +26,7 @@ public class PuzzleSolve : MonoBehaviour
             other.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.SetParent(transform);
             other.transform.localPosition = new Vector3(0, 0.12f, 0);
+            other.transform.localRotation = transform.rotation;
 
             if (tileNumber == stoneID)
             {

@@ -17,4 +17,4 @@ MonoBehaviour:
     for its lightness and durability. It's great for novice adventurers.
   _itemModel: {fileID: 5918954987855155851, guid: 74a9e18e365308049beb7143dcac2948, type: 3}
   _itemSprite: {fileID: 0}
-  _itemType: 0
+  _itemType: 1

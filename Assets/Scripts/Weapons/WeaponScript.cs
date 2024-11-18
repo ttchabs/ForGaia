@@ -6,12 +6,20 @@ using UnityEngine;
 
 public class WeaponScript : PickUpFunction
 {
-    public WeaponScriptable weaponConfigs;
+    [HideInInspector] public WeaponScriptable weaponConfigs;
     public Collider hitBox;
     public AudioSource meleeSFX; 
     bool _cooldown = false;
 
     public void Awake()
+    {
+        if(itemData is WeaponScriptable weapon)
+        {
+            weaponConfigs = weapon;
+        }
+    }
+
+    public void Start()
     {
         hitBox.isTrigger = true;
         hitBox.enabled = false;
@@ -60,11 +68,6 @@ public class WeaponScript : PickUpFunction
     public void SwingSound()
     {
         weaponConfigs.PlaySwingSound(meleeSFX);
-    }
-
-    public override void MeleePickUp(WeaponScriptable meleeData)
-    {
-        base.MeleePickUp(meleeData);
     }
 
     public void OnDisable()
