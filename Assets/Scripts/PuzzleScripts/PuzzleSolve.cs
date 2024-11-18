@@ -25,8 +25,7 @@ public class PuzzleSolve : MonoBehaviour
 
             other.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.SetParent(transform);
-            other.transform.localPosition = new Vector3(0, 0.12f, 0);
-            other.transform.localRotation = transform.rotation;
+            other.transform.SetLocalPositionAndRotation(new(0,0.12f,0), transform.rotation);
 
             if (tileNumber == stoneID)
             {

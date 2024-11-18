@@ -28,7 +28,7 @@ public class GunScript : PickUpFunction
         {
             _reloading = false;
             currentMagAmount = gunConfigs.ReloadGun(gunSFX);
-            InventoryManager.Instance.playerHUDManager.UpdateGunAmmo(currentMagAmount, gunConfigs.MagSize); 
+            InventoryManager.Instance.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
         }
 
 
@@ -60,7 +60,8 @@ public class GunScript : PickUpFunction
                     StartCoroutine(gunConfigs.HitScanShooter(firePoint));
                     break;
             }
-            InventoryManager.Instance.playerHUDManager.UpdateGunAmmo(currentMagAmount, gunConfigs.MagSize);
+            
+            InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(currentMagAmount);
         }
         else
         {
@@ -71,7 +72,8 @@ public class GunScript : PickUpFunction
     public void RecoilMath(Transform camera)
     {
         transform.localPosition -= Vector3.forward * gunConfigs.recoilX;
-
+        Quaternion recoilRot = Quaternion.Euler(-gunConfigs.recoilY, 0, 0);
+        camera.localRotation *= recoilRot;
     }
 
     public IEnumerator ReloadGun()
@@ -80,7 +82,7 @@ public class GunScript : PickUpFunction
         yield return new WaitForSeconds(2f);
         currentMagAmount = gunConfigs.ReloadGun(gunSFX);
         _reloading = false;
-        InventoryManager.Instance.playerHUDManager.UpdateGunAmmo(currentMagAmount, gunConfigs.MagSize);
+        InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(gunConfigs.MagSize);
         StopCoroutine(ReloadGun());
     }
 

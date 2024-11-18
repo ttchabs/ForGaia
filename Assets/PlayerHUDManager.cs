@@ -10,7 +10,6 @@ public class PlayerHUDManager : MonoBehaviour
     public Slider healthBar;
 
     [Header("WEAPON WHEEL DISPLAY:")]
-    public TextMeshProUGUI gunAmmoText;
     public Image currentWeaponInHand;
     public Image secondaryWeapon;
     public Image mouseInput;
@@ -24,6 +23,13 @@ public class PlayerHUDManager : MonoBehaviour
     [Header("APPROACH ITEM UI:")]
     public TextMeshProUGUI pickUpText;
 
+    [Header("CROSSHAIRS DISPLAY")]
+    public Image crosshairs;
+    public Slider gunAmmoSlider;
+    public Slider meleeCooldownSlider;
+
+
+    //----HP RELATED FUNCTIONS----//
     public void SetMaxSliderHPValue(int maxValue)
     {
         healthBar.maxValue = maxValue;
@@ -46,25 +52,49 @@ public class PlayerHUDManager : MonoBehaviour
 
     }
 
-    //----------
+    //----GUN RELATED UI----/
 
     public void UsingGunDisplay()
     {
-        gunAmmoText.gameObject.SetActive(true);
+        gunAmmoSlider.gameObject.SetActive(true);
+        meleeCooldownSlider.gameObject.SetActive(false);
+       
         currentWeaponInHand.sprite = weaponSwitchDisplays[1];
         secondaryWeapon.sprite = weaponSwitchDisplays[0];
     }
+    public void SetMaxAmmo(int magSize)
+    {
+        gunAmmoSlider.maxValue = magSize * 2;
+        UpdateAmmoSlider(magSize);
+    }
+
+    public void UpdateAmmoSlider( int currentAmount)
+    {
+        gunAmmoSlider.value = currentAmount;
+    }
+
+    //----MELEE RELATED UI----//
 
     public void UsingMeleeDisplay()
     {
-        gunAmmoText.gameObject.SetActive(false);
+        meleeCooldownSlider.gameObject.SetActive(true);
+        gunAmmoSlider.gameObject.SetActive(false);
+
         currentWeaponInHand.sprite = weaponSwitchDisplays[0];
         secondaryWeapon.sprite = weaponSwitchDisplays[1];
     }
-
-    public void UpdateGunAmmo(int currentAmount, int maxAmount)
+    public IEnumerator FillCooldonBar(float time)
     {
-        gunAmmoText.text = $"{currentAmount} / {maxAmount}";
+       
+        meleeCooldownSlider.value = 0;
+        float endTime = 0;
+        while(time > endTime)
+        {
+            endTime += Time.deltaTime;
+            meleeCooldownSlider.value = Mathf.Lerp(meleeCooldownSlider.value, 1, time * Time.deltaTime);
+            yield return null;
+        }
+        meleeCooldownSlider.value = 1;
     }
 
     public void Interactable(RaycastHit info)
@@ -78,6 +108,9 @@ public class PlayerHUDManager : MonoBehaviour
             pickUpText.text = null;
         }
     }
+
+
+
 
 
 }

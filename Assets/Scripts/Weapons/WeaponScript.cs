@@ -54,15 +54,26 @@ public class WeaponScript : PickUpFunction
                     break;
             }
             SwingSound();
-            StartCoroutine(CooldownCounter());//start swing cooldown
+            //StartCoroutine(InventoryManager.Instance.playerHUDManager.FillCooldonBar(weaponConfigs.SwingCooldown));
+            StartCoroutine(CooldownCounter(weaponConfigs.SwingCooldown));//start swing cooldown
         }
     }
 
-    public IEnumerator CooldownCounter()
+    public IEnumerator CooldownCounter(float timer)
     {
+        var cdDisplay = InventoryManager.Instance.playerHUDManager;
         _cooldown = true;
-        yield return new WaitForSeconds(weaponConfigs.SwingCooldown);
+        cdDisplay.meleeCooldownSlider.value = 0;
+        float endTime = 0;
+        while(timer > endTime)
+        {
+            cdDisplay.meleeCooldownSlider.value = Mathf.Lerp(cdDisplay.meleeCooldownSlider.value, 1.2f, timer * Time.deltaTime);
+            endTime += Time.deltaTime;
+            yield return null;
+        }
+        cdDisplay.meleeCooldownSlider.value = 1;
         _cooldown = false; 
+        yield return null;
     }
 
     public void SwingSound()
@@ -72,6 +83,6 @@ public class WeaponScript : PickUpFunction
 
     public void OnDisable()
     {
-        StopCoroutine(CooldownCounter());
+        StopCoroutine(CooldownCounter(weaponConfigs.SwingCooldown));
     }
 }
