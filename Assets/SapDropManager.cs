@@ -10,7 +10,7 @@ public class SapDropManager : MonoBehaviour
     public float timeToDespawn;
     public void Start()
     {
-        InvokeRepeating("ChooseRandomSpawn", 2f, 2f);
+        InvokeRepeating(nameof(ChooseRandomSpawn), 2f, 2f);
     }
 
     public void ChooseRandomSpawn()

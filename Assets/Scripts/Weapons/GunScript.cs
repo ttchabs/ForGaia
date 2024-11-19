@@ -1,30 +1,46 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class GunScript : MonoBehaviour
+public class GunScript : PickUpFunction
 {
-    public GunScriptable gunConfigs;
+    [HideInInspector] public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
+    public AudioSource gunSFX;
+
     float _lastShot = 0f;
     bool _reloading = false;
 
-    private void Awake()
+    public void Awake()
     {
-        currentMagAmount = gunConfigs.MagSize;
+        if(itemData is GunScriptable gun)
+        {
+            gunConfigs = gun;
+        }        
+    }
+
+    private void OnEnable()
+    {
+        if (currentMagAmount == 0)
+        {
+            _reloading = false;
+            currentMagAmount = gunConfigs.ReloadGun(gunSFX);
+            InventoryManager.Instance.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
+        }
+
 
     }
+
     public void Update()
     {
         if (_reloading) return;
 
         if (currentMagAmount == 0)
         {
-            _reloading = true;
-            Invoke("ReloadGun", 2f);
-            return;
+            StartCoroutine(ReloadGun());
         }
     }
 
@@ -34,6 +50,7 @@ public class GunScript : MonoBehaviour
         {
             _lastShot = Time.time;
             currentMagAmount--;
+            gunConfigs.PlayGunFireSound(gunSFX);
             switch (gunConfigs.gunTypes)
             {
                 case GunTypes.Projectile:
@@ -42,10 +59,9 @@ public class GunScript : MonoBehaviour
                 case GunTypes.HitScan:
                     StartCoroutine(gunConfigs.HitScanShooter(firePoint));
                     break;
-                case GunTypes.Thrower:
-                    gunConfigs.ThrowerShoot(firePoint);
-                    break;
             }
+            
+            InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(currentMagAmount);
         }
         else
         {
@@ -53,11 +69,25 @@ public class GunScript : MonoBehaviour
         }
     }
 
+    public void RecoilMath(Transform camera)
+    {
+        transform.localPosition -= Vector3.forward * gunConfigs.recoilX;
+        Quaternion recoilRot = Quaternion.Euler(-gunConfigs.recoilY, 0, 0);
+        camera.localRotation *= recoilRot;
+    }
+
     public IEnumerator ReloadGun()
     {
         _reloading = true;
         yield return new WaitForSeconds(2f);
-        currentMagAmount = gunConfigs.MagSize;
+        currentMagAmount = gunConfigs.ReloadGun(gunSFX);
         _reloading = false;
+        InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(gunConfigs.MagSize);
+        StopCoroutine(ReloadGun());
+    }
+
+    public void OnDisable()
+    {
+        StopCoroutine(ReloadGun());
     }
 }

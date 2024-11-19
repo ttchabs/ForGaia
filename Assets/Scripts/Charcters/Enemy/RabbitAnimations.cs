@@ -12,13 +12,6 @@ public class RabbitAnimations : MonoBehaviour
     public Transform player;
 
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -40,14 +33,6 @@ public class RabbitAnimations : MonoBehaviour
     void Attack() 
     {
         rabbitanim.SetTrigger("Attack");
-    }
-
-
-    public void LookAtPlayer()
-    {
-        Vector3 directioToPlayer = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(directioToPlayer);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime);
     }
 
     public void Still() 

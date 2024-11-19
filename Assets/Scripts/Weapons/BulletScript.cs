@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class BulletScript : PickUpFunction
 {
     public Rigidbody body;
     public delegate void OnHitEvent (GameObject bullet, Collision collision);
@@ -17,7 +17,7 @@ public class BulletScript : MonoBehaviour
         OnHit?.Invoke(gameObject, collision);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         OnHit = null;
     }

@@ -17,22 +17,34 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY HEALTH DISPLAY")]
     public Slider enemyHealth;
+    Transform camToFace;
+
+    [Header("ENEMY MODEL AND ANIMATIONS:")]
+    public Animator enemyAnimations;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
-
     public void Awake()
     {
-        enemyCurrentHP = enemyConfigs.MaxEnemyHP;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
+        OnDamageReceived += BreakStance;
+    }
 
-        SetMaxEnemyHP();
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        camToFace = player.GetComponentInChildren<Camera>().transform;
+        SetMaxEnemyHP();        
     }
 
     void Update()
     {
         TrackPlayer();
+    }
+
+    void LateUpdate()
+    {
+        enemyHealth.transform.LookAt(camToFace.position + camToFace.forward);
     }
 
     public void TrackPlayer()
@@ -46,7 +58,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
-            transform.rotation = lookDirection;           
+            transform.rotation = lookDirection;
         }
     }
 
@@ -59,45 +71,35 @@ public class EnemyController : MonoBehaviour, IDamageable
             var player = collision.collider.GetComponent<IDamageable>(); //finds the IDamageable component on the player
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
-            player.DamageReceived(enemyConfigs.EnemyAttackDamage);
+            player.DamageReceived(enemyConfigs.EnemyAttackDamage.GetEnemyDamage());
             StartCoroutine(playerHP.KnockedBack(direction));
         }
     }
 
-
     public void DamageReceived(int damage)
     {
         enemyCurrentHP -= damage;
-        UpdateHealthBar();
-        OnDamageReceived?.Invoke(damage);
-        BreakStance();
+        UpdateEnemyHealthBar();
+        OnDamageReceived?.Invoke();
         if (enemyCurrentHP < 0)
-            EnemyDeath();
+            StartCoroutine(enemyConfigs.EnemyDeath(gameObject));
     }
 
     public void BreakStance()
     {
         Vector3 direction = player.position - transform.position;
         direction.Normalize();
-        rb.AddForce(direction * -3, ForceMode.Impulse);
-        
-    }
-
-    public void EnemyDeath()
-    {
-        //Enemy death animations will be called below here
-
-        //Destroy the gameObject
-        Destroy(gameObject);
+        rb.AddForce(direction * -3, ForceMode.Impulse);        
     }
 
     public void SetMaxEnemyHP()
     {
+        enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         enemyHealth.maxValue = enemyConfigs.MaxEnemyHP;
-        UpdateHealthBar();
+        UpdateEnemyHealthBar();
     }
 
-    public void UpdateHealthBar()
+    public void UpdateEnemyHealthBar()
     {
         enemyHealth.value = enemyCurrentHP;
     }

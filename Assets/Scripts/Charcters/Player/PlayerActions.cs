@@ -21,7 +21,7 @@ public class PlayerActions : MonoBehaviour
     #region GUN ASPECTS
     public void ReloadWeapon()
     {
-        playerControls.gunFire.ReloadGun();  
+        StartCoroutine(playerControls.gunFire.ReloadGun());  
     }
     #endregion
 }

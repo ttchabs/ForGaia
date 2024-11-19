@@ -11,10 +11,6 @@ public class ChangeLevels : MonoBehaviour
 
     public float switchSceneInterval;
 
-    public void Start()
-    {
-     
-    }
 
     public void OnTriggerEnter(Collider other)
     {

@@ -33,9 +33,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Crouch",
                     "type": "Button",
-                    "id": "2873f6d6-8ed0-4c3a-b0c0-90829849e107",
+                    "id": "73e6064e-1c17-4a62-861d-7c6bbb37c725",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "73e6064e-1c17-4a62-861d-7c6bbb37c725",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Melee",
                     "type": "Button",
                     "id": "af58ae42-46e6-4ec5-8ed9-939ac5ac8a5d",
@@ -69,7 +60,16 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PickUpMelee",
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "2873f6d6-8ed0-4c3a-b0c0-90829849e107",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReloadGun",
                     "type": "Button",
                     "id": "1d098810-f905-4983-bbe8-8921c830e287",
                     "expectedControlType": "Button",
@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ScrollThroughMelee",
+                    "name": "SwitchWeapons",
                     "type": "Button",
                     "id": "fdf40de2-ae2b-4dea-aaf3-854f609c49fa",
                     "expectedControlType": "Button",
@@ -87,7 +87,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "USeHealthGrub",
+                    "name": "UseHealthGrub",
                     "type": "Button",
                     "id": "e8ef59cd-72ec-462a-9e12-802cc5b18fd6",
                     "expectedControlType": "Button",
@@ -304,45 +304,56 @@
                 },
                 {
                     "name": "",
-                    "id": "e77048ef-2381-46c9-947d-44fafbc81be4",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "PickUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "648eef03-b95e-4388-b922-7f7dd33733a7",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "856fbea1-2a03-45ab-8598-cbc74cab581a",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "PickUp",
+                    "action": "SwitchWeapons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "260cd84b-3d8d-4ecd-9e4d-eda3d8820ca9",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "cb1ef8ba-90be-409f-b075-fa05a9e69bc3",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Crouch",
+                    "action": "SwitchWeapons",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b02438b0-6401-4b03-a951-1c4b5217c995",
-                    "path": "<Gamepad>/rightStickPress",
+                    "id": "066b9818-88fa-4e57-b991-f930ccd9b69a",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Crouch",
+                    "groups": "",
+                    "action": "UseHealthGrub",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8879c85-7cd1-4f18-b3b5-52b92e1a90d7",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8392c6ab-a3d2-49d8-aff7-303b2fd57b67",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -375,7 +386,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "PickUpMelee",
+                    "action": "ReloadGun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -386,62 +397,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "PickUpMelee",
+                    "action": "ReloadGun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "856fbea1-2a03-45ab-8598-cbc74cab581a",
-                    "path": "<Gamepad>/dpad/right",
+                    "id": "260cd84b-3d8d-4ecd-9e4d-eda3d8820ca9",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b02438b0-6401-4b03-a951-1c4b5217c995",
+                    "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ScrollThroughMelee",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "cb1ef8ba-90be-409f-b075-fa05a9e69bc3",
-                    "path": "<Keyboard>/t",
+                    "id": "e77048ef-2381-46c9-947d-44fafbc81be4",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "ScrollThroughMelee",
+                    "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "066b9818-88fa-4e57-b991-f930ccd9b69a",
-                    "path": "<Keyboard>/h",
+                    "id": "648eef03-b95e-4388-b922-7f7dd33733a7",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "USeHealthGrub",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8879c85-7cd1-4f18-b3b5-52b92e1a90d7",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8392c6ab-a3d2-49d8-aff7-303b2fd57b67",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Pause",
+                    "groups": "Gamepad",
+                    "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

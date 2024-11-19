@@ -6,16 +6,18 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Weapons/Gun Statistics Container")]
-public class GunScriptable : ScriptableObject
+[CreateAssetMenu(fileName = "New Item", menuName = "Items/Weapons/Gun Statistics Container")]
+public class GunScriptable : ItemScriptable
 {
     [Header("GUN IDENTIFICATION:")]
     [Space(4)]
-    [SerializeField] string _gunName;
-    [TextArea(2, 3), SerializeField] string _gunDescription;
-    [SerializeField] GameObject _gunModel;
-    [SerializeField] Sprite _gunSprite; //the inventory image of the gun
     public GunTypes gunTypes; //the type of shot the gun will perform
+
+    [Header("GUN SFX:")]
+    [Range(0f, 1f)]
+    [SerializeField] float _volume;
+    [SerializeField] AudioClip _gunFireSFX;
+    [SerializeField] AudioClip _gunReloadSFX;
 
     [Header("GUN STATISTICS:")]
     [Space(4)]
@@ -31,12 +33,16 @@ public class GunScriptable : ScriptableObject
     [SerializeField] GameObject _bulletPrefab; //the bullets that will be shot
     public LayerMask hitLayers; //only applicable if hitscan
 
-    //these make the variables above accessible to other scripts. reference these when necessary.
-    public string GunName => _gunName;
-    public string GunDescription => _gunDescription;
-    public GameObject GunModel => _gunModel;
-    public Sprite GunSprite => _gunSprite;
+    [Header("RECOIL SYSTEM:")]
+    [Range(0f, 7f)] public float recoilX;
+    [Range(0f,7f)] public float recoilY;
+    public float currentX;
+    public float currentY;
 
+    //these make the variables above accessible to other scripts. reference these when necessary.
+    public float Volume => _volume; 
+    public AudioClip GunFireSFX => _gunFireSFX;
+    public AudioClip GunReloadSFX => _gunReloadSFX;
     public GameObject BulletPrefab => _bulletPrefab;
     public float ProjectileSpeed => _projectileSpeed;
     public WeaponDamage BulletDamage => _bulletDamage;
@@ -63,7 +69,7 @@ public class GunScriptable : ScriptableObject
         var fab = SpawnProjectile(); 
         fab.transform.position = origin.position;
 
-        Ray bullet = new Ray(origin.position, origin.forward);
+        Ray bullet = new Ray (origin.position, origin.forward);
         RaycastHit hitCollider;
         Debug.DrawRay(origin.position, origin.forward * MaxDistance, Color.yellow, 5f);
         if (Physics.Raycast(bullet, out hitCollider, MaxDistance, hitLayers))
@@ -73,7 +79,7 @@ public class GunScriptable : ScriptableObject
             float displacementOnHit = displacement;
             while (displacementOnHit > 0)
             {
-                Vector3 moveToHit = direction * ProjectileSpeed * Time.deltaTime;
+                Vector3 moveToHit = ProjectileSpeed * Time.deltaTime * direction;
                 fab.transform.Translate(moveToHit);
                 displacementOnHit -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
@@ -81,7 +87,7 @@ public class GunScriptable : ScriptableObject
 
             if(hitCollider.collider.TryGetComponent(out IDamageable damageComponent))
             {
-                damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
+                damageComponent.DamageReceived(BulletDamage.GetDamage());
             }
             fab.transform.position = hitCollider.point;
             yield return null;
@@ -95,7 +101,7 @@ public class GunScriptable : ScriptableObject
             float displacementOnMiss = missDisplacement;
             while (displacementOnMiss > 0)
             {
-                Vector3 move = direction * missDisplacement * Time.deltaTime;
+                Vector3 move = missDisplacement * Time.deltaTime * direction;
                 fab.transform.Translate(move);
                 displacementOnMiss -= ProjectileSpeed * Time.deltaTime;
                 yield return null;
@@ -105,45 +111,39 @@ public class GunScriptable : ScriptableObject
         }
     }
 
-    public void ThrowerShoot(Transform origin)
-    {
-
-    }
 
     public void ProjectileImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
     {
-        IDamageable damage = collision.collider.GetComponent<IDamageable>();
-        if (damage != null)
+        if(collision.gameObject.TryGetComponent(out IDamageable damage))
         {
-            damage.DamageReceived(BulletDamage.GetRandomDamage());
-            Destroy(bullet.gameObject);
+            damage.DamageReceived(BulletDamage.GetDamage());
+            Destroy(bullet);
         }
         else
         {
-            Destroy(bullet.gameObject);
-        }
-    }
-
-    public void HitScanShoot(Transform origin)
-    {
-        Ray bullet = new Ray (origin.position, origin.forward);
-        RaycastHit hitCollider;
-        Debug.DrawRay(origin.position, origin.forward * MaxDistance, Color.yellow, 5f);
-        if (Physics.Raycast(bullet, out hitCollider, MaxDistance))
-        {
-            if(hitCollider.collider.TryGetComponent(out IDamageable damageComponent))
-            {
-                damageComponent.DamageReceived(BulletDamage.GetRandomDamage());
-            }
-        }
-        else
-        {
-            return;
+            Destroy(bullet);
         }
     }
 
     public GameObject SpawnProjectile() //Spawns the projectile 
     {
         return Instantiate(BulletPrefab);
+    }
+
+    public int ReloadGun(AudioSource gunReloadedSound)
+    {
+        PlayGunReloadedSound(gunReloadedSound);
+        return MagSize;
+    }
+
+    //----------
+    public void PlayGunFireSound(AudioSource gunFireSource)
+    {
+        gunFireSource.PlayOneShot(GunFireSFX, Volume);
+    }
+
+    public void PlayGunReloadedSound(AudioSource gunReloadedSound)
+    {
+        gunReloadedSound.PlayOneShot(GunFireSFX, Volume);
     }
 }

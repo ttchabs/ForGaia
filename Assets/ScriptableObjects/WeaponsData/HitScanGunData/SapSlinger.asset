@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00401c1a90ef13a448e6368c68bb6d9d, type: 3}
+  m_Name: SapSlinger
+  m_EditorClassIdentifier: 
+  _itemName: Sap Slinger
+  _itemDescription: Felix created this gun out of all sorts of scrapped materials
+    and objects, yet despite this it can deal a nasty punch. It is on its wits end
+    however.
+  _itemModel: {fileID: 383414822537077855, guid: a55729c04ebe92b4686637fb537f8e43, type: 3}
+  _itemSprite: {fileID: 21300000, guid: e10606df941556d4a98c80830b57b047, type: 3}
+  _itemType: 0
+  gunTypes: 0
+  _volume: 0
+  _gunFireSFX: {fileID: 0}
+  _gunReloadSFX: {fileID: 0}
+  _projectileSpeed: 90
+  _fireRate: 0.53
+  _gunWeight: 0
+  _magSize: 7
+  _maxDistance: 50
+  _reloadSequence: {fileID: 0}
+  _bulletDamage:
+    minDamage: 16
+    maxDamage: 20
+    critMultiplier: 1.82
+    critChance: 0.105
+  _bulletPrefab: {fileID: 2586385609988217719, guid: 2c042fcd7111e4a48b9bfc688e04f41c, type: 3}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  recoilX: 2.29
+  recoilY: 0.99
+  currentX: 0
+  currentY: 0
