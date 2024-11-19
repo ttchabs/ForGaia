@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Yellow Splinter
   _itemDescription: 'This knife was crafted from the bark of one of the largest trees
-    to ever exist: the Yellow-Bark. The bark''s toughness makes it hard to pull one
-    of these off. As a result of this, weaponsmithswait for a splinter to fall off
+    to ever exist: the Yellow-Arc. The bark''s toughness makes it hard to pull one
+    of these off. As a result of this, weaponsmiths wait for a splinter to fall off
     and carve it using the same tree it fell from.'
   _itemModel: {fileID: 0}
   _itemSprite: {fileID: 0}

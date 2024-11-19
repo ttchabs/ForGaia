@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7839767523870069643}
   - component: {fileID: 7354707498657949769}
   m_Layer: 0
-  m_Name: HitBox
+  m_Name: StoneCrusherHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,12 +49,12 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.57
-  m_Height: 2.8014383
+  m_Radius: 0.65
+  m_Height: 3.6843147
   m_Direction: 1
-  m_Center: {x: 0, y: 1.8046403, z: 0}
+  m_Center: {x: 0, y: 2.418707, z: 0}
 --- !u!1 &7695108773255861316
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,8 +111,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.24, y: 2.2811532, z: 0.83}
-  m_Center: {x: 0, y: 0.7372741, z: 0}
+  m_Size: {x: 0.49, y: 4.6308813, z: 0.83}
+  m_Center: {x: 0, y: 1.4677148, z: 0}
 --- !u!54 &3433393535680813843
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -262,15 +262,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d019b105df08923468655b1a2979317e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.085
+      value: 0.10000001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d019b105df08923468655b1a2979317e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.085
+      value: 0.10000001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d019b105df08923468655b1a2979317e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.085
+      value: 0.10000001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d019b105df08923468655b1a2979317e, type: 3}
       propertyPath: m_LocalPosition.x
