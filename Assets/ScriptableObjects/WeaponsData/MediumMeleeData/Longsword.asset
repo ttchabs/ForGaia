@@ -19,9 +19,9 @@ MonoBehaviour:
   _itemSprite: {fileID: 21300000, guid: 62b3e573fd9a89a42a2e386db5ab6d57, type: 3}
   _itemType: 1
   meleeType: 1
-  _volume: 0
+  _volume: 0.394
   _slashSound: {fileID: 0}
-  _swingSound: {fileID: 0}
+  _swingSound: {fileID: 8300000, guid: 91942ae5cc3ba60489db741c91b22cf7, type: 3}
   _meleeDamage:
     minDamage: 12
     maxDamage: 17
