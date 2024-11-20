@@ -220,10 +220,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void MoveMentAnimations(float inputX, float inputY)
     {
-        //playerAnimation.SetFloat("Horizontal", inputX);
-        //playerAnimation.SetFloat("Vertical", inputY);
+        playerAnimation.SetFloat("Horizontal", inputX );
+        playerAnimation.SetFloat("Vertical", inputY );
 
-        float snappedInputX;
+/*        float snappedInputX;
         float snappedInputY;
 
         if(inputX > 0 && inputX <= 0.5f)
@@ -270,7 +270,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
 
         playerAnimation.SetFloat("Horizontal", snappedInputX);
-        playerAnimation.SetFloat("Vertical", snappedInputY);
+        playerAnimation.SetFloat("Vertical", snappedInputY);*/
     }
 
     public void MoveInputs()
@@ -346,6 +346,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             // Calculate the jump velocity
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+        playerAnimation.SetTrigger("isJumping");
     }
 
     public void ToggleCrouch()
