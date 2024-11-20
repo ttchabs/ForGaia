@@ -33,7 +33,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     // Private variables to store input values and the character controller
     public float moveAmount;
     public float moveAMountY;
-    private Vector2 moveInput; // Stores the movement input from the player
+    [SerializeField] Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
@@ -166,7 +166,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private void Update()
     {
         // Call Move and LookAround methods every frame to handle player movement and camera rotation
-        //Move();
         //MoveInputs();
         Move();
         LookAround();
@@ -215,13 +214,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
-        MoveMentAnimations(moveInput.x, moveInput.y);
+        MovementAnimations(moveInput.x, moveInput.y);
     }
 
-    public void MoveMentAnimations(float inputX, float inputY)
+    public void MovementAnimations(float inputX, float inputY)
     {
-        playerAnimation.SetFloat("Horizontal", inputX );
-        playerAnimation.SetFloat("Vertical", inputY );
+        playerAnimation.SetFloat("Horizontal", inputX, 0.1f, Time.deltaTime);
+        playerAnimation.SetFloat("Vertical", inputY, 0.1f, Time.deltaTime);
 
 /*        float snappedInputX;
         float snappedInputY;
@@ -308,7 +307,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
-        MoveMentAnimations(0, moveAmount);
+        MovementAnimations(0, moveAmount);
     }
 
     public void LookAround()
@@ -347,6 +346,15 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         playerAnimation.SetTrigger("isJumping");
+    }
+
+    public void HandleAnim()
+    {
+        Vector2 inputReading = playerInput.Player.Movement.ReadValue<Vector2>();
+
+        MovementAnimations(inputReading.x, inputReading.y);
+        playerAnimation.SetBool("isCrouching", _isCrouching);
+        
     }
 
     public void ToggleCrouch()

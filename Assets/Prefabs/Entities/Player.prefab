@@ -59,6 +59,7 @@ MonoBehaviour:
   playerSFX: {fileID: 0}
   moveAmount: 0
   moveAMountY: 0
+  moveInput: {x: 0, y: 0}
   crouchHeight: 1
   standingHeight: 2
   crouchSpeed: 12
@@ -234,47 +235,47 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1999105365842740913}
+    m_TransformParent: {fileID: 2726959521314033679}
     m_Modifications:
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.020524995
+      value: 0.020524997
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02052499
+      value: 0.020524986
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.02052499
+      value: 0.020524994
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0014942451
+      value: -0.0011110358
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0042440696
+      value: 0.004326457
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00014407164
+      value: 0.0005485519
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6048787
+      value: 0.66760546
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.6048787
+      value: -0.7004188
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.36622632
+      value: -0.16363385
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.36622635
+      value: -0.19219907
       objectReference: {fileID: 0}
     - target: {fileID: 1024031955152430204, guid: 1314387d73a9fca469ed0c24a76a0eea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1007,7 +1008,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9215304131179689555}
-    - targetCorrespondingSourceObject: {fileID: 7593160563204906987, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
+    - targetCorrespondingSourceObject: {fileID: -2952540784093705899, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4879448319847545638}
     m_AddedComponents:
@@ -1015,9 +1016,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1245440067227446703}
   m_SourcePrefab: {fileID: 100100000, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
---- !u!4 &1999105365842740913 stripped
+--- !u!4 &2726959521314033679 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7593160563204906987, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
+  m_CorrespondingSourceObject: {fileID: -2952540784093705899, guid: 96758164dbd28d7408b5d1b9a8ac6078, type: 3}
   m_PrefabInstance: {fileID: 8277172944341768538}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8454617203076660913 stripped
