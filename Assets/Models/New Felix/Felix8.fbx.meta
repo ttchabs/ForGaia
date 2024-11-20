@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Belt
-    second: {fileID: 2100000, guid: b93ad72a15f356c47a281ac686e6a479, type: 2}
+    second: {fileID: 2100000, guid: ef552650ac9e7d04d99ab518500f9d5d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Eyes
-    second: {fileID: 2100000, guid: 997a5a23d36be10458896fc59a827252, type: 2}
+    second: {fileID: 2100000, guid: 2ebd55a17a596b44bb784377d5e90e84, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Fur Material
-    second: {fileID: 2100000, guid: ff03d9a999a507d4cad74d21cef59f19, type: 2}
+    second: {fileID: 2100000, guid: e0f4b3b33ea375d488d4b1600a86190d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Jeans
-    second: {fileID: 2100000, guid: 540ae90c7217bdb4393c3314c927b898, type: 2}
+    second: {fileID: 2100000, guid: b5d6bfbe4e0512f4b876c34326eaa32c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Snout
-    second: {fileID: 2100000, guid: a9d05e2f45047b4448cd468bc65ab078, type: 2}
+    second: {fileID: 2100000, guid: ae18474605012d14894729f15cc8488b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
