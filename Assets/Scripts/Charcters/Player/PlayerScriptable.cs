@@ -31,8 +31,9 @@ public class PlayerScriptable : ScriptableObject
     public int MaxPlayerHP => _maxPlayerHP;
     public float MaxWeaponWeight => _maxWeaponWeight; 
 
-    public IEnumerator PlayerDeath(string sceneToLoad, AudioSource playerDeath)
+    public IEnumerator PlayerDeath(string sceneToLoad, AudioSource playerDeath, Animator deathAnimation)
     {
+        deathAnimation.SetBool("isDead", true) ;
         PlayPlayerDeathSound(playerDeath);
         PlayerPopUpEvents.instance.ShowDeathEvent();
         yield return new WaitForSeconds(6f);

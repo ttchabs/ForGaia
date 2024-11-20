@@ -30,4 +30,4 @@ MonoBehaviour:
   _knockback: 3
   _weaponWeight: 2
   _swingCooldown: 1
-  uniqueAnimation: {fileID: 22100000, guid: 2c870ef43229a3d429e608d43967095c, type: 2}
+  uniqueAnimation: {fileID: 22100000, guid: e542f7ba04aec2f49b32d1fbe328a5d4, type: 2}

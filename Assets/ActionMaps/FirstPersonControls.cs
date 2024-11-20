@@ -35,7 +35,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
-    private bool _canJump = true;
+
     private CharacterController characterController; // Reference to the CharacterController component
     #endregion
 
@@ -46,7 +46,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public float standingHeight = 2.4f; // Height of te player when standing
     public float crouchSpeed = 1.5f; //Speed at which the player moves when crouching
     private bool _isCrouching = false; //Whethere the player is currently crouching
-    [SerializeField] float modelDisplacement;
+    [SerializeField] float _modelDisplacement;
 
     private GameObject _lastWeapon;
     #endregion
@@ -139,7 +139,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerInput.Player.Jump.performed += ctx => Jump(); // Call the Jump method when jump input is performed
 
         // Subscribe to the shoot input event
-        playerInput.Player.Shoot.performed += ctx => UseWeapon(); // Call the Shoot method when shoot input is performed
+        playerInput.Player.Attack.performed += ctx => UseWeapon(); // Call the Shoot method when shoot input is performed
 
         // Subscribe to the pick-up input event
         playerInput.Player.PickUp.performed += ctx => PickUpObject(); // Call the PickUpObject method when pick-up input is performed
@@ -149,8 +149,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     
         playerInput.Player.Crouch.performed += ctx => ToggleCrouch(); // Call the Crouch method when crouch input is performed
         
-        //Subscribe to the melee input event
-        playerInput.Player.Melee.performed += ctx => StoreLastWeapon(); // Call the Melee method when melee input is performed
 
         //Subscribe to the ScrollThroughMelee input event
         playerInput.Player.SwitchWeapons.performed += ctx => SwitchWeapons(); //Call the CallMeleeWeapon method when the CallMeleeWeapon input is performed
@@ -183,7 +181,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public void Move()
     {
         // Create a movement vector based on the input
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 move = new(moveInput.x, 0, moveInput.y);
         // Transform direction from local to world space
         move = transform.TransformDirection(move);
 
@@ -291,7 +289,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     }
     public void Jump()
     {
-        if (characterController.isGrounded && _canJump == true)
+        if (characterController.isGrounded && _isCrouching == false)
         {
             // Calculate the jump velocity
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -306,7 +304,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             velocity.y = -0.5f; // Small value to keep the player grounded
         }
-
         velocity.y += gravity * Time.deltaTime; // Apply gravity to the velocity
         characterController.Move(velocity * Time.deltaTime); // Apply the velocity to the character
     }
@@ -319,11 +316,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         MovementAnimations(inputReading.x, inputReading.y);
         playerAnimation.SetBool("isCrouching", _isCrouching);
+
         if (characterController.isGrounded == true)
         {
             playerAnimation.SetBool("isFalling", false);
         }
-        else if (velocity.y < -0.1)
+        else if (characterController.isGrounded == false)
         {
             playerAnimation.SetBool("isFalling", true);
         }
@@ -336,20 +334,18 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (_isCrouching)
         {
             characterController.height = standingHeight;
-            playerModel.transform.localPosition += new Vector3(0, (modelDisplacement), 0);
+            playerModel.transform.localPosition += new Vector3(0, (_modelDisplacement), 0);
             _isCrouching = false;    
-            _canJump = true;
             StoreLastWeapon();
         }
         else if (!_isCrouching && characterController.isGrounded)
         {
             characterController.height = crouchHeight;
             _isCrouching = true;
-            playerModel.transform.localPosition += new Vector3(0, -(modelDisplacement), 0);
+            playerModel.transform.localPosition += new Vector3(0, -(_modelDisplacement), 0);
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(false);
             _holdingGun = false;
-            _canJump = false;
             _holdingMelee = false;
         }
     }
@@ -501,7 +497,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         OnDamageReceived?.Invoke();
         playerConfigs.PlayPlayerHitSFX(playerSFX);
         if (currentPlayerHP <= 0)
-            StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX));
+            playerInput.Disable();
+            StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX, playerAnimation));
     }
 
     public void SetCurrentHP() 
