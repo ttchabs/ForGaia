@@ -31,12 +31,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Transform playerCamera; // Reference to the player's camera
     public AudioSource playerSFX;
     // Private variables to store input values and the character controller
-    public float moveAmount;
-    public float moveAMountY;
     [SerializeField] Vector2 moveInput; // Stores the movement input from the player
     private Vector2 lookInput; // Stores the look input from the player
     private float verticalLookRotation = 0f; // Keeps track of vertical camera rotation for clamping
     private Vector3 velocity; // Velocity of the player
+    private bool _canJump = true;
     private CharacterController characterController; // Reference to the CharacterController component
     #endregion
 
@@ -44,9 +43,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("---CROUCH SETTINGS---")] 
     [Space(5)]
     public float crouchHeight = 1f; // Height of the player when crouching
-    public float standingHeight = 2f; // Height of te player when standing
+    public float standingHeight = 2.4f; // Height of te player when standing
     public float crouchSpeed = 1.5f; //Speed at which the player moves when crouching
     private bool _isCrouching = false; //Whethere the player is currently crouching
+    [SerializeField] float modelDisplacement;
 
     private GameObject _lastWeapon;
     #endregion
@@ -170,6 +170,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         Move();
         LookAround();
         ApplyGravity();
+        HandleAnim();
     }
 
     public void FixedUpdate()
@@ -214,7 +215,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
-        MovementAnimations(moveInput.x, moveInput.y);
+        //MovementAnimations(moveInput.x, moveInput.y);
     }
 
     public void MovementAnimations(float inputX, float inputY)
@@ -272,44 +273,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerAnimation.SetFloat("Vertical", snappedInputY);*/
     }
 
-    public void MoveInputs()
-    {
-        // Create a movement vector based on the input
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        // Transform direction from local to world space
-        move = transform.TransformDirection(move);
-
-        moveAmount = Mathf.Clamp01(Mathf.Abs(move.x) + Mathf.Abs(move.y));
-        float currentSpeed;
-
-        if (moveAmount == 0)
-        {
-            currentSpeed = 0;
-        }
-        else if (_isCrouching)
-        {
-            currentSpeed = crouchSpeed;
-        }
-        else if (_holdingMelee == true)
-        {
-            currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
-            currentSpeed = Mathf.Max(currentSpeed, 0f);
-        }
-        else if (_holdingGun == true)
-        {
-            currentSpeed = moveSpeed * (1 - gunFire.gunConfigs.GunWeight / playerConfigs.MaxWeaponWeight);
-            currentSpeed = Mathf.Max(currentSpeed, 0f);
-        }
-        else
-        {
-            currentSpeed = moveSpeed;
-        }
-
-        // Move the character controller based on the movement vector and speed
-        characterController.Move(currentSpeed * Time.deltaTime * move);
-        MovementAnimations(0, moveAmount);
-    }
-
     public void LookAround()
     {
         // Get horizontal and vertical look inputs and adjust based on sensitivity
@@ -326,6 +289,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Apply the clamped vertical rotation to the player camera
         playerCamera.localEulerAngles = new Vector3(verticalLookRotation, 0, 0);
     }
+    public void Jump()
+    {
+        if (characterController.isGrounded && _canJump == true)
+        {
+            // Calculate the jump velocity
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            playerAnimation.SetTrigger("isJumping");
+        }
+
+    }
 
     public void ApplyGravity()
     {
@@ -338,15 +311,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         characterController.Move(velocity * Time.deltaTime); // Apply the velocity to the character
     }
 
-    public void Jump()
-    {
-        if (characterController.isGrounded)
-        {
-            // Calculate the jump velocity
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-        playerAnimation.SetTrigger("isJumping");
-    }
+
 
     public void HandleAnim()
     {
@@ -354,6 +319,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         MovementAnimations(inputReading.x, inputReading.y);
         playerAnimation.SetBool("isCrouching", _isCrouching);
+        if (characterController.isGrounded == true)
+        {
+            playerAnimation.SetBool("isFalling", false);
+        }
+        else if (velocity.y < -0.1)
+        {
+            playerAnimation.SetBool("isFalling", true);
+        }
         
     }
 
@@ -363,17 +336,20 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (_isCrouching)
         {
             characterController.height = standingHeight;
+            playerModel.transform.localPosition += new Vector3(0, (modelDisplacement), 0);
             _isCrouching = false;    
+            _canJump = true;
             StoreLastWeapon();
         }
-        else
+        else if (!_isCrouching && characterController.isGrounded)
         {
             characterController.height = crouchHeight;
             _isCrouching = true;
-
+            playerModel.transform.localPosition += new Vector3(0, -(modelDisplacement), 0);
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(false);
             _holdingGun = false;
+            _canJump = false;
             _holdingMelee = false;
         }
     }
