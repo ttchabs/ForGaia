@@ -16,8 +16,8 @@ MonoBehaviour:
   _enemyDescription: 
   enemyModelPrefab: {fileID: 3273891270323321126, guid: 1fbc3addd9e47f54fb35ee84b3186d23, type: 3}
   enemyType: 1
-  _volume: 0
-  _deathSFX: {fileID: 0}
+  _volume: 1
+  _deathSFX: {fileID: 8300000, guid: 6591e299ef5d6a2429652861dfc6700a, type: 3}
   _maxEnemyHP: 100
   _enemyAttackDamage:
     minDamage: 12

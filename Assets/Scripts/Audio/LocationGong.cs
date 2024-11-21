@@ -19,7 +19,17 @@ public class LocationGong : MonoBehaviour
 
   IEnumerator StopGong(float gongLength)
     {
+
         yield return new WaitForSeconds(gongLength);
-        gong.Stop();
+
+        float startVolume= gong.volume;
+        for (float t = 0; t < gongLength; t += Time.deltaTime)
+        {
+            gong.volume = Mathf.Lerp(startVolume, 0, t / gongLength);
+            yield return null;
+        }
+        gong.volume= 0;
+
+            //gong.Stop();
     }
 }
