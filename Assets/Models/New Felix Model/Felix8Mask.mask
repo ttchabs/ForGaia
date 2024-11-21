@@ -7,5 +7,97 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Felix8Mask
-  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-  m_Elements: []
+  m_Mask: 00000000000000000000000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/Abdomen
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart/Tail1
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart/Tail1/Tail2
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart/Tail1/Tail2/Tail3
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart/Tail1/Tail2/Tail3/TailEnd
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Abdomen.001/TailStart/Tail1/Tail2/Tail3/TailEnd/TailEnd_end
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.L
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.L/Knee.L
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.L/Knee.L/Knee.L.001
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.L/Knee.L/Knee.L.001/Knee.L.001_end
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.R/Knee.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.R/Knee.R/Knee.R.001
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Femur.R/Knee.R/Knee.R.001/Knee.R.001_end
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Neck
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Neck/Head
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Neck/Head/Head_end
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.L
+    m_Weight: 1
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.L/Humerus.L
+    m_Weight: 1
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.L/Humerus.L/Forearm.L
+    m_Weight: 1
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.L/Humerus.L/Forearm.L/Wrist.L
+    m_Weight: 1
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.L/Humerus.L/Forearm.L/Wrist.L/Wrist.L_end
+    m_Weight: 1
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.R/Humerus.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.R/Humerus.R/Forearm.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.R/Humerus.R/Forearm.R/Wrist.R
+    m_Weight: 0
+  - m_Path: Armature/Abdomen/Mid/Chest/Shoulder.R/Humerus.R/Forearm.R/Wrist.R/Wrist.R_end
+    m_Weight: 0
+  - m_Path: Armature/FootIK.L
+    m_Weight: 0
+  - m_Path: Armature/FootIK.L/Pole.L
+    m_Weight: 0
+  - m_Path: Armature/FootIK.L/Pole.L/Pole.L_end
+    m_Weight: 0
+  - m_Path: Armature/FootIK.R
+    m_Weight: 0
+  - m_Path: Armature/FootIK.R/Pole.R
+    m_Weight: 0
+  - m_Path: Armature/FootIK.R/Pole.R/Pole.R_end
+    m_Weight: 0
+  - m_Path: Armature/TailIK
+    m_Weight: 0
+  - m_Path: Armature/TailIK/TailIK_end
+    m_Weight: 0
+  - m_Path: Armature/WristIK.L
+    m_Weight: 1
+  - m_Path: Armature/WristIK.L/WristIK.L_end
+    m_Weight: 1
+  - m_Path: Armature/WristIK.R
+    m_Weight: 0
+  - m_Path: Armature/WristIK.R/WristIK.R_end
+    m_Weight: 0
+  - m_Path: Low Poly
+    m_Weight: 1

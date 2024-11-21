@@ -448,7 +448,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public IEnumerator KnockedBack(Vector3 direction) //Knockback taken when a enemy hits the player
     {
         Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
-        velocity = knockback;
+        velocity = -knockback;
         
         yield return new WaitForSeconds(0.5f);
         velocity = Vector3.zero;

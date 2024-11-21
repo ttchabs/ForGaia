@@ -48,8 +48,9 @@ public class WeaponScriptable : ItemScriptable
     public void KnockBack(Collider other)
     {
         var playerPos = FirstPersonControls.Instance;
-        Vector3 direction = playerPos.transform.forward;
         Rigidbody rb = other.GetComponent<Rigidbody>();
+        Vector3 direction = playerPos.transform.forward;
+
         rb.AddForce(direction * Knockback, ForceMode.Impulse);
     }
 

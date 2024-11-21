@@ -108,9 +108,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void BreakStance()
     {
-        Vector3 direction = player.position - transform.position;
-        direction.Normalize();
-        rb.AddForce(direction * -3, ForceMode.Impulse);        
+        Vector3 direction = -transform.forward;
+        //direction.Normalize();
+        rb.AddForce(direction * 3, ForceMode.Impulse);        
     }
 
     public void SetMaxEnemyHP()
@@ -124,7 +124,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         if (enemyCurrentHP > 0)
         {
-            BreakStance();
+            //BreakStance();
             StartCoroutine(enemyConfigs.DealDamage(damageVFX,enemyAnimations));
 
         }

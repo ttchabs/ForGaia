@@ -28,7 +28,7 @@ MonoBehaviour:
     maxDamage: 33
     critMultiplier: 1.4
     critChance: 0.258
-  _knockback: 7
+  _knockback: 12
   _weaponWeight: 5.5
   _swingCooldown: 1.9
   uniqueAnimation: {fileID: 22100000, guid: 77ff492ecb7cde040af3fcaa77ec12d2, type: 2}
