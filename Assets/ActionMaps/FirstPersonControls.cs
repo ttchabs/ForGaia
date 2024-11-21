@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -86,6 +87,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public int currentPlayerHP; //current hp of the player
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
     #endregion
+
+    [Header("----DEATH STATS----")]
+    public bool playerDied;
 
     #region UI
     [Header("UI SETTINGS")]
@@ -463,25 +467,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             {
                 canPickUp.Pickup();
             }
-
-/*            if (hit.collider.CompareTag("MeleeWeapon"))
-            {
-                var meleePickUp = hit.collider.GetComponent<PickUpFunction>();
-                var meleeData = hit.collider.GetComponent<WeaponScript>();               
-                meleePickUp.MeleePickUp(meleeData.weaponConfigs);               
-            }
-
-            else if (hit.collider.CompareTag("Gun")) 
-            {
-                var gunPickUp = hit.collider.GetComponent<PickUpFunction>();
-                var gunData = hit.collider.GetComponent<GunScript>();
-                gunPickUp.GunPickUp(gunData.gunConfigs);               
-            } 
-            else if (hit.collider.CompareTag("PickUp"))
-            {
-                var pickUp = hit.collider.GetComponent<PickUpFunction>();
-                pickUp.Pickup();
-            }*/
         }
     }
 
@@ -513,8 +498,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         OnDamageReceived?.Invoke();
         playerConfigs.PlayPlayerHitSFX(playerSFX);
         if (currentPlayerHP <= 0)
-            playerInput.Disable();
-            StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX, playerAnimation));
+            PlayerDeath();
+        
     }
 
     public void SetCurrentHP() 
@@ -539,7 +524,13 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         else {
             return;
         }
+    }
 
+    public void PlayerDeath()
+    {
+        playerDied = true;
+        playerInput.Disable();
+        StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX, playerAnimation));
     }
 
     //----INVENTORY BASED CODE----//

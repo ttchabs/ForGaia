@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
+    public Transform playerTrackerOrigin;
     private Rigidbody rb;
 
     [Header("ENEMY HEALTH DISPLAY")]
@@ -28,12 +29,13 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
         OnDamageReceived += BreakStance;
+        camToFace = player.GetComponentInChildren<Camera>().transform;
     }
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        camToFace = player.GetComponentInChildren<Camera>().transform;
+
         SetMaxEnemyHP();        
     }
 
@@ -54,19 +56,29 @@ public class EnemyController : MonoBehaviour, IDamageable
         Vector3 direction = transform.position - player.position; //checks the coords of the player while ignoring the y-axis
         direction.y = 0f;
 
-        if (distanceBetween < 20f)
+        if (distanceBetween < 20f && distanceBetween > 1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
             transform.rotation = lookDirection;
             enemyAnimations.SetBool("isWalking", true);
         }
-
+        else
+        {
+            enemyAnimations.SetBool("isWalking", false);
+        }
+        
         if (distanceBetween < 1f)
         {
             enemyAnimations.SetBool("isWalking",false);
             enemyAnimations.SetTrigger("isAttacking");
         }
+    }
+
+    public void HandleEnemyTracking()
+    {
+
+        playerTrackerOrigin.LookAt(player.position, player.forward);
     }
 
     public void OnCollisionEnter(Collision collision)
