@@ -35,7 +35,7 @@ public class PlayerScriptable : ScriptableObject
     {
 
         PlayPlayerDeathSound(playerDeath);
-        PlayerPopUpEvents.instance.ShowDeathEvent();
+        UIManager.Instance.popUpControls.ShowDeathEvent();
         deathAnimation.SetBool("isDead", true);
         yield return new WaitForSeconds(6f);
         SceneManager.LoadScene(sceneToLoad);

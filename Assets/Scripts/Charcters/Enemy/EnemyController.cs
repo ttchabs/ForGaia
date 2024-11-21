@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY TRANSFORMS:")]
     public Transform player;
-    public Transform playerTrackerOrigin;
     private Rigidbody rb;
 
     [Header("ENEMY HEALTH DISPLAY")]
@@ -22,72 +21,77 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY MODEL AND ANIMATIONS:")]
     public Animator enemyAnimations;
+    public GameObject damageVFX;
+    public GameObject deathVFX;
+    public AudioSource enemySFX;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
     public void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        OnDamageReceived += BreakStance;
         camToFace = player.GetComponentInChildren<Camera>().transform;
     }
 
     public void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = FirstPersonControls.Instance.transform;
 
         SetMaxEnemyHP();        
     }
 
     void Update()
     {
-        TrackPlayer();
+        if(FirstPersonControls.Instance.currentPlayerHP >0) 
+        {
+            TrackPlayer();
+        }
     }
 
     void LateUpdate()
     {
         enemyHealth.transform.LookAt(camToFace.position + camToFace.forward);
     }
+    
 
     public void TrackPlayer()
     {
         float distanceBetween = Vector3.Distance(transform.position, player.position); //checks the distance between the player and the enemy, stores the value
-        
-        Vector3 direction = transform.position - player.position; //checks the coords of the player while ignoring the y-axis
-        direction.y = 0f;
 
-        if (distanceBetween < 20f && distanceBetween > 1f)
+        if (distanceBetween < 20f && distanceBetween > 2f && enemyCurrentHP > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
-            Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
-            transform.rotation = lookDirection;
             enemyAnimations.SetBool("isWalking", true);
+            HandleEnemyTracking();
         }
         else
         {
-            enemyAnimations.SetBool("isWalking", false);
+            if(enemyAnimations != null)
+                enemyAnimations.SetBool("isWalking", false);
         }
         
-        if (distanceBetween < 1f)
+        if (distanceBetween < 1f && enemyCurrentHP > 0)
         {
             enemyAnimations.SetBool("isWalking",false);
-            enemyAnimations.SetTrigger("isAttacking");
+
         }
     }
 
     public void HandleEnemyTracking()
     {
-
-        playerTrackerOrigin.LookAt(player.position, player.forward);
+        Vector3 direction = transform.position - player.position; //checks the coords of the player while ignoring the y-axis
+        direction.y = 0;
+        Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
+        transform.rotation = lookDirection;
+        transform.LookAt(player);
+        transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && collision.gameObject.TryGetComponent(out IDamageable player))
         {
-            var playerHP = collision.collider.GetComponent<FirstPersonControls>(); // finds the FPC script on the player tag game object
-
-            var player = collision.collider.GetComponent<IDamageable>(); //finds the IDamageable component on the player
+            enemyAnimations.SetTrigger("isAttacking");
+            var playerHP = FirstPersonControls.Instance; // finds the FPC script on the player tag game object
 
             Vector3 direction = transform.forward * -enemyConfigs.EnemyKnockbackFactor;
             player.DamageReceived(enemyConfigs.EnemyAttackDamage.GetEnemyDamage());
@@ -99,9 +103,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         enemyCurrentHP -= damage;
         UpdateEnemyHealthBar();
+        DamageAndDeath();
         OnDamageReceived?.Invoke();
-        if (enemyCurrentHP < 0)
-            StartCoroutine(enemyConfigs.EnemyDeath(gameObject));
     }
 
     public void BreakStance()
@@ -116,6 +119,22 @@ public class EnemyController : MonoBehaviour, IDamageable
         enemyCurrentHP = enemyConfigs.MaxEnemyHP;
         enemyHealth.maxValue = enemyConfigs.MaxEnemyHP;
         UpdateEnemyHealthBar();
+    }
+
+    public void DamageAndDeath()
+    {
+        if (enemyCurrentHP > 0)
+        {
+            BreakStance();
+            StartCoroutine(enemyConfigs.DealDamage(damageVFX,enemyAnimations));
+
+        }
+        else if (enemyCurrentHP <= 0)
+        {
+            enemyAnimations.SetTrigger("isDead");
+            StartCoroutine(enemyConfigs.EnemyDeath(gameObject, deathVFX, enemySFX));
+        }
+
     }
 
     public void UpdateEnemyHealthBar()

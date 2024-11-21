@@ -60,8 +60,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [Header("---PICKING UP SETTINGS---")]
     [Space(5)]
     public Transform holdPosition; // Position where the picked-up object will be held
-    [HideInInspector] public GameObject heldObject; // Reference to the currently held object
+    public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
+    public LayerMask pickUpLayer;
 
     #endregion
 
@@ -228,11 +229,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
    public void PlaySounds()
     {
-        stepTimer += Time.deltaTime;
-        if(stepTimer >= stepInterval)
+        if (characterController.isGrounded)
         {
-            playerSFX.PlayOneShot(playerConfigs.WalkSFX, playerConfigs.Volume);
-            stepTimer = 0;
+            stepTimer += Time.deltaTime;
+            if (stepTimer >= stepInterval)
+            {
+                playerSFX.PlayOneShot(playerConfigs.WalkSFX, playerConfigs.Volume);
+                stepTimer = 0;
+            }
         }
     }
 
@@ -438,7 +442,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
-            _holdingGun = false;
         }
 
         // Perform a raycast from the camera's position forward
@@ -448,9 +451,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Debugging: Draw the ray in the Scene view
         Debug.DrawRay(playerCamera.position, playerCamera.forward * pickUpRange, Color.red, 2f);
         
-
-        if (Physics.Raycast(ray, out hit, pickUpRange))
+        if (Physics.Raycast(ray, out hit, pickUpRange, pickUpLayer))
         {
+            Debug.Log($"{hit.collider.name}");
             // Check if the hit object has the tag "PickUp"
             if (hit.collider.CompareTag("SorterPuzzleStone"))
             {
@@ -459,8 +462,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
 
                 // Attach the object to the hold position
-                heldObject.transform.SetParent(holdPosition);
-                heldObject.transform.SetPositionAndRotation(holdPosition.position, holdPosition.rotation);
+                heldObject.transform.parent = holdPosition;
+                heldObject.transform.position = holdPosition.position;
+                heldObject.transform.rotation = holdPosition.rotation;
             }
 
             if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
@@ -485,7 +489,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public IEnumerator KnockedBack(Vector3 direction) //Knockback taken when a enemy hits the player
     {
         Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
-        velocity = knockback;
+        velocity = -knockback;
         
         yield return new WaitForSeconds(0.5f);
         velocity = Vector3.zero;
@@ -514,16 +518,18 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void UseHealthGrub()
     {
-        if (grubCount > 0)
-        {
-            DamageReceived(-10);
-            grubCount--;
-            if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
-                currentPlayerHP = playerConfigs.MaxPlayerHP;
-        }
-        else {
-            return;
-        }
+        /*        if (grubCount > 0)
+                {
+                    DamageReceived(-10);
+                    grubCount--;
+                    if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
+                        currentPlayerHP = playerConfigs.MaxPlayerHP;
+                }
+                else {
+                    return;
+                }*/
+        UIManager.Instance.hudControls.grubCount--;
+        UIManager.Instance.hudControls.UpdateGrubUI();
     }
 
     public void PlayerDeath()

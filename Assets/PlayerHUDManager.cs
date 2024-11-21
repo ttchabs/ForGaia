@@ -19,6 +19,7 @@ public class PlayerHUDManager : MonoBehaviour
     [Header("POTION WHEEL DISPLAY:")]
     public Image HealthGrubDisplay;
     public TextMeshProUGUI GrubCountText;
+    public int grubCount;
 
     [Header("APPROACH ITEM UI:")]
     public TextMeshProUGUI pickUpText;
@@ -43,8 +44,19 @@ public class PlayerHUDManager : MonoBehaviour
     public void PickUpGrub()
     {
         HealthGrubDisplay.gameObject.SetActive(true);
-        FirstPersonControls.Instance.grubCount++;
-        GrubCountText.text = $"{FirstPersonControls.Instance.grubCount}";
+        grubCount++;
+    }
+
+    public void UpdateGrubUI()
+    {
+        if (grubCount > 0)
+        {
+            GrubCountText.text = $"{FirstPersonControls.Instance.grubCount}";
+        }
+        else if (grubCount <= 0) 
+        { 
+            HealthGrubDisplay.gameObject.SetActive(false);
+        }
     }
 
     public void UseGrub()
@@ -68,7 +80,7 @@ public class PlayerHUDManager : MonoBehaviour
         UpdateAmmoSlider(magSize);
     }
 
-    public void UpdateAmmoSlider( int currentAmount)
+    public void UpdateAmmoSlider(int currentAmount)
     {
         gunAmmoSlider.value = currentAmount;
     }

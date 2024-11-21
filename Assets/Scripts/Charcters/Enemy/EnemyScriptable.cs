@@ -11,6 +11,8 @@ public class EnemyScriptable : ScriptableObject
     [SerializeField, TextArea(2,3)] string _enemyDescription;
     public GameObject enemyModelPrefab;
     public EnemyTypes enemyType;
+    [Range(0f, 1f)] [SerializeField] float _volume;
+    [SerializeField] AudioClip _deathSFX;
 
     [Header("ENEMY STATISTICS:")]
     [SerializeField] int _maxEnemyHP;
@@ -21,15 +23,28 @@ public class EnemyScriptable : ScriptableObject
     [SerializeField] float _attackRate;
     public string EnemyName => _enemyName;
     public string EnemyDescription => _enemyDescription;
+    public AudioClip DeathSFX => _deathSFX;
+    public float Volume => _volume;
     public int MaxEnemyHP => _maxEnemyHP; 
     public EnemyDamage EnemyAttackDamage => _enemyAttackDamage; 
     public float EnemyKnockbackFactor => _enemyKnockbackFactor;
     public float EnemyMoveSpeed => _enemyMoveSpeed;
     public float AttackRate => _attackRate; 
 
-    public IEnumerator EnemyDeath(GameObject enemySpawn)
+    public IEnumerator EnemyDeath(GameObject enemySpawn, GameObject particleSpawn, AudioSource deathSFX)
     {
-        yield return new WaitForSeconds(2f);
+        particleSpawn.SetActive(true);
+        deathSFX.PlayOneShot(DeathSFX, Volume);
+        yield return new WaitForSeconds(3f);
         Destroy(enemySpawn);
+    }
+
+    public IEnumerator DealDamage(GameObject damageVFX, Animator damageAnim)
+    {
+        damageVFX.SetActive(true);
+        //deathSound.PlayOneShot(DeathSFX, Volume);
+        damageAnim.SetTrigger("damageTaken");
+        yield return new WaitForSeconds(0.7f);
+        damageVFX.SetActive(false);
     }
 }

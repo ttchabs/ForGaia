@@ -10,5 +10,15 @@ public class UIManager : MonoBehaviour
     public PlayerHUDManager hudControls;
     public PlayerPopUpEvents popUpControls;
 
-
+    public void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }
