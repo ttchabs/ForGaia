@@ -69,8 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appRate: 0.2
   duration: 5
-  Splash: {fileID: 0}
-  splashSFX: {fileID: 0}
+  Splash: {fileID: 7154783325529408016}
+  splashSFX: {fileID: 8300000, guid: 3fd7b8b083211934faff026befa97f6a, type: 3}
 --- !u!82 &7154783325529408016
 AudioSource:
   m_ObjectHideFlags: 0

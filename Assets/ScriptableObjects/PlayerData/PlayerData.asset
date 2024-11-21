@@ -18,5 +18,5 @@ MonoBehaviour:
   _walkSFX: {fileID: 8300000, guid: 56df68a5d8d198f4bacc1dcee31d4f7b, type: 3}
   _deathSFX: {fileID: 0}
   _playerHitSFX: {fileID: 0}
-  _maxPlayerHP: 2
+  _maxPlayerHP: 100
   _maxWeaponWeight: 12
