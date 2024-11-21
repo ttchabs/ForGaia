@@ -210,7 +210,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
         else if (_isCrouching)
         {
-            currentSpeed = crouchSpeed;
+            currentSpeed = -crouchSpeed;
         }
         else if (_holdingMelee == true)
         {
@@ -230,7 +230,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
-        //MovementAnimations(moveInput.x, moveInput.y);
     }
 
    public void PlaySounds()
@@ -250,55 +249,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         playerAnimation.SetFloat("Horizontal", inputX, 0.1f, Time.deltaTime);
         playerAnimation.SetFloat("Vertical", inputY, 0.1f, Time.deltaTime);
-
-/*        float snappedInputX;
-        float snappedInputY;
-
-        if(inputX > 0 && inputX <= 0.5f)
-        {
-            snappedInputX = 0.5f;
-        }
-        else if(inputX > 0.5f &&  inputX <= 1)
-        {
-            snappedInputX = 1;
-        }
-        else if(inputX < 0 && inputX >= -0.5f)
-        {
-            snappedInputX = -0.5f;
-        }
-        else if (inputX < -0.5f && inputX >= -1)
-        {
-            snappedInputX = -1;
-        }
-        else
-        {
-            snappedInputX = 0;
-        }
-
-
-        if (inputY > 0 && inputY <= 0.5f)
-        {
-            snappedInputY = 0.5f;
-        }
-        else if (inputY > 0.5f && inputY <= 1)
-        {
-            snappedInputY = 1;
-        }
-        else if (inputY < 0 && inputY >= -0.5f)
-        {
-            snappedInputY = -0.5f;
-        }
-        else if (inputY < -0.5f && inputY >= -1)
-        {
-            snappedInputY = -1;
-        }
-        else
-        {
-            snappedInputY = 0;
-        }
-
-        playerAnimation.SetFloat("Horizontal", snappedInputX);
-        playerAnimation.SetFloat("Vertical", snappedInputY);*/
     }
 
     public void LookAround()
@@ -317,6 +267,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Apply the clamped vertical rotation to the player camera
         playerCamera.localEulerAngles = new Vector3(verticalLookRotation, 0, 0);
     }
+
     public void Jump()
     {
         if (characterController.isGrounded && _isCrouching == false)
@@ -448,6 +399,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
+            playerAnimation.SetLayerWeight(1, 0f);
         }
 
         // Perform a raycast from the camera's position forward
@@ -471,6 +423,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 heldObject.transform.parent = holdPosition;
                 heldObject.transform.position = holdPosition.position;
                 heldObject.transform.rotation = holdPosition.rotation;
+                playerAnimation.SetLayerWeight(1, 1f);
             }
 
             if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
@@ -495,7 +448,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public IEnumerator KnockedBack(Vector3 direction) //Knockback taken when a enemy hits the player
     {
         Vector3 knockback = new Vector3(0, Mathf.Sqrt(2f * -gravity * jumpHeight) * 0.15f, direction.z);
-        velocity = -knockback;
+        velocity = knockback;
         
         yield return new WaitForSeconds(0.5f);
         velocity = Vector3.zero;
