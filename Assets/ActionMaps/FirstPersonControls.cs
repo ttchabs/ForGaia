@@ -414,7 +414,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (_holdingMelee == true && gunFire != null && _isCrouching == false)
         {
-            InventoryManager.Instance.playerHUDManager.UsingGunDisplay();
+            UIManager.Instance.hudControls.UsingGunDisplay();
             _lastWeapon = gunHoldPosition.gameObject;
             meleeHoldPosition.gameObject.SetActive(false);
             gunHoldPosition.gameObject.SetActive(true);
@@ -424,7 +424,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         else if (_holdingGun == true && meleeAttacks != null && _isCrouching == false)
         {
-            InventoryManager.Instance.playerHUDManager.UsingMeleeDisplay();
+            UIManager.Instance.hudControls.UsingMeleeDisplay();
             _lastWeapon = meleeHoldPosition.gameObject ;
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(true);
@@ -480,7 +480,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         RaycastHit displayHit;
         if (Physics.Raycast(displayRay, out displayHit, pickUpRange))
         {
-           InventoryManager.Instance.playerHUDManager.Interactable(displayHit);
+            UIManager.Instance.hudControls.Interactable(displayHit);
         }
     }
 
@@ -508,28 +508,27 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void SetCurrentHP() 
     {
-        InventoryManager.Instance.playerHUDManager.SetCurrentHPValue(currentPlayerHP);
+        UIManager.Instance.hudControls.SetCurrentHPValue(currentPlayerHP);
     }
     public void SetMaxHP()
     {
         currentPlayerHP = playerConfigs.MaxPlayerHP;
-        InventoryManager.Instance.playerHUDManager.SetMaxSliderHPValue(currentPlayerHP);
+        UIManager.Instance.hudControls.SetMaxSliderHPValue(currentPlayerHP);
     }
 
     public void UseHealthGrub()
     {
-        /*        if (grubCount > 0)
-                {
-                    DamageReceived(-10);
-                    grubCount--;
-                    if (currentPlayerHP >= playerConfigs.MaxPlayerHP)
-                        currentPlayerHP = playerConfigs.MaxPlayerHP;
-                }
-                else {
-                    return;
-                }*/
-        UIManager.Instance.hudControls.grubCount--;
-        UIManager.Instance.hudControls.UpdateGrubUI();
+        var HP = UIManager.Instance.hudControls;
+        if(HP.grubCount > 0)
+        {
+            HP.UseGrub();
+            DamageReceived(10);
+        }
+        else if (HP.grubCount == 0)
+        {
+            return;
+        }
+
     }
 
     public void PlayerDeath()
@@ -576,7 +575,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Inventory()
     {
-        InventoryManager.Instance.OpenInventoryPanel();
+        UIManager.Instance.inventoryControls.OpenInventoryPanel();
     }
 
 }

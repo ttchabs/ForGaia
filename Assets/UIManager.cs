@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    public InventoryManager invetoryControls;
+    public InventoryManager inventoryControls;
     public PlayerHUDManager hudControls;
     public PlayerPopUpEvents popUpControls;
 

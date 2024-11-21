@@ -54,14 +54,14 @@ public class WeaponScript : PickUpFunction
                     break;
             }
             SwingSound();
-            InventoryManager.Instance.playerHUDManager.meleeCooldownSlider.value = 0;
+            UIManager.Instance.hudControls.meleeCooldownSlider.value = 0;
             StartCoroutine(CooldownCounter(weaponConfigs.SwingCooldown));//start swing cooldown
         }
     }
 
     public IEnumerator CooldownCounter(float timer)
     {
-        var cdDisplay = InventoryManager.Instance.playerHUDManager;
+        var cdDisplay = UIManager.Instance.hudControls;
         _cooldown = true;
         float endTime = 0;
         while(timer  > endTime)

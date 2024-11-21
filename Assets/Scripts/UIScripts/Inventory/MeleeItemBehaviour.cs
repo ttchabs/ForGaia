@@ -20,7 +20,7 @@ public class MeleeItemBehaviour : ItemBehaviour
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        var meleeEquip = InventoryManager.Instance;
+        var meleeEquip = UIManager.Instance.inventoryControls;
         meleeEquip.equippableMelee = this;
         meleeEquip.AddMeleeListener();
     }

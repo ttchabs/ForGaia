@@ -24,7 +24,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        var display = InventoryManager.Instance;
+        var display = UIManager.Instance.inventoryControls;
         switch (itemData.ItemType)
         {
             case ItemTypes.Ranged:

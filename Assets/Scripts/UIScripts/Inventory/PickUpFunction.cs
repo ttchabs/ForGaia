@@ -10,7 +10,7 @@ public class PickUpFunction : MonoBehaviour
     {
 /*        GameObject sackCounter = GameObject.Find("Sack");
         transform.SetParent(sackCounter.transform, true);*/
-        if (InventoryManager.Instance.AddItemToInventory(itemData) == true)
+        if (UIManager.Instance.inventoryControls.AddItemToInventory(itemData) == true)
         {
             Destroy(gameObject);
         }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static InventoryManager Instance;
+    //public static InventoryManager Instance;
     public GameObject inventoryPanel;
     public bool isInventoryOpen = false;
 
@@ -41,18 +41,6 @@ public class InventoryManager : MonoBehaviour
     [Header("Buttons")]
     public Button EquipButton;
 
-    public void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            UpdateStorageCount();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }    
-    }
 
     public void OpenInventoryPanel()
     {
@@ -108,6 +96,11 @@ public class InventoryManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void RemoveConsumable()
+    {
+
     }
 
     public bool AddItemToInventory(ItemScriptable item)

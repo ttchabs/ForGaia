@@ -45,23 +45,26 @@ public class PlayerHUDManager : MonoBehaviour
     {
         HealthGrubDisplay.gameObject.SetActive(true);
         grubCount++;
+        UpdateGrubUI();
     }
 
     public void UpdateGrubUI()
     {
         if (grubCount > 0)
         {
-            GrubCountText.text = $"{FirstPersonControls.Instance.grubCount}";
+            GrubCountText.text = $"{grubCount}";
         }
         else if (grubCount <= 0) 
-        { 
+        {
+            GrubCountText.text = null;
             HealthGrubDisplay.gameObject.SetActive(false);
         }
     }
 
     public void UseGrub()
     {
-
+        grubCount--;
+        UpdateGrubUI();
     }
 
     //----GUN RELATED UI----/

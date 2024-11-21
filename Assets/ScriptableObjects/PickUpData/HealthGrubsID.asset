@@ -16,4 +16,4 @@ MonoBehaviour:
   _itemDescription: 
   _itemModel: {fileID: 919132149155446097, guid: d413a1962b119ab49b70ff3e2d9e61d3, type: 3}
   _itemSprite: {fileID: 21300000, guid: fc8fa2b026677ac4b8d298a9f41e4c2a, type: 3}
-  _itemType: 0
+  _itemType: 2

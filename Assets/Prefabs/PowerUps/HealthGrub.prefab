@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fb6fc0ef074ea43bf847f7331ff735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 311c7850cfb59734f91fb7f33bd057c9, type: 2}
   healthRecovered: 3
-  playerHealth: {fileID: 0}
-  HealthGrubsData: {fileID: 11400000, guid: 311c7850cfb59734f91fb7f33bd057c9, type: 2}
 --- !u!65 &4313324674030086560
 BoxCollider:
   m_ObjectHideFlags: 0

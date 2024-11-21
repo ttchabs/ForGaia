@@ -28,7 +28,7 @@ public class GunScript : PickUpFunction
         {
             _reloading = false;
             currentMagAmount = gunConfigs.ReloadGun(gunSFX);
-            InventoryManager.Instance.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
+            UIManager.Instance.inventoryControls.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
         }
 
 
@@ -61,7 +61,7 @@ public class GunScript : PickUpFunction
                     break;
             }
             
-            InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(currentMagAmount);
+            UIManager.Instance.hudControls.UpdateAmmoSlider(currentMagAmount);
         }
         else
         {
@@ -82,7 +82,7 @@ public class GunScript : PickUpFunction
         yield return new WaitForSeconds(2f);
         currentMagAmount = gunConfigs.ReloadGun(gunSFX);
         _reloading = false;
-        InventoryManager.Instance.playerHUDManager.UpdateAmmoSlider(gunConfigs.MagSize);
+        UIManager.Instance.hudControls.UpdateAmmoSlider(gunConfigs.MagSize);
         StopCoroutine(ReloadGun());
     }
 
