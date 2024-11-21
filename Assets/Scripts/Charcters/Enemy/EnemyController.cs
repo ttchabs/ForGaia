@@ -59,6 +59,13 @@ public class EnemyController : MonoBehaviour, IDamageable
             transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
             Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
             transform.rotation = lookDirection;
+            enemyAnimations.SetBool("isWalking", true);
+        }
+
+        if (distanceBetween < 1f)
+        {
+            enemyAnimations.SetBool("isWalking",false);
+            enemyAnimations.SetTrigger("isAttacking");
         }
     }
 

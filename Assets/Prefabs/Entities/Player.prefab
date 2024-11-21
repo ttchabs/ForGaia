@@ -51,17 +51,18 @@ MonoBehaviour:
   playerModel: {fileID: 9087988215167198219}
   playerConfigs: {fileID: 11400000, guid: 5cbb4b0e4553b3448befb61c0d7b679b, type: 2}
   playerAnimation: {fileID: 0}
+  stepInterval: 0.28
   moveSpeed: 6
   lookSpeed: 0.5
   gravity: -9.81
   jumpHeight: 2
   playerCamera: {fileID: 7705503276058223953}
-  playerSFX: {fileID: 0}
+  playerSFX: {fileID: 5365421057386044290}
   moveInput: {x: 0, y: 0}
   crouchHeight: 1.6
   standingHeight: 2.3
   crouchSpeed: 12
-  _modelDisplacement: 0
+  _modelDisplacement: -0.3
   holdPosition: {fileID: 9215304131179689555}
   heldObject: {fileID: 0}
   pickUpRange: 3.5
@@ -110,7 +111,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f7d35e66153d61440b76f35cd220ee06, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

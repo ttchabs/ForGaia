@@ -22,7 +22,7 @@ MonoBehaviour:
   meleeType: 2
   _volume: 0
   _slashSound: {fileID: 0}
-  _swingSound: {fileID: 0}
+  _swingSound: {fileID: 8300000, guid: 91942ae5cc3ba60489db741c91b22cf7, type: 3}
   _meleeDamage:
     minDamage: 25
     maxDamage: 33

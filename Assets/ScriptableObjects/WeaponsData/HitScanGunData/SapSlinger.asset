@@ -22,7 +22,7 @@ MonoBehaviour:
   gunTypes: 0
   _volume: 0
   _gunFireSFX: {fileID: 0}
-  _gunReloadSFX: {fileID: 0}
+  _gunReloadSFX: {fileID: 8300000, guid: d56121c0aace93c4283b1c94248501ff, type: 3}
   _projectileSpeed: 90
   _fireRate: 0.53
   _gunWeight: 0

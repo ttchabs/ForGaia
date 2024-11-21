@@ -20,6 +20,10 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     [HideInInspector] public Controls playerInput;
     [HideInInspector] public Animator playerAnimation; //Animations that will be played thrughtout the game
 
+
+    [Header("AUDIO")]
+    public float stepInterval;
+    float stepTimer;
     #region PLAYER MOVEMENT:
     [Header("---MOVEMENT SETTINGS---")]
     [Space(5)]
@@ -190,6 +194,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         if (moveInput.x == 0 && moveInput.y == 0)
         {
+            playerSFX.Stop();
             currentSpeed = 0;
         }
         else if (_isCrouching)
@@ -200,6 +205,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             currentSpeed = moveSpeed * (1 - meleeAttacks.weaponConfigs.WeaponWeight / playerConfigs.MaxWeaponWeight);
             currentSpeed = Mathf.Max(currentSpeed, 0f);
+            PlaySounds();
         }
         else if (_holdingGun == true)
         {
@@ -214,6 +220,16 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Move the character controller based on the movement vector and speed
         characterController.Move(currentSpeed * Time.deltaTime * move);
         //MovementAnimations(moveInput.x, moveInput.y);
+    }
+
+   public void PlaySounds()
+    {
+        stepTimer += Time.deltaTime;
+        if(stepTimer >= stepInterval)
+        {
+            playerSFX.PlayOneShot(playerConfigs.WalkSFX, playerConfigs.Volume);
+            stepTimer = 0;
+        }
     }
 
     public void MovementAnimations(float inputX, float inputY)
