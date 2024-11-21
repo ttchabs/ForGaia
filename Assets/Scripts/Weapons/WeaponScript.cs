@@ -66,8 +66,9 @@ public class WeaponScript : PickUpFunction
         float endTime = 0;
         while(timer  > endTime)
         {
-            cdDisplay.meleeCooldownSlider.value = Mathf.LerpAngle(cdDisplay.meleeCooldownSlider.value, 1.59f, timer * Time.deltaTime);
             endTime += Time.deltaTime;
+            cdDisplay.meleeCooldownSlider.value = Mathf.Lerp(cdDisplay.meleeCooldownSlider.value, 1, timer * Time.deltaTime);
+
             yield return null;
         }
         cdDisplay.meleeCooldownSlider.value = 1;

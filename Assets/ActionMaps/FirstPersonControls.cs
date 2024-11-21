@@ -91,6 +91,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     [Header("----DEATH STATS----")]
     public bool playerDied;
+    public Transform setPos;
 
     #region UI
     [Header("UI SETTINGS")]
@@ -182,7 +183,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void FixedUpdate()
     {
-        PickUpDisplay();        
+        PickUpDisplay();
+        if (playerDied == true)
+        {
+            playerCamera.SetParent(setPos);
+            playerCamera.SetPositionAndRotation(setPos.position, setPos.rotation);
+        }
     }
 
     //---- MOVEMENT BASED CODE---//
@@ -535,7 +541,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         playerDied = true;
         playerInput.Disable();
-        StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerSFX, playerAnimation));
+        StartCoroutine(playerConfigs.PlayerDeath(currentScene, playerAnimation));
     }
 
     //----INVENTORY BASED CODE----//

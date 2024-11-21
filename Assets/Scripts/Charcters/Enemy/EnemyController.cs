@@ -72,7 +72,6 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (distanceBetween < 1f && enemyCurrentHP > 0)
         {
             enemyAnimations.SetBool("isWalking",false);
-
         }
     }
 
@@ -88,7 +87,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player") && collision.gameObject.TryGetComponent(out IDamageable player))
+        if (collision.collider.CompareTag("Player") && collision.gameObject.TryGetComponent(out IDamageable player) && enemyCurrentHP > 0)
         {
             enemyAnimations.SetTrigger("isAttacking");
             var playerHP = FirstPersonControls.Instance; // finds the FPC script on the player tag game object

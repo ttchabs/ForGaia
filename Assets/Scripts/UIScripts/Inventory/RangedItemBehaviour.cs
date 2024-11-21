@@ -19,7 +19,6 @@ public class RangedItemBehaviour : ItemBehaviour, IPointerClickHandler
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        //base.OnPointerClick(eventData);
         var gunEquip = UIManager.Instance.inventoryControls;
         gunEquip.equippableGun = this;
         gunEquip.AddGunListener();

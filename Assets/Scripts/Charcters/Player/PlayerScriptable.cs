@@ -14,7 +14,6 @@ public class PlayerScriptable : ScriptableObject
     [Header("PLAYER SFX:")]
     [Range(0f, 1f)] [SerializeField] float _volume;
     [SerializeField] AudioClip _walkSFX;
-    [SerializeField] AudioClip _deathSFX;
     [SerializeField] AudioClip _playerHitSFX;
 
     [Header("PLAYER STATISTICS:")]
@@ -26,25 +25,19 @@ public class PlayerScriptable : ScriptableObject
     public string Epithet => _epithet;
     public float Volume => _volume;
     public AudioClip WalkSFX => _walkSFX;
-    public AudioClip DeathSFX => _deathSFX;
     public AudioClip PlayerHitSFX => _playerHitSFX;
     public int MaxPlayerHP => _maxPlayerHP;
     public float MaxWeaponWeight => _maxWeaponWeight; 
 
-    public IEnumerator PlayerDeath(string sceneToLoad, AudioSource playerDeath, Animator deathAnimation)
+    public IEnumerator PlayerDeath(string sceneToLoad, Animator deathAnimation)
     {
-
-        PlayPlayerDeathSound(playerDeath);
         UIManager.Instance.popUpControls.ShowDeathEvent();
         deathAnimation.SetBool("isDead", true);
         yield return new WaitForSeconds(6f);
         SceneManager.LoadScene(sceneToLoad);
     }
 
-    public void PlayPlayerDeathSound(AudioSource playerDeathSFX)
-    {
-        playerDeathSFX.PlayOneShot(DeathSFX, Volume);
-    }
+
 
     public void PlayPlayerHitSFX(AudioSource playerHit)
     {

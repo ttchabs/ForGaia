@@ -68,13 +68,13 @@ GameObject:
   - component: {fileID: 3433393535680813843}
   - component: {fileID: 4027662931922787028}
   - component: {fileID: 6218434027636688812}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StoneCrusher
   m_TagString: MeleeWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5452696694526576722
 Transform:
   m_ObjectHideFlags: 0
