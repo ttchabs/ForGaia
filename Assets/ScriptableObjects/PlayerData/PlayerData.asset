@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerName: Felix
   _epithet: 
-  _volume: 0.086
+  _volume: 0.075
   _walkSFX: {fileID: 8300000, guid: 56df68a5d8d198f4bacc1dcee31d4f7b, type: 3}
   _deathSFX: {fileID: 0}
   _playerHitSFX: {fileID: 0}
