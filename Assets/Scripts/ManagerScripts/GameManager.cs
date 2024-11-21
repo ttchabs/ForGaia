@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     public Button Quit;
 
     [Header("SCENES:")]
-    public GameManagerScriptable managerConfigs;
+    public string titleScreen;
+    public string expositionScreen;
+    public string level1;
+    public string level2;
+    public string level3;
 
-    public void Start()
+    public void Awake()
     {
         if (managerInstance == null)
         {
@@ -30,31 +34,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseGame()
+    public void LoadStart()
     {
-        isPaused = true;
-        Time.timeScale = 0f;
-        pausePanel.SetActive(true);
-        FirstPersonControls.Instance.playerInput.Disable();
+        SceneManager.LoadScene("");
     }
 
-    public void ResumeGame()
+    public void LoadExposition()
     {
-        isPaused = false;
-        Time.timeScale = 1f;
-        pausePanel.SetActive(false);
-        FirstPersonControls.Instance.playerInput.Enable();
-    }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    public IEnumerator LoadGame()
-    {
-        AsyncOperation loadScene = SceneManager.LoadSceneAsync(managerConfigs.SceneNames[0]);
-
-        yield return null;
     }
 }

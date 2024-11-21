@@ -33,9 +33,10 @@ public class PlayerScriptable : ScriptableObject
 
     public IEnumerator PlayerDeath(string sceneToLoad, AudioSource playerDeath, Animator deathAnimation)
     {
-        deathAnimation.SetBool("isDead", true) ;
+
         PlayPlayerDeathSound(playerDeath);
         PlayerPopUpEvents.instance.ShowDeathEvent();
+        deathAnimation.SetBool("isDead", true);
         yield return new WaitForSeconds(6f);
         SceneManager.LoadScene(sceneToLoad);
     }
