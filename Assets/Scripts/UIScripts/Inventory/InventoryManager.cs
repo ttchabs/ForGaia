@@ -215,7 +215,7 @@ public class InventoryManager : MonoBehaviour
         var hand = FirstPersonControls.Instance;
         GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPosition);
         yield return new WaitForEndOfFrame();
-        hand.GunInitialise(gun);
+        StartCoroutine(hand.GunInitialise(gun));
     }
 
     public void UpdateStorageCount()

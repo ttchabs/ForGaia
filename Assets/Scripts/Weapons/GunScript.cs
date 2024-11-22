@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GunScript : PickUpFunction
 {
-    [HideInInspector] public GunScriptable gunConfigs;
+    public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
     public AudioSource gunSFX;
@@ -28,10 +28,7 @@ public class GunScript : PickUpFunction
         {
             _reloading = false;
             currentMagAmount = gunConfigs.ReloadGun(gunSFX);
-            UIManager.Instance.inventoryControls.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
         }
-
-
     }
 
     public void Update()
