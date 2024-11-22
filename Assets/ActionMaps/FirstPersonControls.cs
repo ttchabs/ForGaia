@@ -340,7 +340,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     //----ATTACK RELATED CODE----//
     public void UseWeapon()
     {
-        if (_holdingGun == true && _isCrouching == false) 
+        if (_holdingGun == true && _isCrouching == false)
         {
             gunFire.GunTriggerPulled();
         }

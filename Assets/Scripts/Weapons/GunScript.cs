@@ -24,14 +24,11 @@ public class GunScript : PickUpFunction
 
     private void OnEnable()
     {
-        if (currentMagAmount == 0)
+        if (currentMagAmount == 0 )
         {
             _reloading = false;
             currentMagAmount = gunConfigs.ReloadGun(gunSFX);
-            UIManager.Instance.inventoryControls.playerHUDManager.SetMaxAmmo(gunConfigs.MagSize); 
         }
-
-
     }
 
     public void Update()
