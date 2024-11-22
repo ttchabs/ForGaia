@@ -5,14 +5,14 @@ using UnityEngine;
 public class BulletScript : PickUpFunction
 {
     public Rigidbody body;
-    public delegate void OnHitEvent (GameObject bullet, Collision collision);
+    public delegate void OnHitEvent (GameObject bullet, Collider collision);
     public event OnHitEvent OnHit;
 
     private void OnEnable()
     {
         body = GetComponent<Rigidbody>();
     }
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
         OnHit?.Invoke(gameObject, collision);
     }

@@ -85,10 +85,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
+  Priority: 0
+  DopplerLevel: 0.94
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -138,7 +138,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.18055555
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: ddef300cc8263ef48aace7dd6264c5bf, type: 2}
-  gunConfigs: {fileID: 0}
+  gunConfigs: {fileID: 11400000, guid: ddef300cc8263ef48aace7dd6264c5bf, type: 2}
   firePoint: {fileID: 7706388876881018128}
   currentMagAmount: 0
   gunSFX: {fileID: 9217082342040847114}

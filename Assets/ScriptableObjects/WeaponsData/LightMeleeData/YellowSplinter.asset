@@ -17,8 +17,8 @@ MonoBehaviour:
     to ever exist: the Yellow-Arc. The bark''s toughness makes it hard to pull one
     of these off. As a result of this, weaponsmiths wait for a splinter to fall off
     and carve it using the same tree it fell from.'
-  _itemModel: {fileID: 0}
-  _itemSprite: {fileID: 0}
+  _itemModel: {fileID: 5352799522896548926, guid: 09237a06ab4af76419092d17c935edaa, type: 3}
+  _itemSprite: {fileID: 21300000, guid: 1658ed718b304e84cbb74076dd55cc2f, type: 3}
   _itemType: 1
   meleeType: 0
   _volume: 0

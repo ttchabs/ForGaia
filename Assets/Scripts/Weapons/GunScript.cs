@@ -53,7 +53,7 @@ public class GunScript : PickUpFunction
                 case GunTypes.Projectile:
                     gunConfigs.ProjectileShoot(firePoint);
                     break;
-                case GunTypes.HitScan:
+                case GunTypes.StraightShot:
                     StartCoroutine(gunConfigs.HitScanShooter(firePoint));
                     break;
             }
@@ -80,11 +80,6 @@ public class GunScript : PickUpFunction
         currentMagAmount = gunConfigs.ReloadGun(gunSFX);
         _reloading = false;
         UIManager.Instance.hudControls.UpdateAmmoSlider(gunConfigs.MagSize);
-        StopCoroutine(ReloadGun());
-    }
-
-    public void OnDisable()
-    {
-        StopCoroutine(ReloadGun());
+        yield return null;
     }
 }

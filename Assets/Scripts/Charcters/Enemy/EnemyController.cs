@@ -21,9 +21,10 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY MODEL AND ANIMATIONS:")]
     public Animator enemyAnimations;
-/*    public GameObject damageVFX;
-    public GameObject deathVFX;*/
     public AudioSource enemySFX;
+    public AudioClip enemySFXClip;
+    [SerializeField] float stepInterval = 18f;
+    float stepTime = 0;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
 
@@ -54,7 +55,15 @@ public class EnemyController : MonoBehaviour, IDamageable
         enemyHealth.transform.LookAt(camToFace.position + camToFace.forward);
     }
     
-
+    public void PlaySounds()
+    {
+        stepTime += Time.deltaTime;
+        if(stepTime > stepInterval)
+        {
+            enemySFX.PlayOneShot(enemySFXClip);
+            stepTime = 0;
+        }
+    }
     public void TrackPlayer()
     {
         float distanceBetween = Vector3.Distance(transform.position, player.position); //checks the distance between the player and the enemy, stores the value
@@ -63,11 +72,13 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             enemyAnimations.SetBool("isWalking", true);
             HandleEnemyTracking();
+
         }
         else
         {
             if(enemyAnimations != null)
                 enemyAnimations.SetBool("isWalking", false);
+   
         }
         
         if (distanceBetween < 1f && enemyCurrentHP > 0)
@@ -82,6 +93,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         direction.y = 0;
         Quaternion lookDirection = Quaternion.LookRotation(direction); //makes the enemy face the player
         transform.rotation = lookDirection;
+        lookDirection.y = 0;
         transform.LookAt(player);
         transform.position = Vector3.MoveTowards(transform.position, player.position, enemyConfigs.EnemyMoveSpeed * Time.deltaTime); //makes the enemy move towards the player
     }
@@ -131,6 +143,8 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
         else if (enemyCurrentHP <= 0)
         {
+            enemySFX.Stop();
+            enemySFX.clip = enemyConfigs.DeathSFX;
             enemyAnimations.SetTrigger("isDead");
             StartCoroutine(enemyConfigs.EnemyDeath(gameObject, enemySFX));
         }

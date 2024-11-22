@@ -19,22 +19,22 @@ MonoBehaviour:
   _itemModel: {fileID: 383414822537077855, guid: a55729c04ebe92b4686637fb537f8e43, type: 3}
   _itemSprite: {fileID: 21300000, guid: e10606df941556d4a98c80830b57b047, type: 3}
   _itemType: 0
-  gunTypes: 0
-  _volume: 0.051
+  gunTypes: 1
+  _volume: 0.586
   _gunFireSFX: {fileID: 8300000, guid: 011cbc962c7ec134ba629d16a4d7a44a, type: 3}
   _gunReloadSFX: {fileID: 8300000, guid: d56121c0aace93c4283b1c94248501ff, type: 3}
-  _projectileSpeed: 90
+  _projectileSpeed: 50
   _fireRate: 0.53
   _gunWeight: 0
   _magSize: 7
   _maxDistance: 50
   _reloadSequence: {fileID: 0}
   _bulletDamage:
-    minDamage: 16
-    maxDamage: 20
+    minDamage: 13
+    maxDamage: 17
     critMultiplier: 1.82
     critChance: 0.105
-  _bulletPrefab: {fileID: 2586385609988217719, guid: 2c042fcd7111e4a48b9bfc688e04f41c, type: 3}
+  _bulletPrefab: {fileID: 8715151171463713136, guid: a327fa96c8fa91d409a132a46d04234e, type: 3}
   hitLayers:
     serializedVersion: 2
     m_Bits: 192

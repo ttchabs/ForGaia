@@ -100,7 +100,7 @@ public class InventoryManager : MonoBehaviour
 
     //----ADD ITEMS TO INVENTORY---//
 
-    public bool AddConsumableToInventory(ItemScriptable item)
+/*    public bool AddConsumableToInventory(ItemScriptable item)
     {
         ItemBehaviour ConsumableInInventory = ConsumableSlot.GetComponentInChildren<ItemBehaviour>();
         if(ConsumableInInventory != null && ConsumableInInventory.itemData == item && ConsumableInInventory.amount <= amount)
@@ -119,8 +119,19 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveConsumable()
     {
-
-    }
+        ItemBehaviour ConsumableInInventory = ConsumableSlot.GetComponentInChildren<ItemBehaviour>();
+        if (UIManager.Instance.hudControls.grubCount>5)
+        {
+            ConsumableInInventory.amount--;
+            ConsumableInInventory.AmountText();
+            UIManager.Instance.hudControls.grubCount--;
+        }
+        else if (UIManager.Instance.hudControls.grubCount ==1)
+        {
+            Destroy(ConsumableInInventory);
+            UIManager.Instance.hudControls.grubCount--;
+        }
+    }*/
 
     public bool AddItemToInventory(ItemScriptable item)
     {
@@ -215,7 +226,7 @@ public class InventoryManager : MonoBehaviour
         var hand = FirstPersonControls.Instance;
         GameObject gun = Instantiate(behaviour.itemData.ItemModel, hand.gunHoldPosition);
         yield return new WaitForEndOfFrame();
-        StartCoroutine(hand.GunInitialise(gun));
+        hand.GunInitialise(gun);
     }
 
     public void UpdateStorageCount()

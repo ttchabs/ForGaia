@@ -7,7 +7,7 @@ public enum MeleeWeaponType
 
 public enum GunTypes
 {
-    HitScan,
+    StraightShot,
     Projectile
 }
 

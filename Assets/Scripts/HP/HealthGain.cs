@@ -10,7 +10,6 @@ public class HealthGain : PickUpFunction
         if (other.CompareTag("Player"))
         {
             var ui = UIManager.Instance;
-            ui.inventoryControls.AddConsumableToInventory(itemData);
             ui.hudControls.PickUpGrub();
             Destroy(gameObject);  
         }

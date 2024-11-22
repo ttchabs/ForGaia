@@ -26,7 +26,6 @@ public class GunScriptable : ItemScriptable
     [SerializeField] float _gunWeight;
     [SerializeField] int _magSize; //the maximum number of bullets a gun can hold
     [SerializeField] float _maxDistance; //The furhest distance the bullet is allowed to travel
-    [SerializeField] AnimatorOverrideController _reloadSequence; //The animation that plays when reloading a gun.
 
     [Header("BULLET STATISTICS:")]
     [SerializeField] WeaponDamage _bulletDamage; [Space(2)] //amount of damage dealt by the bullet
@@ -71,7 +70,6 @@ public class GunScriptable : ItemScriptable
 
         Ray bullet = new Ray (origin.position, origin.forward);
         RaycastHit hitCollider;
-        Debug.DrawRay(origin.position, origin.forward * MaxDistance, Color.yellow, 5f);
         if (Physics.Raycast(bullet, out hitCollider, MaxDistance, hitLayers))
         {
             float displacement = Vector3.Distance(origin.position, hitCollider.point);
@@ -112,7 +110,7 @@ public class GunScriptable : ItemScriptable
     }
 
 
-    public void ProjectileImpact(GameObject bullet, Collision collision) //projectiles will deal damage to the collided object on impact
+    public void ProjectileImpact(GameObject bullet, Collider collision) //projectiles will deal damage to the collided object on impact
     {
         if(collision.gameObject.TryGetComponent(out IDamageable damage))
         {
@@ -144,6 +142,6 @@ public class GunScriptable : ItemScriptable
 
     public void PlayGunReloadedSound(AudioSource gunReloadedSound)
     {
-        gunReloadedSound.PlayOneShot(GunFireSFX, Volume);
+        gunReloadedSound.PlayOneShot(GunReloadSFX, Volume);
     }
 }

@@ -20,7 +20,7 @@ MonoBehaviour:
   _itemSprite: {fileID: 21300000, guid: fc3de5c15078b554e9df62abcf8f1812, type: 3}
   _itemType: 1
   meleeType: 2
-  _volume: 0.054
+  _volume: 0.613
   _slashSound: {fileID: 8300000, guid: af04f36b4dc54194e9d5fab1f9fc21fc, type: 3}
   _swingSound: {fileID: 8300000, guid: 91942ae5cc3ba60489db741c91b22cf7, type: 3}
   _meleeDamage:

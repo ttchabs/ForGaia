@@ -26,7 +26,9 @@ public class PlayerHUDManager : MonoBehaviour
 
     [Header("CROSSHAIRS DISPLAY")]
     public Image crosshairs;
+    public CanvasGroup gunAmmoSliderAlpha;
     public Slider gunAmmoSlider;
+    public CanvasGroup meleeCooldownSliderAlpha;
     public Slider meleeCooldownSlider;
 
 
@@ -71,8 +73,8 @@ public class PlayerHUDManager : MonoBehaviour
 
     public void UsingGunDisplay()
     {
-        gunAmmoSlider.gameObject.SetActive(true);
-        meleeCooldownSlider.gameObject.SetActive(false);
+        gunAmmoSliderAlpha.alpha = 1;
+        meleeCooldownSliderAlpha.alpha = 0;
        
         currentWeaponInHand.sprite = weaponSwitchDisplays[1];
         secondaryWeapon.sprite = weaponSwitchDisplays[0];
@@ -91,8 +93,8 @@ public class PlayerHUDManager : MonoBehaviour
 
     public void UsingMeleeDisplay()
     {
-        meleeCooldownSlider.gameObject.SetActive(true);
-        gunAmmoSlider.gameObject.SetActive(false);
+        meleeCooldownSliderAlpha.alpha = 1;
+        gunAmmoSliderAlpha.alpha = 0;
 
         currentWeaponInHand.sprite = weaponSwitchDisplays[0];
         secondaryWeapon.sprite = weaponSwitchDisplays[1];
@@ -114,13 +116,18 @@ public class PlayerHUDManager : MonoBehaviour
 
     public void Interactable(RaycastHit info)
     {
-        if (info.collider.TryGetComponent(out PickUpFunction name))
+        if (info.collider.TryGetComponent(out PickUpFunction name) && !info.collider.CompareTag("PowerUp") || info.collider.CompareTag("SorterPuzzleStone") && !info.collider.CompareTag("PowerUp"))
         {
             pickUpText.text = "(E)";
         }
-        else
+        else if (info.collider.TryGetComponent(out ChestOpenScript chest) && !info.collider.CompareTag("PowerUp"))
         {
-            pickUpText.text = null;
+            pickUpText.text = "Hit To Open!";
+        }
+        
+        else if (info.collider.CompareTag("PowerUp"))
+        {
+            pickUpText.text = "walk into health grub (H to use)";
         }
     }
 

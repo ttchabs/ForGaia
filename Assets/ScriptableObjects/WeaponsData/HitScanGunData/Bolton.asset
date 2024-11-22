@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00401c1a90ef13a448e6368c68bb6d9d, type: 3}
-  m_Name: Gun
+  m_Name: Bolton
   m_EditorClassIdentifier: 
   _itemName: Bolton
-  _itemDescription: 
+  _itemDescription: 'A royal class of weaponry forged from the grandest of gold.
+    It was passed down to Felix after his grandfather received it as a memento for
+    his accolades during his years of service in the army.
+
+    This machine is capable
+    of ripping the toughest of enemies to shreds with each shot, but is rather slow...'
   _itemModel: {fileID: 3720782798641618308, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
   _itemSprite: {fileID: 21300000, guid: 2b150553027cfd64aa9388e5b95370a3, type: 3}
   _itemType: 0
@@ -26,7 +31,6 @@ MonoBehaviour:
   _gunWeight: 2
   _magSize: 6
   _maxDistance: 100
-  _reloadSequence: {fileID: 0}
   _bulletDamage:
     minDamage: 16
     maxDamage: 20

@@ -99,7 +99,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region UI
     [Header("UI SETTINGS")]
     public int grubCount = 0;
-    public PlayerHUDManager playerHUDManager;
     #endregion
 
     #region ANIMATION
@@ -379,7 +378,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (_holdingMelee == true && gunFire != null && _isCrouching == false)
         {
-            playerHUDManager.UsingGunDisplay();
+            UIManager.Instance.hudControls.UsingGunDisplay();
             _lastWeapon = gunHoldPosition.gameObject;
             meleeHoldPosition.gameObject.SetActive(false);
             gunHoldPosition.gameObject.SetActive(true);
@@ -390,11 +389,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         else if (_holdingGun == true && meleeAttacks != null && _isCrouching == false)
         {
-            playerHUDManager.UsingMeleeDisplay();
+            UIManager.Instance.hudControls.UsingMeleeDisplay();
             _lastWeapon = meleeHoldPosition.gameObject ;
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(true);
-            playerHUDManager.SetMaxAmmo(gunFire.gunConfigs.MagSize);
+            UIManager.Instance.hudControls.SetMaxAmmo(gunFire.gunConfigs.MagSize);
             ikControls.weight = 0;
             _holdingGun = false;
             _holdingMelee = true;
@@ -437,7 +436,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 StartCoroutine(UIManager.Instance.popUpControls.ItemToHandNotification(stone.stoneName, 3));
             }
 
-            else if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
+            else if(hit.collider.TryGetComponent(out PickUpFunction canPickUp) && !hit.collider.CompareTag("PowerUp"))
             {
                 canPickUp.Pickup();
                 StartCoroutine(UIManager.Instance.popUpControls.ItemToInventoryNotfication(canPickUp.itemData.ItemName, 3));
@@ -523,15 +522,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         melee.transform.SetPositionAndRotation(meleeHoldPosition.position, meleeHoldPosition.rotation);
     }
 
-    public IEnumerator GunInitialise(GameObject gun)
+    public void GunInitialise(GameObject gun)
     {
         gunFire = gun.GetComponent<GunScript>();
         gun.GetComponent<Collider>().enabled = false;
         gun.GetComponent<Rigidbody>().isKinematic = true;
         gun.transform.SetPositionAndRotation(gunHoldPosition.position, gunHoldPosition.rotation);
-        yield return new WaitForEndOfFrame();
-        playerHUDManager.SetMaxAmmo(gunFire.gunConfigs.MagSize);
-        playerHUDManager.UpdateAmmoSlider(gunFire.currentMagAmount);
+
+        UIManager.Instance.hudControls.SetMaxAmmo(gunFire.gunConfigs.MagSize);
     }
 
     public void RemoveMelee()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1753595890984276394}
   - component: {fileID: 3986249878921741016}
   - component: {fileID: 4313324674030086560}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HealthGrub
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -136,6 +136,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d413a1962b119ab49b70ff3e2d9e61d3, type: 3}
       propertyPath: m_Name
       value: Health Grubs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d413a1962b119ab49b70ff3e2d9e61d3, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
