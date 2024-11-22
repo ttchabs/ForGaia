@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MeleeItemBehaviour : ItemBehaviour
 {
-    public WeaponScriptable meleeData;
+/*    public WeaponScriptable meleeData;
 
     public override void Initialise(ItemScriptable newItemData)
     {
@@ -23,5 +23,5 @@ public class MeleeItemBehaviour : ItemBehaviour
         var meleeEquip = UIManager.Instance.inventoryControls;
         meleeEquip.equippableMelee = this;
         meleeEquip.AddMeleeListener();
-    }
+    }*/
 }

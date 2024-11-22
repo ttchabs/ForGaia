@@ -30,11 +30,13 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
             case ItemTypes.Ranged:
                 display.equippableGun = this;
                 display.displayInfo.GunDisplayFunction(itemData as GunScriptable);
+                display.EquipButton.gameObject.SetActive(true);
                 display.AddGunListener();
                 break;
             case ItemTypes.Melee: 
                 display.equippableMelee = this;
                 display.displayInfo.MeleeDisplayFunction(itemData as WeaponScriptable);
+                display.EquipButton.gameObject.SetActive(true);
                 display.AddMeleeListener();
                 break;
             case ItemTypes.PickUp:

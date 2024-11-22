@@ -38,7 +38,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
         AudioListener.pause = true;
-        FirstPersonControls.Instance.playerInput.Disable();
+        FirstPersonControls.Instance.playerInput.Player.Disable();
     }
 
     public void ResumeGame()
@@ -46,7 +46,7 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
-        FirstPersonControls.Instance.playerInput.Enable();
+        FirstPersonControls.Instance.playerInput.Player.Enable();
         AudioListener.pause = false;
     }
 

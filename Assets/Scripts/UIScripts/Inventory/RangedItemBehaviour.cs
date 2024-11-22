@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RangedItemBehaviour : ItemBehaviour, IPointerClickHandler
 {
-    public GunScriptable gunData;
+/*    public GunScriptable gunData;
 
     public override void Initialise(ItemScriptable newItemData)
     {
@@ -22,5 +22,5 @@ public class RangedItemBehaviour : ItemBehaviour, IPointerClickHandler
         var gunEquip = UIManager.Instance.inventoryControls;
         gunEquip.equippableGun = this;
         gunEquip.AddGunListener();
-    }
+    }*/
 }

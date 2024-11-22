@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
@@ -41,13 +42,13 @@ public class InventoryManager : MonoBehaviour
     [Header("Buttons")]
     public Button EquipButton;
 
-
     public void OpenInventoryPanel()
     {
         if (isInventoryOpen == false)
         {
             inventoryPanel.SetActive(true);
-            FirstPersonControls.Instance.playerInput.Disable();
+            FirstPersonControls.Instance.playerInput.Player.Disable();
+            UIManager.Instance.hudControls.gameObject.SetActive(false);
             isInventoryOpen = true;
         }
     }
@@ -57,7 +58,9 @@ public class InventoryManager : MonoBehaviour
         if (isInventoryOpen == true)
         {
             inventoryPanel.SetActive(false);
-            FirstPersonControls.Instance.playerInput.Enable();
+            FirstPersonControls.Instance.playerInput.Player.Enable();
+            UIManager.Instance.hudControls.gameObject.SetActive(true);
+            EquipButton.gameObject.SetActive(false);
             isInventoryOpen = false;
         }
     }
@@ -65,7 +68,7 @@ public class InventoryManager : MonoBehaviour
     public void AddMeleeListener()
     {
         EquipButton.onClick.RemoveAllListeners();
-        EquipButton.onClick.AddListener(EquipMelee); ;
+        EquipButton.onClick.AddListener(EquipMelee);
     }
 
     public void AddGunListener()
@@ -149,14 +152,14 @@ public class InventoryManager : MonoBehaviour
     {
         GameObject newMeleeSprite = Instantiate(meleePrefab, slot);
         MeleeItemBehaviour meleeItemDrag = newMeleeSprite.GetComponent<MeleeItemBehaviour>();
-        meleeItemDrag.InitialiseMelee(meleeID);
+        //meleeItemDrag.InitialiseMelee(meleeID);
     }
 
     public void SpawnRangedItem(GunScriptable gunID, Transform slot)
     {
         GameObject newRangedSprite = Instantiate(gunPrefab, slot);
         RangedItemBehaviour rangedItemDrag = newRangedSprite.GetComponent<RangedItemBehaviour>();
-        rangedItemDrag.InitialiseRanged(gunID);
+        //rangedItemDrag.InitialiseRanged(gunID);
     }
 
     //----

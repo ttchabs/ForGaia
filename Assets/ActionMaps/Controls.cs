@@ -317,22 +317,22 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""856fbea1-2a03-45ab-8598-cbc74cab581a"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""id"": ""cb1ef8ba-90be-409f-b075-fa05a9e69bc3"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""SwitchWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cb1ef8ba-90be-409f-b075-fa05a9e69bc3"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""id"": ""856fbea1-2a03-45ab-8598-cbc74cab581a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""SwitchWeapons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

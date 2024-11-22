@@ -402,6 +402,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     //----ITEM BASED CODING----//
     public void PickUpObject()
     {
+        Debug.Log("hi");
         // Check if we are already holding an object
         if (heldObject != null)
         {
@@ -412,7 +413,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         }
 
         // Perform a raycast from the camera's position forward
-        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        Ray ray = new Ray(pickUpTransform.position, pickUpTransform.forward);
         RaycastHit hit;
 
         // Debugging: Draw the ray in the Scene view
@@ -435,7 +436,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
                 playerAnimation.SetLayerWeight(1, 1f);
             }
 
-            if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
+            else if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
             {
                 canPickUp.Pickup();
             }
@@ -476,7 +477,6 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         playerConfigs.PlayPlayerHitSFX(playerSFX);
         if (currentPlayerHP <= 0)
             PlayerDeath();
-        
     }
 
     public void SetCurrentHP() 
@@ -548,7 +548,9 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
     public void Inventory()
     {
-        UIManager.Instance.inventoryControls.OpenInventoryPanel();
+        var inventory = UIManager.Instance;
+        inventory.inventoryControls.CloseInventoryPanel();
+        inventory.inventoryControls.OpenInventoryPanel();
     }
 
 }
