@@ -32,7 +32,7 @@ public class PuzzleSolve : MonoBehaviour
                 spawnManager.SpawnStone();
                 _collider.enabled = false;
 
-                if (spawnManager.matchCount > 5) 
+                if (spawnManager.matchCount > 5 && stoneID == 7 && tileNumber ==7) 
                 {
                     spawnManager.SpawnGourd();
                     _collider.enabled = false;
