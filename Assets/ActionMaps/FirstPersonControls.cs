@@ -521,12 +521,14 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         melee.transform.SetPositionAndRotation(meleeHoldPosition.position, meleeHoldPosition.rotation);
     }
 
-    public void GunInitialise(GameObject gun)
+    public IEnumerator GunInitialise(GameObject gun)
     {
         gunFire = gun.GetComponent<GunScript>();
         gun.GetComponent<Collider>().enabled = false;
         gun.GetComponent<Rigidbody>().isKinematic = true;
         gun.transform.SetPositionAndRotation(gunHoldPosition.position, gunHoldPosition.rotation);
+        yield return new WaitForEndOfFrame();
+        UIManager.Instance.hudControls.SetMaxAmmo(gunFire.gunConfigs.MagSize);
     }
 
     public void RemoveMelee()

@@ -1862,8 +1862,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f6dc47e0d9d64e64db607bd8440040f5, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -13070,7 +13070,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 85
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -26470,6 +26470,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &1827935326092103380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.389
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141457748809877446, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3720782798641618308, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
+      propertyPath: m_Name
+      value: Bolton
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a0e30f7cb0cb84348818069f1f5faff3, type: 3}
 --- !u!1 &1835927709573906169
 GameObject:
   m_ObjectHideFlags: 0
@@ -32345,7 +32402,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 1
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -33659,7 +33716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8129223811077425423, guid: 1fbc3addd9e47f54fb35ee84b3186d23, type: 3}
       propertyPath: m_Volume
-      value: 0.875
+      value: 0.713
       objectReference: {fileID: 0}
     - target: {fileID: 8129223811077425423, guid: 1fbc3addd9e47f54fb35ee84b3186d23, type: 3}
       propertyPath: MinDistance
@@ -33975,3 +34032,4 @@ SceneRoots:
   - {fileID: 8253331671979620355}
   - {fileID: 339464965}
   - {fileID: 1674532637}
+  - {fileID: 1827935326092103380}

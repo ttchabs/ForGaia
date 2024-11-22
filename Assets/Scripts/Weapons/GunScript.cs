@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GunScript : PickUpFunction
 {
-    [HideInInspector] public GunScriptable gunConfigs;
+    public GunScriptable gunConfigs;
     public Transform firePoint;
     public int currentMagAmount;
     public AudioSource gunSFX;
