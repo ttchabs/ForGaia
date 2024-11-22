@@ -64,6 +64,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public GameObject heldObject; // Reference to the currently held object
     public float pickUpRange = 3f; // Range within which objects can be picked up
     public LayerMask pickUpLayer;
+    public Transform pickUpTransform;
 
     #endregion
 
@@ -415,7 +416,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         RaycastHit hit;
 
         // Debugging: Draw the ray in the Scene view
-        Debug.DrawRay(playerCamera.position, playerCamera.forward * pickUpRange, Color.red, 2f);
+        Debug.DrawRay(pickUpTransform.position, pickUpTransform.forward * pickUpRange, Color.red, 2f);
         
         if (Physics.Raycast(ray, out hit, pickUpRange, pickUpLayer))
         {
@@ -438,16 +439,21 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             {
                 canPickUp.Pickup();
             }
+            Debug.Log("raycasting");
         }
     }
 
     public void PickUpDisplay() //Displays the name of the item you are picking up
     {
-        Ray displayRay = new Ray(playerCamera.position, playerCamera.forward);
+        Ray displayRay = new Ray(pickUpTransform.position, pickUpTransform.forward);
         RaycastHit displayHit;
         if (Physics.Raycast(displayRay, out displayHit, pickUpRange))
         {
             UIManager.Instance.hudControls.Interactable(displayHit);
+        }
+        else
+        {
+            UIManager.Instance.hudControls.pickUpText.text = null;
         }
     }
 
