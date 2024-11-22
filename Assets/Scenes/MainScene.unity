@@ -8739,15 +8739,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -152.96
+      value: -155.09
       objectReference: {fileID: 0}
     - target: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.82
+      value: -12.21
       objectReference: {fileID: 0}
     - target: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.43
+      value: 23.88
       objectReference: {fileID: 0}
     - target: {fileID: 2034914159365769443, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8782,8 +8782,8 @@ PrefabInstance:
       value: seed
       objectReference: {fileID: 0}
     - target: {fileID: 5199866969531901718, guid: 4bb6e9644a6fe014fa5588c7bfc5486f, type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13864,7 +13864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -25708,6 +25708,7 @@ MonoBehaviour:
   playerDied: 0
   setPos: {fileID: 8873595644709100258}
   grubCount: 0
+  playerHUDManager: {fileID: 131638666}
   currentScene: 
 --- !u!1 &659441281925301411
 GameObject:
