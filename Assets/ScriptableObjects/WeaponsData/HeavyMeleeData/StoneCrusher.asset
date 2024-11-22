@@ -27,7 +27,7 @@ MonoBehaviour:
     minDamage: 25
     maxDamage: 33
     critMultiplier: 1.4
-    critChance: 0.258
+    critChance: 0.219
   _knockback: 12
   _weaponWeight: 5.5
   _swingCooldown: 1.9

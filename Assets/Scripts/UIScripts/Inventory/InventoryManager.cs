@@ -65,17 +65,33 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddMeleeListener()
+    public void AddMeleeListener(Transform thisItem)
     {
-        EquipButton.onClick.RemoveAllListeners();
-        EquipButton.onClick.AddListener(EquipMelee);
+        if (MeleeSlot.GetChild(0) != thisItem)
+        {
+            EquipButton.gameObject.SetActive(true);
+            EquipButton.onClick.RemoveAllListeners();
+            EquipButton.onClick.AddListener(EquipMelee);
+
+        }
+        else
+        {
+            EquipButton.gameObject.SetActive(false);
+        }
     }
 
-    public void AddGunListener()
+    public void AddGunListener(Transform thisItem)
     {
-
-        EquipButton.onClick.RemoveAllListeners();
-        EquipButton.onClick.AddListener(EquipGun);
+        if (GunSlot.GetChild(0) != thisItem)
+        {
+            EquipButton.gameObject.SetActive(true);
+            EquipButton.onClick.RemoveAllListeners();
+            EquipButton.onClick.AddListener(EquipGun);
+        }
+        else
+        {
+            EquipButton.gameObject.SetActive(false);
+        }
     }
     public void LoadInventory()
     {
@@ -117,7 +133,17 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public bool AddMeleeToInventory(WeaponScriptable meleeItem)
+
+
+    //----INTANTIATE ITEMS----//
+
+    public void SpawnInventoryItem(ItemScriptable itemID, Transform slot)
+    {
+        GameObject newSprite = Instantiate(itemPrefab, slot);
+        ItemBehaviour itemDrag = newSprite.GetComponent<ItemBehaviour>();
+        itemDrag.Initialise(itemID);
+    }
+/*    public bool AddMeleeToInventory(WeaponScriptable meleeItem)
     {
         if (sackStorage.childCount < maxSackStorage)
         {
@@ -137,18 +163,8 @@ public class InventoryManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    //----INTANTIATE ITEMS----//
-
-    public void SpawnInventoryItem(ItemScriptable itemID, Transform slot)
-    {
-        GameObject newSprite = Instantiate(itemPrefab, slot);
-        ItemBehaviour itemDrag = newSprite.GetComponent<ItemBehaviour>();
-        itemDrag.Initialise(itemID);
-    }
-
-    public void SpawnMeleeItem(WeaponScriptable meleeID, Transform slot)
+    }*/
+/*    public void SpawnMeleeItem(WeaponScriptable meleeID, Transform slot)
     {
         GameObject newMeleeSprite = Instantiate(meleePrefab, slot);
         MeleeItemBehaviour meleeItemDrag = newMeleeSprite.GetComponent<MeleeItemBehaviour>();
@@ -160,7 +176,7 @@ public class InventoryManager : MonoBehaviour
         GameObject newRangedSprite = Instantiate(gunPrefab, slot);
         RangedItemBehaviour rangedItemDrag = newRangedSprite.GetComponent<RangedItemBehaviour>();
         //rangedItemDrag.InitialiseRanged(gunID);
-    }
+    }*/
 
     //----
     public void EquipMelee()

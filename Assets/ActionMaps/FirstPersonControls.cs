@@ -402,11 +402,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     //----ITEM BASED CODING----//
     public void PickUpObject()
     {
-        Debug.Log("hi");
         // Check if we are already holding an object
         if (heldObject != null)
         {
-            heldObject.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
+            var rb = heldObject.GetComponent<Rigidbody>(); // Enable physics
+            rb.isKinematic = false;
+            rb.AddForce(transform.forward *2, ForceMode.Impulse);
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject.transform.parent = null; //player is no longer a parent to the gun(object)
             playerAnimation.SetLayerWeight(1, 0f);
@@ -415,32 +416,31 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         // Perform a raycast from the camera's position forward
         Ray ray = new Ray(pickUpTransform.position, pickUpTransform.forward);
         RaycastHit hit;
-
-        // Debugging: Draw the ray in the Scene view
-        Debug.DrawRay(pickUpTransform.position, pickUpTransform.forward * pickUpRange, Color.red, 2f);
         
         if (Physics.Raycast(ray, out hit, pickUpRange, pickUpLayer))
         {
-            Debug.Log($"{hit.collider.name}");
             // Check if the hit object has the tag "PickUp"
             if (hit.collider.CompareTag("SorterPuzzleStone"))
             {
                 // Pick up the object
                 heldObject = hit.collider.gameObject;
+                hit.collider.enabled = false;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
-
+                var stone = heldObject.GetComponent<StoneIdentity>();
                 // Attach the object to the hold position
                 heldObject.transform.parent = holdPosition;
                 heldObject.transform.position = holdPosition.position;
                 heldObject.transform.rotation = holdPosition.rotation;
                 playerAnimation.SetLayerWeight(1, 1f);
+                StartCoroutine(UIManager.Instance.popUpControls.ItemToHandNotification(stone.stoneName, 3));
             }
 
             else if(hit.collider.TryGetComponent(out PickUpFunction canPickUp))
             {
                 canPickUp.Pickup();
+                StartCoroutine(UIManager.Instance.popUpControls.ItemToInventoryNotfication(canPickUp.itemData.ItemName, 3));
             }
-            Debug.Log("raycasting");
+
         }
     }
 
@@ -495,7 +495,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if(HP.grubCount > 0)
         {
             HP.UseGrub();
-            DamageReceived(10);
+            DamageReceived(-15);
         }
         else if (HP.grubCount == 0)
         {

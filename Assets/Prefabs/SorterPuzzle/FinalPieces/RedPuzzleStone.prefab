@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57e05fa87c71ba429ecce5188ccd1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoneName: Red Stone
   stoneNumber: 1
 --- !u!54 &6096215955954361843
 Rigidbody:

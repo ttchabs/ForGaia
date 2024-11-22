@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -12,6 +13,10 @@ public class PlayerPopUpEvents : MonoBehaviour
 
     [Header("SLUDGE POPUP:")]
     public CanvasGroup splashImage;
+
+    [Header("ITEM PICKED UP POPUP")]
+    public CanvasGroup itemPickUpAlpha;
+    public TextMeshProUGUI itemPickUpText;
     public void ShowDeathEvent()
     {
         youDiedPopUp.gameObject.SetActive(true);
@@ -62,5 +67,49 @@ public class PlayerPopUpEvents : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator ItemToInventoryNotfication(string name, float timeVisible)
+    {
+        itemPickUpAlpha.gameObject.SetActive(true);
+        itemPickUpAlpha.alpha = 0;
+        itemPickUpText.text = $"{name} (Press I)";
 
+        float timer = 0;
+        yield return null;
+        while(timer < timeVisible)
+        {
+            timer += Time.deltaTime;
+            itemPickUpAlpha.alpha = Mathf.Lerp(itemPickUpAlpha.alpha, 1, timeVisible * Time.deltaTime);
+            yield return null;
+        }
+        itemPickUpAlpha.alpha = 0;
+        itemPickUpAlpha.gameObject.SetActive(false);
+        yield return null;
+    }
+
+    public IEnumerator ItemToHandNotification(string name, float timeVisible)
+    {
+        itemPickUpAlpha.gameObject.SetActive(true);
+        itemPickUpAlpha.alpha = 0;
+        itemPickUpText.text = $"{name} in hand";
+
+        float timer = 0;
+        float fadeOut = 0;
+        yield return null;
+        while (timer < timeVisible)
+        {
+            timer += Time.deltaTime;
+            itemPickUpAlpha.alpha = Mathf.Lerp(itemPickUpAlpha.alpha, 1, timeVisible * Time.deltaTime);
+            yield return null;
+        }
+
+        while (fadeOut < timeVisible)
+        {
+            fadeOut += Time.deltaTime;
+            itemPickUpAlpha.alpha = Mathf.Lerp(itemPickUpAlpha.alpha, 0, timeVisible * Time.deltaTime);
+            yield return null;
+        }
+        itemPickUpAlpha.alpha = 0;
+        itemPickUpAlpha.gameObject.SetActive(false);
+        yield return null;
+    }
 }

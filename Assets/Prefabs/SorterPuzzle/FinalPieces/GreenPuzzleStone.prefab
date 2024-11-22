@@ -146,4 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57e05fa87c71ba429ecce5188ccd1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoneName: Green Stone
   stoneNumber: 4

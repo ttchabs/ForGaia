@@ -21,8 +21,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     [Header("ENEMY MODEL AND ANIMATIONS:")]
     public Animator enemyAnimations;
-    public GameObject damageVFX;
-    public GameObject deathVFX;
+/*    public GameObject damageVFX;
+    public GameObject deathVFX;*/
     public AudioSource enemySFX;
 
     public event IDamageable.DamageReceivedEvent OnDamageReceived;
@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
         camToFace = player.GetComponentInChildren<Camera>().transform;
+        enemyAnimations = GetComponentInChildren<Animator>();
     }
 
     public void Start()
@@ -42,7 +43,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if(FirstPersonControls.Instance.currentPlayerHP >0) 
+        if(FirstPersonControls.Instance.currentPlayerHP > 0) 
         {
             TrackPlayer();
         }
@@ -125,13 +126,13 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (enemyCurrentHP > 0)
         {
             //BreakStance();
-            StartCoroutine(enemyConfigs.DealDamage(damageVFX,enemyAnimations));
+            StartCoroutine(enemyConfigs.DealDamage(enemyAnimations, transform));
 
         }
         else if (enemyCurrentHP <= 0)
         {
             enemyAnimations.SetTrigger("isDead");
-            StartCoroutine(enemyConfigs.EnemyDeath(gameObject, deathVFX, enemySFX));
+            StartCoroutine(enemyConfigs.EnemyDeath(gameObject, enemySFX));
         }
 
     }

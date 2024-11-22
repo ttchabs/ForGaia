@@ -23,8 +23,6 @@ public class QuestTxt : MonoBehaviour
 
     public IEnumerator TextFadeIn
     {
-       
-    
         get
         {
             yield return new WaitForSeconds(fadeStartDelay);

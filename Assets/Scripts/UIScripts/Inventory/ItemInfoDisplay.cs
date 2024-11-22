@@ -62,4 +62,6 @@ public class ItemInfoDisplay : MonoBehaviour
         text5.text = "Fire Rate:  " + $"{gunDescriptionInfo.FireRate}";
         text6.text = "Mag Size:  " + $"{gunDescriptionInfo.MagSize}";
     }
+
+
 }

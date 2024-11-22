@@ -18,6 +18,8 @@ MonoBehaviour:
   enemyType: 1
   _volume: 0.973
   _deathSFX: {fileID: 8300000, guid: 6591e299ef5d6a2429652861dfc6700a, type: 3}
+  deathVFX: {fileID: 5487517218067575726, guid: 7d42578ed0c55a6468742b55aabd136c, type: 3}
+  damageVFX: {fileID: 7795005426461335912, guid: 24a29d1cfed6df640a3f36df1874efb4, type: 3}
   _maxEnemyHP: 100
   _enemyAttackDamage:
     minDamage: 12

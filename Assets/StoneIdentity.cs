@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class StoneIdentity : MonoBehaviour
 {
+    public string stoneName;
     public int stoneNumber;
 }

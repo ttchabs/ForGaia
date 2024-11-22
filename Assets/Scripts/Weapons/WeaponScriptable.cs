@@ -50,7 +50,7 @@ public class WeaponScriptable : ItemScriptable
         var playerPos = FirstPersonControls.Instance;
         Rigidbody rb = other.GetComponent<Rigidbody>();
         Vector3 direction = playerPos.transform.forward;
-
+        if(rb != null)
         rb.AddForce(direction * Knockback, ForceMode.Impulse);
     }
 

@@ -37,6 +37,7 @@ public class PauseManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
         pausePanel.SetActive(true);
+        UIManager.Instance.DeactivateAllUI();
         AudioListener.pause = true;
         FirstPersonControls.Instance.playerInput.Player.Disable();
     }
@@ -46,6 +47,7 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
+        UIManager.Instance.ReactivateAllUI();
         FirstPersonControls.Instance.playerInput.Player.Enable();
         AudioListener.pause = false;
     }

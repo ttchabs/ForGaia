@@ -30,20 +30,22 @@ public class ItemBehaviour : MonoBehaviour, IPointerClickHandler
             case ItemTypes.Ranged:
                 display.equippableGun = this;
                 display.displayInfo.GunDisplayFunction(itemData as GunScriptable);
-                display.EquipButton.gameObject.SetActive(true);
-                display.AddGunListener();
+                //display.EquipButton.gameObject.SetActive(true);
+                display.AddGunListener(transform);
                 break;
             case ItemTypes.Melee: 
                 display.equippableMelee = this;
                 display.displayInfo.MeleeDisplayFunction(itemData as WeaponScriptable);
-                display.EquipButton.gameObject.SetActive(true);
-                display.AddMeleeListener();
+                //display.EquipButton.gameObject.SetActive(true);
+                display.AddMeleeListener(transform);
                 break;
             case ItemTypes.PickUp:
                 display.displayInfo.ItemDisplayFunction(itemData);
+                display.EquipButton.gameObject.SetActive(false);
                 break;
             case ItemTypes.Special: 
                 display.displayInfo.ItemDisplayFunction(itemData);
+                display.EquipButton.gameObject.SetActive(false);
                 break;
         }
     }
