@@ -80,7 +80,6 @@ public class PlayerHUDManager : MonoBehaviour
     public void SetMaxAmmo(int magSize)
     {
         gunAmmoSlider.maxValue = magSize * 2;
-        UpdateAmmoSlider(magSize);
     }
 
     public void UpdateAmmoSlider(int currentAmount)
