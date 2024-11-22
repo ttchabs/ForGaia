@@ -6,6 +6,7 @@ using System.Diagnostics.Tracing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -80,6 +81,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     public Transform gunHoldPosition;
     public GunScript gunFire; //The script attached to the gun in hand
     [SerializeField] bool _holdingGun = false;
+    public TwoBoneIKConstraint ikControls;
     #endregion
 
     #region PLAYER HEALTH:
@@ -301,10 +303,12 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         if (characterController.isGrounded == true)
         {
             playerAnimation.SetBool("isFalling", false);
+            //ikControls.weight = 1f;
         }
         else if (characterController.isGrounded == false)
         {
             playerAnimation.SetBool("isFalling", true);
+            //ikControls.weight = 0;
         }
         
     }
@@ -326,6 +330,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             playerModel.transform.localPosition += new Vector3(0, -(_modelDisplacement), 0);
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(false);
+            ikControls.weight = 0;
             _holdingGun = false;
             _holdingMelee = false;
         }
@@ -351,6 +356,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         {
             _holdingGun = true;
             gunHoldPosition.gameObject.SetActive(true);
+            ikControls.weight = 1;
         }
         else
         {
@@ -375,6 +381,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             _lastWeapon = gunHoldPosition.gameObject;
             meleeHoldPosition.gameObject.SetActive(false);
             gunHoldPosition.gameObject.SetActive(true);
+            ikControls.weight = 1;
             _holdingMelee = false;
             _holdingGun = true;
         }
@@ -385,6 +392,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
             _lastWeapon = meleeHoldPosition.gameObject ;
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(true);
+            ikControls.weight = 0;
             _holdingGun = false;
             _holdingMelee = true;
         }
