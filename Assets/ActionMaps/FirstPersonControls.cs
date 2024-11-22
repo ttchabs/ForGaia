@@ -99,6 +99,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     #region UI
     [Header("UI SETTINGS")]
     public int grubCount = 0;
+    public PlayerHUDManager playerHUDManager;
     #endregion
 
     #region ANIMATION
@@ -378,7 +379,7 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
     {
         if (_holdingMelee == true && gunFire != null && _isCrouching == false)
         {
-            UIManager.Instance.hudControls.UsingGunDisplay();
+            playerHUDManager.UsingGunDisplay();
             _lastWeapon = gunHoldPosition.gameObject;
             meleeHoldPosition.gameObject.SetActive(false);
             gunHoldPosition.gameObject.SetActive(true);
@@ -389,10 +390,11 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
 
         else if (_holdingGun == true && meleeAttacks != null && _isCrouching == false)
         {
-            UIManager.Instance.hudControls.UsingMeleeDisplay();
+            playerHUDManager.UsingMeleeDisplay();
             _lastWeapon = meleeHoldPosition.gameObject ;
             gunHoldPosition.gameObject.SetActive(false);
             meleeHoldPosition.gameObject.SetActive(true);
+            playerHUDManager.SetMaxAmmo(gunFire.gunConfigs.MagSize);
             ikControls.weight = 0;
             _holdingGun = false;
             _holdingMelee = true;
@@ -528,7 +530,8 @@ public class FirstPersonControls : MonoBehaviour, IDamageable
         gun.GetComponent<Rigidbody>().isKinematic = true;
         gun.transform.SetPositionAndRotation(gunHoldPosition.position, gunHoldPosition.rotation);
         yield return new WaitForEndOfFrame();
-        UIManager.Instance.hudControls.SetMaxAmmo(gunFire.gunConfigs.MagSize);
+        playerHUDManager.SetMaxAmmo(gunFire.gunConfigs.MagSize);
+        playerHUDManager.UpdateAmmoSlider(gunFire.currentMagAmount);
     }
 
     public void RemoveMelee()
